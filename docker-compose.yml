@@ -1,0 +1,80 @@
+services:
+  tomtroc_web:
+    build:
+      context: .
+      dockerfile: docker/apache/Dockerfile
+    container_name: tomtroc_apache_php
+    ports:
+      - "8181:80"
+    volumes:
+      - ./www:/var/www:ro                            # ← read-only sur tout le code
+      - ./www/storage:/var/www/storage               # ← écriture autorisée uniquement ici
+      - ./www/storage/logs/apache:/var/log/apache2
+    depends_on:
+      tomtroc_db:
+        condition: service_healthy                   # ← attend que MySQL soit prêt
+    env_file:
+      - .env
+    restart: unless-stopped                          # ← ajouté
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - frontend
+      - backend
+
+  tomtroc_db:
+    image: mysql:8.0.36                              # ← version épinglée
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_ai_ci
+    container_name: tomtroc_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:                                     # ← ajouté
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      [3306:3306]
+    networks:
+      - frontend
+      - backend
+
+  tomtroc_phpmyadmin:
+    image: phpmyadmin:5.2.1                          # ← version épinglée, image officielle plus légère
+    container_name: tomtroc_phpmyadmin
+    depends_on:
+      tomtroc_db:
+        condition: service_healthy                   # ← attend que MySQL soit prêt
+    environment:
+      PMA_HOST: tomtroc_db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: "0"
+      UPLOAD_LIMIT: 10M
+    ports:
+      - "127.0.0.1:8282:80"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - frontend                                     # ← ajouté pour recevoir les requêtes HTTP
+      - backend
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+    internal: true
+
+volumes:
+  db_data:
