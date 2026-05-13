@@ -1,0 +1,15 @@
+{
+    "name": "ml/app",
+    "autoload": {
+        "psr-4": {
+            "Ml\\App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jakun9999",
+            "email": "matthieulucas457@outlook.fr"
+        }
+    ],
+    "require": {}
+}
