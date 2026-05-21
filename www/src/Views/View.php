@@ -6,6 +6,10 @@ namespace Ml\App\Views;
 
 use Exception;
 
+/**
+ * Class View to handle the rendering of templates 
+ * and the main layout of the application.
+ */
 class View
 {
     private string $title;
@@ -15,6 +19,17 @@ class View
         $this->title = $title;
     }
 
+    /**
+     * Renders the main layout with the specified template 
+     * and parameters.
+     * 
+     * $template is the name of the template file (without .php extension)
+     * but it is also used in main.php template to set the active menu item, 
+     * so it should be consistent with the menu item names.
+     *
+     * @param string $template The template to render.
+     * @param array $params The parameters to pass to the template.
+     */
     public function render(string $template, array $params = [])
     {
         $title = $this->title;
