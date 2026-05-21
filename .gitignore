@@ -1,0 +1,6 @@
+.env
+.env.local
+.env.*.local
+www/storage/logs/
+www/config/conf.php
+www/vendor/

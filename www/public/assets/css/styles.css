@@ -1,0 +1,72 @@
+/* Custom CSS completing bootstrap */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  /* Évite les micro-débordements horizontaux qui déclenchent parfois le scroll vertical */
+  overflow-x: hidden;
+}
+
+.bg-cassian-primary {
+  background-color: #f5f3ef !important;
+}
+
+.bg-cassian-white {
+  background-color: #ffffff !important;
+}
+
+.ft-cassian-inter-600 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.875em;
+  color: #292929;
+}
+
+.ft-cassian-inter-400 {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 0.875em;
+  color: #292929;
+}
+
+.ft-cassian-inter-400:hover {
+  font-weight: 600;
+}
+
+.ft-cassian-inter-300 {
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  font-size: 0.75em;
+  color: #292929;
+}
+
+.navbar-cassian-logo {
+  height: 3.1875em;
+  width: auto;
+}
+
+.ico-cassian-messaging {
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask: url("../images/icon-messagerie.svg") no-repeat center / contain;
+  mask: url("../images/icon-messagerie.svg") no-repeat center / contain;
+  display: inline-block;
+}
+
+.ico-cassian-message {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 0.75em;
+  background-color: #292929;
+  color: white;
+}
+
+.ico-cassian-account {
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask: url("../images/icon-account.svg") no-repeat center / contain;
+  mask: url("../images/icon-account.svg") no-repeat center / contain;
+  display: inline-block;
+}
