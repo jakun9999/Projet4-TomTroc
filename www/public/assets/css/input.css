@@ -13,8 +13,8 @@
   --color-cassian-green-light: #6dc5a1;
 
   /* Custom fonts */
-  --font-sans: "Inter", sans-serif;
-  --font-serif: "Playfair Display", serif;
+  --font-cassian-inter: Inter, sans-serif;
+  --font-cassian-playfair: Playfair Display, serif;
 
   /* Custom container max size */
   --max-width-cassian-1140: 1140px;

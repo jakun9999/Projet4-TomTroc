@@ -15,19 +15,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?></title>
+    <title><?= htmlspecialchars($title) ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/styles.css">
     
     
 </head>
 
-<body class="m-0 p-0 overflow-x-hidden flex flex-column flex-col min-h-screen bg-cassian-primary text-cassian-black font-sans">
+<body class="m-0 p-0 overflow-x-hidden flex flex-column flex-col min-h-screen bg-cassian-primary text-cassian-black">
 
     <header class="w-full bg-cassian-primary">
-      <nav class="mx-auto max-w-cassian-1140 px-4 py-4 lg:py-7 flex flex-wrap items-center justify-between">
+      <nav class="mx-auto max-w-cassian-1140 px-4 py-4 lg:py-7 flex flex-wrap items-center justify-between font-cassian-inter">
         
         <a href="#" class="inline-block">
           <img src="./assets/images/logo_hd.png" class="h-[3.1875rem] w-auto" alt="Logo TomTroc">
