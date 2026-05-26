@@ -24,10 +24,10 @@
     
 </head>
 
-<body class="m-0 p-0 overflow-x-hidden flex flex-column flex-col min-h-screen bg-cassian-primary text-cassian-black">
+<body class="m-0 p-0 overflow-x-hidden flex flex-col min-h-screen bg-cassian-primary text-cassian-black">
 
-    <header class="w-full bg-cassian-primary">
-      <nav class="mx-auto max-w-cassian-1140 px-4 py-4 lg:py-7 flex flex-wrap items-center justify-between font-cassian-inter">
+    <header class="w-full  mx-auto max-w-cassian-1440 bg-cassian-primary">
+      <nav class="mx-[150px] py-4 lg:py-7 flex flex-wrap items-center justify-between font-cassian-inter">
         
         <a href="#" class="inline-block">
           <img src="./assets/images/logo_hd.png" class="h-[3.1875rem] w-auto" alt="Logo TomTroc">
@@ -60,7 +60,7 @@
             </li>
             <li>
               <a class="inline-flex gap-1.5 items-center py-1 text-sm transition-all duration-200 <?= $template === 'account' ? 'font-semibold text-cassian-black-light' : 'font-normal text-cassian-black-light hover:font-semibold' ?>" href="/index?action=account">        
-                <span class="w-4 h-4 bg-current inline-block mask-account"></span>
+                <span class="lw-4 h-4 bg-current inline-block mask-account"></span>
                 <span>Mon compte</span>
               </a>
             </li>
@@ -77,17 +77,17 @@
         <?= $content ?>
     </main>
 
-    <footer class="w-full bg-cassian-white py-4 mt-auto">
-      <div class="mx-auto max-w-cassian-1140 px-4 text-center">
-        <div class="flex flex-col lg:flex-row justify-end items-center gap-4 lg:gap-8 text-[0.75rem] font-light text-cassian-black-light">
+    <footer class="bg-cassian-white py-4 mt-auto max-w-cassian-1440 mx-auto w-full">
+      
+        <div class="flex flex-col px-4 lg:flex-row lg:justify-end items-center lg:grow gap-4 lg:gap-8 text-[0.75rem] font-light text-cassian-black-light">
           <div class="cursor-pointer hover:underline">Politique de confidentialité</div>
           <div class="cursor-pointer hover:underline">Mentions légales</div>
           <div>Tom Troc&copy;</div>
-          <div class="lg:pl-2">
-            <img src="./assets/images/logo_alone.png" class="h-6 w-auto" alt="Logo TomTroc">
-          </div>
+          
+            <img src="./assets/images/logo_alone.png" class="w-[22px] lg:mr-[46px] lg:pl-2" alt="Logo TomTroc" class="">
+          
         </div>
-      </div>
+      
     </footer>
 
     <script>

@@ -7,7 +7,7 @@
 
     <!-- Discover section -->
 <section class="pt-13 pb-[101px]">
-    <div class="mx-auto max-w-cassian-1140 px-4">    
+    <div class="mx-auto max-w-cassian-1440 px-4">    
         
         <div class="flex lg:gap-x-[105px] justify-center items-center">
             
@@ -38,7 +38,7 @@
 </section>
 <!-- Last added books section -->
 <section class="pt-20 pb-16 bg-cassian-secondary">
-    <div class="max-w-cassian-1140 flex flex-col gap-12 justify-center items-center mx-auto">
+    <div class="max-w-cassian-1440 flex flex-col gap-12 justify-center items-center mx-auto">
         <h2 class="font-cassian-playfair text-cassian-black-light font-normal text-[32px] mb-8">Les derniers livres ajoutés</h2>
         <div class="grid grid-cols-4 gap-9.5">
             <div class="w-50 h-81 flex flex-col justify-start items-start bg-cassian-white">
@@ -90,8 +90,23 @@
                 <p class="flex items-center text-center h-12.75 w-45 font-cassian-inter text-[14px] align-middle">Proposez un échange et discutez avec d'autres passionnés de lecture.</p>
             </div>
         </div>
-        <a href="/index?action=books" class="mx-auto mt-12 font-cassian-inter inline-block border text-cassian-green border-cassian-green font-semibold text-base rounded-[10px] px-[2.375rem] py-4 transition-colors duration-300 ease-in-out hover:bg-cassian-green-strong">
+        <a href="/index?action=books" class="mx-auto mt-12 font-cassian-inter inline-block border text-cassian-green border-cassian-green font-semibold text-base rounded-[10px] px-[2.375rem] py-4 transition-colors duration-300 ease-in-out hover:bg-cassian-green-strong hover:text-cassian-white">
             Voir tous les livres
         </a>   
+    </div>
+</section>
+<!-- Our core values -->
+<section class="pb-[89px] max-w-cassian-1440 mx-auto">
+    <div class="flex flex-col justify-start items-center">
+        <img src="./assets/images/values_hd.png" alt="Nos valeurs">
+        <div class="flex flex-col justify-center items-start mt-20">
+            <h2 class="font-cassian-playfair text-cassian-black-light font-normal text-[32px]">Nos valeurs</h2>
+            <p class="leading-[1.188] mt-[29px] w-[392px] font-cassian-inter font-light text-cassian-black-light text-[16px]">Chez Tom Troc, nous mettons l'accent sur le partage, la découverte et la communauté. Nos valeurs sont ancrées dans notre passion pour les livres et notre désir de créer des liens entre les lecteurs. Nous croyons en la puissance des histoires pour rassembler les gens et inspirer des conversations enrichissantes. <br /><br />Notre association a été fondée avec une conviction profonde : chaque livre mérite d'être lu et partagé. <br /><br />Nous sommes passionnés par la création d'une plateforme conviviale qui permet aux lecteurs de se connecter, de partager leurs découvertes littéraires et d'échanger des livres qui attendent patiemment sur les étagères.</p>
+            <div class="flex justify-start items-start mt-[25px]">
+                <p class="tracking-[-0.01em] pt-[14px] font-cassian-inter italic font-normal text-cassian-gray text-[12px]">L'équipe Tom Troc</p>
+                <img src="./assets/images/signature.png" alt="Signature de l'équipe TomTroc" class="ml-[239px] w-[120px] h-[102px] object-cover">    
+            </div>            
+        </div>        
+        
     </div>
 </section>
