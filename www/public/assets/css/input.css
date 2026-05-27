@@ -29,3 +29,11 @@
   mask: url("../images/icon-account.svg") no-repeat center / contain;
   -webkit-mask: url("../images/icon-account.svg") no-repeat center / contain;
 }
+
+/* Change to leading space and tracking to match figma proto */
+@layer base {
+  * {
+    letter-spacing: -0.01em;
+    line-height: 1.188;
+  }
+}
