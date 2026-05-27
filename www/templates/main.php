@@ -24,11 +24,11 @@
     
 </head>
 
-<body class="m-0 p-0 overflow-x-hidden flex flex-col min-h-screen bg-cassian-primary">
+<body class="m-0 p-0 overflow-x-hidden flex flex-col min-h-dvh xl:min-h-screen w-full bg-cassian-primary">
 <!-- Responsive Navigation -->
 <!-- switching from standard menu to mobile menu -->
 <!-- @1280px to keep a nice menu-->
-    <header class="w-full mx-auto lg:max-w-cassian-1440 bg-cassian-primary">
+    <header class="w-full mx-auto max-w-94.25 xl:max-w-cassian-1440 bg-cassian-primary">
       <nav class="mx-5 xl:mx-37.5 pt-3.75 pb-[15.34px] xl:pb-3.5 flex flex-col xl:flex-row xl:items-center justify-between font-cassian-inter">
         
         <div class="flex items-center justify-between w-full xl:w-auto">
@@ -73,13 +73,13 @@
       </nav>
     </header>
 
-    <main class="grow">
+    <main class="grow w-full">
         <?= $content ?>
     </main>
 
-    <footer class="bg-cassian-white pt-7.75 pb-[31.64px] xl:pt-5.25 xl:pb-[22.64px] mt-auto max-w-cassian-1440 mx-auto w-full">
+    <footer class="bg-cassian-white pt-7.75 pb-[31.64px] xl:pt-5.25 xl:pb-[22.64px] mt-auto max-w-94.25 xl:max-w-cassian-1440 mx-auto w-full">
       
-        <div class="flex flex-col xl:flex-row xl:justify-end items-center xl:grow gap-4 text-[0.75rem] font-light text-cassian-black-light font-cassian-inter">
+        <div class="flex flex-col xl:flex-row xl:justify-end items-center xl:grow gap-5 xl:gap-4 text-[0.75rem] font-light text-cassian-black-light font-cassian-inter">
           <div>Politique de confidentialité</div>
           <div class="xl:ml-10">Mentions légales</div>
           <div class="xl:ml-10">Tom Troc&copy;</div>          
