@@ -6,6 +6,7 @@ use Ml\App\Controllers\BooksController;
 use Ml\App\Controllers\MessagingController;
 use Ml\App\Controllers\AccountController;
 use Ml\App\Controllers\LoginController;
+use Ml\App\Controllers\SubscribeController;
 use Ml\App\Controllers\ErrorController;
 use Ml\App\Services\Web;
 
@@ -32,6 +33,10 @@ switch ($action) {
     case 'login':
         $controller = new LoginController();
         $controller->showLogin();
+        break;
+    case 'subscribe':
+        $controller = new SubscribeController();
+        $controller->showSubscribe();
         break;
     default:
         $controller = new ErrorController();
