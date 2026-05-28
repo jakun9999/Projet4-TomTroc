@@ -4,6 +4,9 @@
  * Template for the login page to allow 
  * users to log in to their account.
  */
+
+/** @var array $params */
+$subscriptionSuccessful = $params['subscription_successful'] ?? false;
 ?>
 
 <!-- Login section -->
@@ -11,6 +14,13 @@
     <div class="flex flex-col xl:flex-row justify-center items-start w-full">
         <div class="flex flex-col justify-center items-start order-1 xl:order-1 px-5 xl:px-0 xl:ml-37.5 w-full xl:w-auto">
             <h1 class="font-cassian-playfair text-[30px] xl:text-[2.25rem] text-cassian-black mt-19.5 xl:mt-32.5">Connexion</h1>
+            <?php
+            // Displayed only if redicting a user who has just
+            // registered on the website.
+            if ($subscriptionSuccessful) {
+                echo '<h2 class="font-cassian-playfair text-[22px] text-cassian-green mt-8 xl:mt-14">Votre compte est maintenant créé, vous pouvez vous connecter</h2>';
+            }
+            ?>
             <form action="#" class="flex flex-col mt-8 xl:mt-14 xl:w-80.5 w-full">
                 <label for="email" class="font-cassian-inter text-cassian-gray text-[14px]">Adresse email</label>
                 <input type="email" id="email" name="email" required class="h-12.5 border border-cassian-border-form rounded-[10px] mt-2.5 w-full xl:w-80.5">

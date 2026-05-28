@@ -12,11 +12,11 @@ use DateTime;
  * Make $id and $creationDate properties protected, so they can be used 
  * in all models that extend this class.
  */
-class AbstractClass
+abstract class AbstractClass
 {
 
-    protected int $id;
-    protected DateTime $creationDate;
+    protected ?int $id = null;
+    protected ?DateTime $creationDate = null;
 
     /**
      * Construct a new instance of the class.
@@ -35,7 +35,7 @@ class AbstractClass
      * 
      * @return int $id Id of the model
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -56,7 +56,7 @@ class AbstractClass
      * 
      * @return DateTime $creationDate Creation date of the model
      */
-    public function getCreationDate(): DateTime
+    public function getCreationDate(): ?DateTime
     {
         return $this->creationDate;
     }

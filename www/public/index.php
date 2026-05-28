@@ -10,6 +10,10 @@ use Ml\App\Controllers\SubscribeController;
 use Ml\App\Controllers\ErrorController;
 use Ml\App\Services\Web;
 
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 /** Routing page */
 $action = Web::getAction();
 
@@ -49,9 +53,14 @@ try {
     }
 } catch (\Throwable $e) {
     http_response_code(500);
-    $controller = new ErrorController();
-    $controller->showError('TomTroc - Erreur', ErrorController::ERRCODE_EXCEPTION, [
-        'exception_message' => $e->getMessage(),
-        'exception_trace' => $e->getTrace()
-    ]);
+    // $controller = new ErrorController();
+    // $controller->showError('TomTroc - Erreur', ErrorController::ERRCODE_EXCEPTION, [
+    //     'exception_message' => $e->getMessage()
+    // ]);
+    // ON CORCOURT TOUT : On affiche l'erreur directement de manière brute
+    echo "<h1>🚨 Erreur Fatale Détectée</h1>";
+    echo "<p><strong>Message :</strong> " . $e->getMessage() . "</p>";
+    echo "<p><strong>Fichier :</strong> " . $e->getFile() . " à la ligne " . $e->getLine() . "</p>";
+    echo "<h3>Trace :</h3><pre>" . $e->getTraceAsString() . "</pre>";
+    exit; // On arrête le script ici
 }

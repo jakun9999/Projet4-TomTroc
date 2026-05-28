@@ -18,7 +18,7 @@ use PDOStatement;
 class DatabaseManager
 {
 
-    private static DatabaseManager $instance;
+    private static ?DatabaseManager $instance = null;
 
     private PDO $pdo;
 
@@ -34,13 +34,23 @@ class DatabaseManager
     }
 
     /**
+     * 
+     */
+    private function __clone(): void {}
+
+    /**
+     * 
+     */
+    public function __wakeup(): void {}
+
+    /**
      * Returns the singleton instance of the DatabaseManager.
      * @return DatabaseManager
      */
-    public static function getInstance(): DatabaseManager
+    public static function getInstance(): self
     {
-        if (!self::$instance) {
-            self::$instance = new DatabaseManager();
+        if (self::$instance === null) {
+            self::$instance = new self();
         }
         return self::$instance;
     }
@@ -65,12 +75,13 @@ class DatabaseManager
      */
     public function query(string $sql, ?array $params = null): PDOStatement
     {
-        if ($params == null) {
-            $query = $this->pdo->query($sql);
-        } else {
-            $query = $this->pdo->prepare($sql);
-            $query->execute($params);
+        if ($params === null || empty($params)) {
+            return $this->pdo->query($sql);
         }
-        return $query;
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute($params);
+
+        return $statement;
     }
 }

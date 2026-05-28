@@ -26,7 +26,7 @@ class ErrorController
                 $view->render('error', ['message' => ErrorController::MSG_PAGE_DOES_NOT_EXISTS]);
                 break;
             case ErrorController::ERRCODE_EXCEPTION:
-                if (isset($params['exception_message']) && isset($params['exception_trace'])) {
+                if (isset($params['exception_message'])) {
                     $view = new View('TomTroc - Erreur');
                     $view->render('error', $params);
                     break;
