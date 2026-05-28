@@ -10,7 +10,7 @@ use Ml\App\Controllers\ErrorController;
 /** @var array @params */
 ?>
 <section class="w-full h-full bg-cassian-secondary max-w-94.25 xl:max-w-cassian-1440 mx-auto">
-    <div class="flex flex-col gap-5 justify-center items-start ml-5 xl:ml-37.5 py-32.5">
+    <div class="flex flex-col gap-5 justify-center items-start xl:ml-37.5 py-32.5 px-5 xl:px-0">
         <h1 class="font-cassian-playfair text-[38px]">Une erreur est survenue !</h1>
         <?php if (!empty($params)): ?>
             <?php if (isset($params['exception_message']) && isset($params['exception_trace'])): ?>
