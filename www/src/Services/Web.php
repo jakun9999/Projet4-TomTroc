@@ -20,10 +20,6 @@ class Web
      */
     public static function getAction(): ?string
     {
-        if (isset($_REQUEST['action'])) {
-            return $_REQUEST['action'];
-        } else {
-            return null;
-        }
+        return $_REQUEST['action'] ?? null;
     }
 }

@@ -22,7 +22,7 @@
             </form>
             <p class="flex items-center mt-8 xl:mt-10 font-cassian-inter text-[16px] xl:text-[14px] gap-1">
                 <span>Pas de compte ?</span>
-                <a href="/index?action=subscribe" class="underline">Inscrivez-vous</a>
+                <a href="/subscribe" class="underline">Inscrivez-vous</a>
             </p>
         </div>
         <div class="order-2 xl:order-2 xl:shrink-0 xl:ml-auto">

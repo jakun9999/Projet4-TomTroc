@@ -24,7 +24,7 @@
             </form>
             <p class="flex items-center mt-8 xl:mt-10 font-cassian-inter text-[16px] xl:text-[14px] gap-1">
                 <span>Déjà inscrit ?</span>
-                <a href="/index?action=login" class="underline">Connectez-vous</a>
+                <a href="/login" class="underline">Connectez-vous</a>
             </p>
         </div>
         <div class="order-2 xl:order-2 xl:shrink-0 xl:ml-auto">
