@@ -12,7 +12,7 @@ $loginMessage = $params['login_message'] ?? '';
 ?>
 
 <!-- Login section -->
-<section class="w-full bg-cassian-secondary max-w-94.25 xl:max-w-cassian-1440 mx-auto">
+<section class="grow w-full h-full bg-cassian-secondary max-w-94.25 xl:max-w-cassian-1440 mx-auto">
     <div class="flex flex-col xl:flex-row justify-center items-start w-full">
         <div class="flex flex-col justify-center items-start order-1 xl:order-1 px-5 xl:px-0 xl:ml-37.5 w-full xl:w-auto">
             <h1 class="font-cassian-playfair text-[30px] xl:text-[2.25rem] text-cassian-black mt-19.5 xl:mt-32.5">Connexion</h1>

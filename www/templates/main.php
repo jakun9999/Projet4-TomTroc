@@ -77,7 +77,7 @@
     </nav>
   </header>
 
-  <main class="grow w-full">
+  <main class="grow w-full flex flex-col">
     <?= $content ?>
   </main>
 

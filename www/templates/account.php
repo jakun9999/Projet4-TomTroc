@@ -17,15 +17,15 @@ if (isset($_SESSION['user'])) {
 ?>
 
 <?php if (isset($_SESSION['user'])): ?>
-    <section class="w-full bg-cassian-secondary max-w-94.25 xl:max-w-cassian-1440 mx-auto">
+    <section class="grow w-full h-full bg-cassian-secondary max-w-94.25 xl:max-w-cassian-1440 mx-auto">
         <div class="flex flex-col justify-center ml-5 xl:ml-37.5">
             <h1 class="font-cassian-playfair text-[30px] xl:text-[26px] text-cassian-black w-full mt-19.5 xl:mt-22.5">Mon compte</h1>
 
             <!-- Account details -->
-            <div class="flex flex-col xl:flex-row gap-8 xl:gap-8.25 mt-10 xl:mt-12 ">
+            <div class="flex flex-col xl:flex-row gap-8 xl:gap-8.25 mt-10 xl:mt-12">
 
                 <!-- Account information (photo, name, library summary) -->
-                <div class="flex flex-col gap-12 pt-12 pb-9 xl:pb-23.25 items-center w-83.75 xl:w-136.75 h-112.75 xl:h-127 bg-cassian-white">
+                <div class="flex flex-col gap-12 pt-12 pb-9 xl:pb-23.25 rounded-[20px] items-center w-83.75 xl:w-136.75 h-112.75 xl:h-127 bg-cassian-white">
                     <!-- Photo and modify link -->
                     <div class="flex flex-col items-center">
                         <img src="./assets/images/anonymous.png" alt="" class="rounded-full w-33.75 h-33.75 object-cover">
