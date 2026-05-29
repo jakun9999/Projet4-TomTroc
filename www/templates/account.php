@@ -54,7 +54,7 @@ $passwordMessage = '';
                 </div>
 
                 <!-- Account modification area -->
-                <div class="flex flex-col rounded-[20px] items-center justify-center w-83.75 xl:w-136.75 h-112.75 xl:h-127 bg-cassian-white">
+                <div class="flex flex-col rounded-[20px] items-center justify-center w-83.75 xl:w-136.75 h-129.75 xl:h-127 bg-cassian-white">
                     <div class="w-67.25 xl:w-80.5 flex flex-col items-start">
                         <h3 class="text-left font-cassian-inter text-[16px] text-cassian-black-light">Vos informations personnelles</h3>
                         <form action="/register" method="POST" class="flex flex-col mt-5.5 xl:mt-6.5 xl:w-80.5 w-full">

@@ -374,6 +374,12 @@
   .h-125\.75 {
     height: calc(var(--spacing) * 125.75);
   }
+  .h-129 {
+    height: calc(var(--spacing) * 129);
+  }
+  .h-129\.75 {
+    height: calc(var(--spacing) * 129.75);
+  }
   .h-\[13\.13px\] {
     height: 13.13px;
   }
@@ -391,6 +397,9 @@
   }
   .h-\[259\.2\] {
     height: 259.2;
+  }
+  .h-\[519px\] {
+    height: 519px;
   }
   .h-full {
     height: 100%;
