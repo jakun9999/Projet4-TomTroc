@@ -41,13 +41,22 @@ try {
             $controller = new LoginController();
             $controller->showLogin();
             break;
+        case 'authenticate':
+            $controller = new LoginController();
+            $controller->authenticate();
+            break;
         case 'subscribe':
             $controller = new SubscribeController();
             $controller->showSubscribe();
             break;
+        case 'register':
+            $controller = new SubscribeController();
+            $controller->register();
+            break;
         case 'logout':
             $controller = new LoginController();
             $controller->logout();
+            break;
         default:
             http_response_code(404);
             $controller = new ErrorController();

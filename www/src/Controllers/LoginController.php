@@ -16,27 +16,30 @@ class LoginController
 {
 
     /**
-     * Manage call to empty login page or
-     * login data submission if a valid CSRF 
-     * has been submitted from login page.
+     * Manage call to empty login page. 
      */
     public function showLogin(): void
     {
-        if (Web::controlCsrfToken()) {
-            $this->login();
-        } else {
-            $view = new View('TomTroc - Connexion');
-            $view->render('login');
-        }
+        $view = new View('TomTroc - Connexion');
+        $view->render('login');
     }
 
     /**
      * If a CSRF token exists, we try to authenticate 
      * the user.
      */
-    private function login(): void
+    public function authenticate(): void
     {
 
+        // If CSRF token fails, redirect to
+        // empty login page.
+        if (!Web::controlCsrfToken()) {
+            header('location: /login');
+            exit();
+        }
+
+        // CSRF token is correct we can proceed to 
+        // authentication management.
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         $password = $_POST['password'] ?? '';
 

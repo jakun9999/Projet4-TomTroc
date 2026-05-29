@@ -24,20 +24,23 @@ class SubscribeController
      */
     public function showSubscribe(): void
     {
-        if (Web::controlCsrfToken()) {
-            $this->Subscribe();
-        } else {
-            $view = new View('TomTroc - Inscription');
-            $view->render('subscribe');
-        }
+        $view = new View('TomTroc - Inscription');
+        $view->render('subscribe');
     }
 
     /**
      * Manages subscription details using
      * UserManager model.
      */
-    private function Subscribe(): void
+    public function register(): void
     {
+
+        // We check if CSRF token is correct
+        // if not we redirect to subscription empty page
+        if (!Web::controlCsrfToken()) {
+            header('location: /subscribe');
+        }
+
         $pseudo = mb_strtolower(Web::sanitizeShortString($_POST['pseudo'] ?? ''));
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         $password = $_POST['password'] ?? '';

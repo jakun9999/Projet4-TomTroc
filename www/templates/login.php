@@ -27,7 +27,7 @@ $loginMessage = $params['login_message'] ?? '';
                 echo '<h2 class="font-cassian-playfair text-[14px] text-red-500 mt-8 xl:mt-14">' . htmlspecialchars($loginMessage) . '</h2>';
             }
             ?>
-            <form action="/login" method="POST" class="flex flex-col mt-8 xl:mt-14 xl:w-80.5 w-full">
+            <form action="/authenticate" method="POST" class="flex flex-col mt-8 xl:mt-14 xl:w-80.5 w-full">
                 <label for="email" class="font-cassian-inter text-cassian-gray text-[14px]">Adresse email</label>
                 <input type="email" value="<?= htmlspecialchars($emailOldValue) ?>" id="email" name="email" required class="bg-cassian-white h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form focus:outline-cassian-green rounded-[10px] mt-2.5 w-full xl:w-80.5">
                 <label for="password" class="font-cassian-inter text-cassian-gray text-[14px] mt-8">Mot de passe</label>

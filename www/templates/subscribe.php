@@ -19,7 +19,7 @@ $passwordMessage = $params['password_message'] ?? '';
     <div class="flex flex-col xl:flex-row justify-center items-start w-full">
         <div class="flex flex-col justify-center items-start order-1 xl:order-1 px-5 xl:px-0 xl:ml-37.5 w-full xl:w-auto">
             <h1 class="font-cassian-playfair text-[30px] xl:text-[2.25rem] text-cassian-black mt-19.5 xl:mt-32.5">Inscription</h1>
-            <form action="/subscribe" method="POST" class="flex flex-col mt-8 xl:mt-14 xl:w-80.5 w-full">
+            <form action="/register" method="POST" class="flex flex-col mt-8 xl:mt-14 xl:w-80.5 w-full">
                 <label for="pseudo" class="font-cassian-inter text-cassian-gray text-[14px]">Pseudo</label>
                 <input type="text" value="<?= htmlspecialchars($pseudoOldValue) ?>" id="pseudo" name="pseudo" required class="focus:outline-cassian-green bg-cassian-white h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-[10px] mt-2.5 w-full xl:w-80.5">
                 <?= $pseudoMessage !== '' ? '<p class="mt-1 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($pseudoMessage) . '</p>' : '';  ?>
