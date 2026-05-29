@@ -201,12 +201,6 @@
   .mx-auto {
     margin-inline: auto;
   }
-  .mt-0 {
-    margin-top: calc(var(--spacing) * 0);
-  }
-  .mt-0\.5 {
-    margin-top: calc(var(--spacing) * 0.5);
-  }
   .mt-1 {
     margin-top: calc(var(--spacing) * 1);
   }
@@ -269,9 +263,6 @@
   }
   .ml-1 {
     margin-left: calc(var(--spacing) * 1);
-  }
-  .ml-5 {
-    margin-left: calc(var(--spacing) * 5);
   }
   .ml-\[11\.2px\] {
     margin-left: 11.2px;
@@ -727,6 +718,16 @@
     --tw-ease: var(--ease-in-out);
     transition-timing-function: var(--ease-in-out);
   }
+  .invalid\:border-red-500 {
+    &:invalid {
+      border-color: var(--color-red-500);
+    }
+  }
+  .focus-within\:border-cassian-green {
+    &:focus-within {
+      border-color: var(--color-cassian-green);
+    }
+  }
   .hover\:bg-cassian-green-strong {
     &:hover {
       @media (hover: hover) {
@@ -756,10 +757,25 @@
       }
     }
   }
+  .focus\:border-cassian-green {
+    &:focus {
+      border-color: var(--color-cassian-green);
+    }
+  }
+  .focus\:outline-cassian-green {
+    &:focus {
+      outline-color: var(--color-cassian-green);
+    }
+  }
   .focus\:outline-none {
     &:focus {
       --tw-outline-style: none;
       outline-style: none;
+    }
+  }
+  .active\:border-cassian-green {
+    &:active {
+      border-color: var(--color-cassian-green);
     }
   }
   .lg\:text-\[2\.25rem\] {

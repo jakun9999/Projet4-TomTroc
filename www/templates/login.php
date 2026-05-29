@@ -29,9 +29,9 @@ $loginMessage = $params['login_message'] ?? '';
             ?>
             <form action="/login" method="POST" class="flex flex-col mt-8 xl:mt-14 xl:w-80.5 w-full">
                 <label for="email" class="font-cassian-inter text-cassian-gray text-[14px]">Adresse email</label>
-                <input type="email" value="<?= htmlspecialchars($emailOldValue) ?>" id="email" name="email" required class="h-12.5 border border-cassian-border-form rounded-[10px] mt-2.5 w-full xl:w-80.5">
+                <input type="email" value="<?= htmlspecialchars($emailOldValue) ?>" id="email" name="email" required class="bg-cassian-white h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form focus:outline-cassian-green rounded-[10px] mt-2.5 w-full xl:w-80.5">
                 <label for="password" class="font-cassian-inter text-cassian-gray text-[14px] mt-8">Mot de passe</label>
-                <input type="password" id="password" name="password" required class="h-12.5 border border-cassian-border-form rounded-[10px] mt-2.5 w-full xl:w-80.5">
+                <input type="password" id="password" name="password" required class="bg-cassian-white font-cassian-inter text-[14px] h-12.5 border focus:outline-cassian-green border-cassian-border-form rounded-[10px] mt-2.5 w-full xl:w-80.5">
                 <?php
                 /**
                  * Call to generate an hidden field with CSRF token
