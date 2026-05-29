@@ -7,6 +7,8 @@
 
 /** @var array $params */
 $subscriptionSuccessful = $params['subscription_successful'] ?? false;
+$emailOldValue = $params['email_value'] ?? '';
+$loginMessage = $params['login_message'] ?? '';
 ?>
 
 <!-- Login section -->
@@ -20,12 +22,22 @@ $subscriptionSuccessful = $params['subscription_successful'] ?? false;
             if ($subscriptionSuccessful) {
                 echo '<h2 class="font-cassian-playfair text-[22px] text-cassian-green mt-8 xl:mt-14">Votre compte est maintenant créé, vous pouvez vous connecter</h2>';
             }
+
+            if ($loginMessage !== '') {
+                echo '<h2 class="font-cassian-playfair text-[14px] text-red-500 mt-8 xl:mt-14">' . htmlspecialchars($loginMessage) . '</h2>';
+            }
             ?>
-            <form action="#" class="flex flex-col mt-8 xl:mt-14 xl:w-80.5 w-full">
+            <form action="/login" method="POST" class="flex flex-col mt-8 xl:mt-14 xl:w-80.5 w-full">
                 <label for="email" class="font-cassian-inter text-cassian-gray text-[14px]">Adresse email</label>
-                <input type="email" id="email" name="email" required class="h-12.5 border border-cassian-border-form rounded-[10px] mt-2.5 w-full xl:w-80.5">
+                <input type="email" value="<?= htmlspecialchars($emailOldValue) ?>" id="email" name="email" required class="h-12.5 border border-cassian-border-form rounded-[10px] mt-2.5 w-full xl:w-80.5">
                 <label for="password" class="font-cassian-inter text-cassian-gray text-[14px] mt-8">Mot de passe</label>
                 <input type="password" id="password" name="password" required class="h-12.5 border border-cassian-border-form rounded-[10px] mt-2.5 w-full xl:w-80.5">
+                <?php
+                /**
+                 * Call to generate an hidden field with CSRF token
+                 */
+                echo Ml\App\Services\Web::generateCsrfToken();
+                ?>
                 <button type="submit" class="mt-8 w-full xl:w-80.5 text-center font-cassian-inter inline-block bg-cassian-green text-cassian-white font-semibold text-base rounded-[10px] px-9.5 py-4 transition-colors duration-300 ease-in-out hover:bg-cassian-green-strong">
                     Se connecter
                 </button>

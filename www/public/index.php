@@ -45,6 +45,9 @@ try {
             $controller = new SubscribeController();
             $controller->showSubscribe();
             break;
+        case 'logout':
+            $controller = new LoginController();
+            $controller->logout();
         default:
             http_response_code(404);
             $controller = new ErrorController();

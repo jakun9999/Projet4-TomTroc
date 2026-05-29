@@ -67,7 +67,10 @@
             </a>
           </li>
           <li class="flex xl:ml-14.5">
-            <a class="flex items-center py-1 xl:py-0 text-[14px] font-cassian-inter transition-all duration-200 <?= $template === 'login' ? 'font-semibold text-cassian-black-light' : 'font-normal text-cassian-black-light hover:font-semibold' ?>" href="/login">Connexion</a>
+            <a class="flex items-center py-1 xl:py-0 text-[14px] font-cassian-inter transition-all duration-200 <?= $template === 'login' ? 'font-semibold text-cassian-black-light' : 'font-normal text-cassian-black-light hover:font-semibold' ?>"
+              href="<?= isset($_SESSION['user']) ? '/logout' : '/login' ?>">
+              <?= isset($_SESSION['user']) ? 'Déconnexion' : 'Connexion' ?>
+            </a>
           </li>
         </ul>
       </div>

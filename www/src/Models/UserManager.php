@@ -55,4 +55,45 @@ class UserManager extends AbstractClassManager
             throw new Exception("Erreur de base de données : " . $e->getMessage());
         }
     }
+
+    public function getUserByEmail(string $email): ?User
+    {
+        try {
+
+            $sql = 'SELECT * FROM user WHERE email = :email';
+
+            $result = $this->database->query($sql, [
+                'email' => $email
+            ]);
+
+            $dbUser = $result->fetch();
+            $user = new User(
+                $dbUser['pseudo'],
+                $dbUser['email'],
+                $dbUser['password'],
+                $dbUser['photo'],
+                $dbUser['id'],
+                new DateTime($dbUser['creation_date'])
+            );
+
+            return $user;
+        } catch (PDOException $e) {
+
+            if ($e->getCode() == '23000') {
+                throw new Exception("Le pseudo ou l'email est déjà utilisé.");
+            }
+
+            // throw new Exception("Erreur lors du chargement de l'utilisateur");
+            throw new Exception("Erreur de base de données : " . $e->getMessage());
+        }
+    }
+
+    public function authenticate(User $user, string $email, string $password): bool
+    {
+        if ($user->getEmail() === $email && password_verify($password, $user->getPassword())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

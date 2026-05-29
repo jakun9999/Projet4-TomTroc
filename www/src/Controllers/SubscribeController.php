@@ -36,7 +36,7 @@ class SubscribeController
      * Manages subscription details using
      * UserManager model.
      */
-    public function Subscribe(): void
+    private function Subscribe(): void
     {
         $pseudo = mb_strtolower(Web::sanitizeShortString($_POST['pseudo'] ?? ''));
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
@@ -79,7 +79,7 @@ class SubscribeController
      * @param array $params containing possible errors
      * based on defined const in class SubscribeController.
      */
-    public function showSubscribeError(array $params): void
+    private function showSubscribeError(array $params): void
     {
         $view = new View('TomTroc - Inscription');
         $view->render('subscribe', $params);
