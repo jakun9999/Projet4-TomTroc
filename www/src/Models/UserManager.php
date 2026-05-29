@@ -67,6 +67,10 @@ class UserManager extends AbstractClassManager
             ]);
 
             $dbUser = $result->fetch();
+            if ($dbUser === false) {
+                return null;
+            }
+
             $user = new User(
                 $dbUser['pseudo'],
                 $dbUser['email'],

@@ -31,6 +31,11 @@
   -webkit-mask: url("../images/icon-account.svg") no-repeat center / contain;
 }
 
+.mask-library {
+  mask: url("../images/icon-library.svg") no-repeat center / contain;
+  -webkit-mask: url("../images/icon-library.svg") no-repeat / contain;
+}
+
 /* Change to leading space and tracking to match figma proto */
 @layer base {
   * {
