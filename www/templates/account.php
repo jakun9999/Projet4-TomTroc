@@ -13,7 +13,13 @@ if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 } else {
     header('location: /login');
+    exit();
 }
+
+$emailMessage = '';
+$pseudoMessage = '';
+$passwordMessage = '';
+
 ?>
 
 <?php if (isset($_SESSION['user'])): ?>
@@ -48,7 +54,33 @@ if (isset($_SESSION['user'])) {
                 </div>
 
                 <!-- Account modification area -->
-                <div></div>
+                <div class="flex flex-col rounded-[20px] items-center justify-center w-83.75 xl:w-136.75 h-112.75 xl:h-127 bg-cassian-white">
+                    <div class="w-67.25 xl:w-80.5 flex flex-col items-start">
+                        <h3 class="text-left font-cassian-inter text-[16px] text-cassian-black-light">Vos informations personnelles</h3>
+                        <form action="/register" method="POST" class="flex flex-col mt-5.5 xl:mt-6.5 xl:w-80.5 w-full">
+
+                            <label for="email" class="font-cassian-inter text-cassian-gray text-[14px]">Adresse email</label>
+                            <input type="email" value="<?= htmlspecialchars($user->getEmail()) ?>" id="email" name="email" required class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-full xl:w-80.5">
+                            <?= $emailMessage !== '' ? '<p class="mt-1 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars('') . '</p>' : '';  ?>
+                            <label for="password" class="font-cassian-inter text-cassian-gray text-[14px] mt-8">Mot de passe</label>
+                            <input type="password" value="********" id="password" name="password" required class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-full xl:w-80.5">
+                            <?= $passwordMessage !== '' ? '<p class="mt-1 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars('') . '</p>' : '';  ?>
+                            <label for="pseudo" class="font-cassian-inter text-cassian-gray text-[14px] mt-8">Pseudo</label>
+                            <input type="text" value="<?= htmlspecialchars($user->getPseudo()) ?>" id="pseudo" name="pseudo" required class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-full xl:w-80.5">
+                            <?= $pseudoMessage !== '' ? '<p class="mt-1 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars('') . '</p>' : '';  ?>
+                            <?php
+                            /**
+                             * Call to generate an hidden field with CSRF token
+                             */
+                            echo Ml\App\Services\Web::generateCsrfToken();
+                            ?>
+                            <button type="submit" class="mt-8 h-15.75 w-full xl:w-37.5 text-center font-cassian-inter inline-block bg-cassian-primary hover:text-cassian-white border-cassian-green border text-cassian-green font-semibold text-base rounded-[10px] py-4 transition-colors duration-300 ease-in-out hover:bg-cassian-green-strong">
+                                Enregistrer
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
             </div>
 
             <!-- Account library -->
