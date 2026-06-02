@@ -39,6 +39,7 @@ class SubscribeController
         // if not we redirect to subscription empty page
         if (!Web::controlCsrfToken()) {
             header('location: /subscribe');
+            exit();
         }
 
         $pseudo = mb_strtolower(Web::sanitizeShortString($_POST['pseudo'] ?? ''));
@@ -68,9 +69,23 @@ class SubscribeController
         } else {
             $user = new User($pseudo, $email, $password);
             $userManager = new UserManager();
-            $userManager->addUser($user);
-            $view = new View('TomTroc - Connexion');
-            $view->render('login', ['subscription_successful' => true]);
+
+            // We check if pseudo and email are not already used by another user
+            if ($userManager->isPseudoExist($pseudo)) {
+                $errors['pseudo_message'] = 'Ce pseudonyme est déjà utilisé';
+            }
+            if ($userManager->isEmailExist($email)) {
+                $errors['email_message'] = 'Cet email est déjà utilisé';
+            }
+
+            if (empty($errors)) {
+                $userManager->addUser($user);
+                $view = new View('TomTroc - Connexion');
+                $view->render('login', ['subscription_successful' => true]);
+            } else {
+                $this->showSubscribeError($errors);
+            }
+
             return;
         }
     }

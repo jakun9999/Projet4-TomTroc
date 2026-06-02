@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Ml\App\Controllers;
 
 use Ml\App\Views\View;
+use Ml\App\Models\UserManager;
+use Ml\App\Services\Web;
 
 /**
  * Controller for the account management page to allow
@@ -13,9 +15,93 @@ use Ml\App\Views\View;
  */
 class AccountController
 {
+
+    /**
+     *  Show the account management page.
+     */
     public function showAccount(): void
     {
         $view = new View('TomTroc - Mon compte');
         $view->render('account');
+    }
+
+    /**
+     *  Update the account information.
+     *  
+     * Update email, password and pseudo of the user.
+     */
+    public function updateAccount(): void
+    {
+
+        if (!isset($_SESSION['user']) || !Web::controlCsrfToken()) {
+            header('location: /login');
+            exit();
+        }
+
+        $pseudo = mb_strtolower(Web::sanitizeShortString($_POST['pseudo'] ?? ''));
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $password = $_POST['password'] ?? '';
+
+        $userManager = new UserManager();
+
+
+        // We control if input data are correct
+        if ($pseudo === '') {
+            $errors['pseudo_message'] = 'Un pseudonyme correct doit être défini';
+        }
+
+        if ($email === false || is_null($email)) {
+            $errors['email_message'] = 'Un email correct doit être défini';
+        }
+
+        if ($email !== $_SESSION['user']->getEmail() && $userManager->isEmailExist($email)) {
+            $errors['email_message'] = "L'email est déjà utilisé.";
+        }
+
+        if ($pseudo !== $_SESSION['user']->getPseudo() && $userManager->isPseudoExist($pseudo)) {
+            $errors['pseudo_message'] = "Le pseudo est déjà utilisé.";
+        }
+
+        if (!Web::isPasswordSecure($password)) {
+            $errors['password_message'] = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.";
+        }
+
+        if (!empty($errors)) {
+            $view = new View('TomTroc - Mon compte');
+            $view->render('account', $errors);
+            return;
+        }
+
+        // Before updating the user we need to check if the password input
+        // is the same than in the database.
+        $passwordChanged = false;
+        $user = $userManager->getUserByEmail($_SESSION['user']->getEmail());
+        if (!$userManager->authenticate($user, $user->getEmail(), $password)) {
+            $passwordChanged = true;
+        }
+        unset($user);
+
+        $userManager->updateUser($_SESSION['user'], $pseudo, $email, $password);
+        $modifiedValues['success'] = true;
+
+        if ($_SESSION['user']->getEmail() !== $email) {
+            $modifiedValues = ['email_message' => "L'email a été mis à jour avec succès."];
+        }
+
+        if ($_SESSION['user']->getPseudo() !== $pseudo) {
+            $modifiedValues['pseudo_message'] = "Le pseudo a été mis à jour avec succès.";
+        }
+
+        if ($passwordChanged) {
+            $modifiedValues['password_message'] = "Le mot de passe a été mis à jour avec succès.";
+        }
+
+
+        unset($password);
+
+        $_SESSION['user']->setEmail($email);
+        $_SESSION['user']->setPseudo($pseudo);
+        $view = new View('TomTroc - Mon compte');
+        $view->render('account', $modifiedValues);
     }
 }

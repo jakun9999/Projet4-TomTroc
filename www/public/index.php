@@ -37,6 +37,10 @@ try {
             $controller = new AccountController();
             $controller->showAccount();
             break;
+        case 'update-account':
+            $controller = new AccountController();
+            $controller->updateAccount();
+            break;
         case 'login':
             $controller = new LoginController();
             $controller->showLogin();

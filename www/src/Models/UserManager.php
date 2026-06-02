@@ -26,7 +26,15 @@ class UserManager extends AbstractClassManager
         return password_hash($password, PASSWORD_ARGON2ID);
     }
 
-
+    /**
+     * Add a new user to the database.
+     * 
+     * Only valid if the pseudo and email are not
+     * already used by another user.
+     * 
+     * @param User $user User object to be added to the database
+     *      
+     */
     public function addUser(User $user): void
     {
         try {
@@ -45,13 +53,57 @@ class UserManager extends AbstractClassManager
             $pdo = $this->database->getPDO();
             $user->setId((int) $pdo->lastInsertId());
             $user->setCreationDate(new DateTime());
+            return;
         } catch (PDOException $e) {
 
-            if ($e->getCode() == '23000') {
-                throw new Exception("Le pseudo ou l'email est déjà utilisé.");
-            }
+            // We throw an error as this is an unexpected error that should not happen
+            // meaning the database is not working properly or there is a bug in the code.
+            throw new Exception("Erreur de base de données : " . $e->getMessage());
+        }
+    }
 
-            // throw new Exception("Erreur lors de la création de l'utilisateur");
+    /**
+     * Check if a pseudo is already in use
+     * 
+     * @param string $pseudo Pseudo to be checked
+     */
+    public function isPseudoExist(string $pseudo): bool
+    {
+        try {
+
+            $sql = 'SELECT COUNT(*) FROM user WHERE pseudo = :pseudo';
+
+            $result = $this->database->query($sql, [
+                'pseudo' => $pseudo
+            ]);
+
+            $count = $result->fetchColumn();
+            return $count > 0;
+        } catch (PDOException $e) {
+
+            throw new Exception("Erreur de base de données : " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Check if an email is already in use
+     * 
+     * @param string $email Email to be checked
+     */
+    public function isEmailExist(string $email): bool
+    {
+        try {
+
+            $sql = 'SELECT COUNT(*) FROM user WHERE email = :email';
+
+            $result = $this->database->query($sql, [
+                'email' => $email
+            ]);
+
+            $count = $result->fetchColumn();
+            return $count > 0;
+        } catch (PDOException $e) {
+
             throw new Exception("Erreur de base de données : " . $e->getMessage());
         }
     }
@@ -83,11 +135,8 @@ class UserManager extends AbstractClassManager
             return $user;
         } catch (PDOException $e) {
 
-            if ($e->getCode() == '23000') {
-                throw new Exception("Le pseudo ou l'email est déjà utilisé.");
-            }
-
-            // throw new Exception("Erreur lors du chargement de l'utilisateur");
+            // We throw an error as this is an unexpected error that should not happen
+            // meaning the database is not working properly or there is a bug in the code.
             throw new Exception("Erreur de base de données : " . $e->getMessage());
         }
     }
@@ -98,6 +147,29 @@ class UserManager extends AbstractClassManager
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function updateUser(User $user, string $newPseudo, string $newEmail, string $newPassword): void
+    {
+
+        try {
+
+            $sql = 'UPDATE user SET pseudo = :pseudo, email = :email, password = :password WHERE id = :id';
+
+            $this->database->query($sql, [
+                'pseudo' => $newPseudo,
+                'email' => $newEmail,
+                'password' => $this->hashPassword($newPassword),
+                'id' => $user->getId()
+            ]);
+
+            return;
+        } catch (PDOException $e) {
+
+            // We throw an error as this is an unexpected error that should not happen
+            // meaning the database is not working properly or there is a bug in the code.
+            throw new Exception("Erreur de base de données : " . $e->getMessage());
         }
     }
 }

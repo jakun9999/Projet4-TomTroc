@@ -22,13 +22,13 @@ $passwordMessage = $params['password_message'] ?? '';
             <form action="/register" method="POST" class="flex flex-col mt-8 xl:mt-14 xl:w-80.5 w-full">
                 <label for="pseudo" class="font-cassian-inter text-cassian-gray text-[14px]">Pseudo</label>
                 <input type="text" value="<?= htmlspecialchars($pseudoOldValue) ?>" id="pseudo" name="pseudo" required class="pl-3.5 focus:outline-cassian-green bg-cassian-white h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-[10px] mt-2.5 w-full xl:w-80.5">
-                <?= $pseudoMessage !== '' ? '<p class="mt-1 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($pseudoMessage) . '</p>' : '';  ?>
+                <?= $pseudoMessage !== '' ? '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($pseudoMessage) . '</p>' : '';  ?>
                 <label for="email" class="font-cassian-inter text-cassian-gray text-[14px] mt-8">Adresse email</label>
                 <input type="email" value="<?= htmlspecialchars($emailOldValue) ?>" id="email" name="email" required class="pl-3.5 focus:outline-cassian-green bg-cassian-white h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-[10px] mt-2.5 w-full xl:w-80.5">
-                <?= $emailMessage !== '' ? '<p class="mt-1 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($emailMessage) . '</p>' : '';  ?>
+                <?= $emailMessage !== '' ? '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($emailMessage) . '</p>' : '';  ?>
                 <label for="password" class="font-cassian-inter text-cassian-gray text-[14px] mt-8">Mot de passe</label>
                 <input type="password" id="password" name="password" required class="pl-3.5 focus:outline-cassian-green bg-cassian-white h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-[10px] mt-2.5 w-full xl:w-80.5">
-                <?= $passwordMessage !== '' ? '<p class="mt-1 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($passwordMessage) . '</p>' : '';  ?>
+                <?= $passwordMessage !== '' ? '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($passwordMessage) . '</p>' : '';  ?>
                 <?php
                 /**
                  * Call to generate an hidden field with CSRF token

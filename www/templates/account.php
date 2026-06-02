@@ -16,9 +16,10 @@ if (isset($_SESSION['user'])) {
     exit();
 }
 
-$emailMessage = '';
-$pseudoMessage = '';
-$passwordMessage = '';
+$emailMessage = $params['email_message'] ?? '';
+$pseudoMessage = $params['pseudo_message'] ?? '';
+$passwordMessage = $params['password_message'] ?? '';
+$success = $params['success'] ?? false;
 
 ?>
 
@@ -57,17 +58,45 @@ $passwordMessage = '';
                 <div class="flex flex-col rounded-[20px] items-center justify-center w-83.75 xl:w-136.75 h-129.75 xl:h-127 bg-cassian-white">
                     <div class="w-67.25 xl:w-80.5 flex flex-col items-start">
                         <h3 class="text-left font-cassian-inter text-[16px] text-cassian-black-light">Vos informations personnelles</h3>
-                        <form action="/register" method="POST" class="flex flex-col mt-5.5 xl:mt-6.5 xl:w-80.5 w-full">
+                        <form action="/update-account" method="POST" class="flex flex-col mt-5.5 xl:mt-6.5 xl:w-80.5 w-full">
 
                             <label for="email" class="font-cassian-inter text-cassian-gray text-[14px]">Adresse email</label>
                             <input type="email" value="<?= htmlspecialchars($user->getEmail()) ?>" id="email" name="email" required class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-full xl:w-80.5">
-                            <?= $emailMessage !== '' ? '<p class="mt-1 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars('') . '</p>' : '';  ?>
+
+                            <?php
+                            if ($emailMessage !== '') {
+                                if (!$success) {
+                                    echo '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($emailMessage) . '</p>';
+                                } else {
+                                    echo '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-cassian-green italic">' . htmlspecialchars($emailMessage) . '</p>';
+                                }
+                            }
+                            ?>
+
                             <label for="password" class="font-cassian-inter text-cassian-gray text-[14px] mt-8">Mot de passe</label>
                             <input type="password" value="********" id="password" name="password" required class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-full xl:w-80.5">
-                            <?= $passwordMessage !== '' ? '<p class="mt-1 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars('') . '</p>' : '';  ?>
+
+                            <?php
+                            if ($passwordMessage !== '') {
+                                if (!$success) {
+                                    echo '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($passwordMessage) . '</p>';
+                                } else {
+                                    echo '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-cassian-green italic">' . htmlspecialchars($passwordMessage) . '</p>';
+                                }
+                            }
+                            ?>
+
                             <label for="pseudo" class="font-cassian-inter text-cassian-gray text-[14px] mt-8">Pseudo</label>
                             <input type="text" value="<?= htmlspecialchars($user->getPseudo()) ?>" id="pseudo" name="pseudo" required class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-full xl:w-80.5">
-                            <?= $pseudoMessage !== '' ? '<p class="mt-1 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars('') . '</p>' : '';  ?>
+                            <?php
+                            if ($pseudoMessage !== '') {
+                                if (!$success) {
+                                    echo '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($pseudoMessage) . '</p>';
+                                } else {
+                                    echo '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-cassian-green italic">' . htmlspecialchars($pseudoMessage) . '</p>';
+                                }
+                            }
+                            ?>
                             <?php
                             /**
                              * Call to generate an hidden field with CSRF token
@@ -87,4 +116,7 @@ $passwordMessage = '';
 
         </div>
     </section>
+<?php else: ?>
+    header('location: /login');
+    exit();
 <?php endif; ?>
