@@ -36,6 +36,7 @@ CREATE TABLE `book` (
   `author_lastname` varchar(128) NOT NULL,
   `author_pseudo` varchar(128) NOT NULL,
   `description` text NOT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
   `status` varchar(32) NOT NULL,
   `creation_date` datetime NOT NULL,
   `user_id` int NOT NULL

@@ -17,4 +17,16 @@ class BooksController
         $view = new View('TomTroc - Nos livres');
         $view->render('books');
     }
+
+    public function editBook(): void
+    {
+        $view = new View('TomTroc - Edition du livre');
+        $view->render('edit-book', ['mode' => 'edit']);
+    }
+
+    public function addBook(): void
+    {
+        $view = new View('TomTroc - Ajouter un livre');
+        $view->render('edit-book', ['mode' => 'add']);
+    }
 }
