@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Configuration file for the application.
  * Rename this file to conf.php and update the 
  * database credentials as needed.
  */
-const DB_HOST = '127.0.0.1';
+const DB_HOST = 'tomtroc_mysql';
 const DB_NAME = 'tomtroc';
 const DB_ROOT = 'root';
 const DB_PASS = 'modify';

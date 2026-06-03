@@ -10,6 +10,11 @@ services:
       - ./www:/var/www:ro                            # ← read-only sur tout le code
       - ./www/storage:/var/www/storage               # ← écriture autorisée uniquement ici
       - ./www/storage/logs/apache:/var/log/apache2
+      # Synchronise l'horloge du conteneur avec la machine hôte
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - TZ=Europe/Paris
     depends_on:
       tomtroc_db:
         condition: service_healthy                   # ← attend que MySQL soit prêt
@@ -31,10 +36,14 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  
+      TZ: Europe/Paris    
     volumes:
       - db_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      # Synchronise l'horloge du conteneur avec la machine hôte
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     healthcheck:                                     # ← ajouté
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
       interval: 10s
@@ -55,11 +64,16 @@ services:
     depends_on:
       tomtroc_db:
         condition: service_healthy                   # ← attend que MySQL soit prêt
-    environment:
+    environment:      
       PMA_HOST: tomtroc_db
       PMA_PORT: 3306
       PMA_ARBITRARY: "0"
       UPLOAD_LIMIT: 10M
+      TZ: Europe/Paris
+    volumes:
+    # Synchronise l'horloge du conteneur avec la machine hôte
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     ports:
       - "127.0.0.1:8282:80"
     restart: unless-stopped
