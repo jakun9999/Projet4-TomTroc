@@ -23,13 +23,12 @@ class BookManager extends AbstractClassManager
         try {
 
             $sql = 'INSERT INTO book 
-                (title, author_firstname, author_lastname, author_pseudo, description, image_url, status, user_id, creation_date) 
-                VALUES (:title, :author_firstname, :author_lastname, :author_pseudo, :description, :image_url, :status, :user_id, NOW())';
+                (title, author, author_pseudo, description, image_url, status, user_id, creation_date) 
+                VALUES (:title, :author, :author_pseudo, :description, :image_url, :status, :user_id, NOW())';
 
             $this->database->query($sql, [
                 'title' => $book->getTitle(),
-                'author_firstname' => $book->getAuthorFirstName(),
-                'author_lastname' => $book->getAuthorLastName(),
+                'author' => $book->getAuthor(),
                 'author_pseudo' => $book->getAuthorPseudo(),
                 'description' => $book->getDescription(),
                 'image_url' => $book->getImageUrl(),
@@ -60,8 +59,7 @@ class BookManager extends AbstractClassManager
 
             $sql = 'UPDATE book SET 
                 title = :title, 
-                author_firstname = :author_firstname, 
-                author_lastname = :author_lastname, 
+                author = :author,                 
                 author_pseudo = :author_pseudo, 
                 description = :description, 
                 image_url = :image_url, 
@@ -72,8 +70,7 @@ class BookManager extends AbstractClassManager
             $this->database->query($sql, [
                 'id' => $book->getId(),
                 'title' => $book->getTitle(),
-                'author_firstname' => $book->getAuthorFirstName(),
-                'author_lastname' => $book->getAuthorLastName(),
+                'author' => $book->getAuthor(),
                 'author_pseudo' => $book->getAuthorPseudo(),
                 'description' => $book->getDescription(),
                 'image_url' => $book->getImageUrl(),
@@ -106,10 +103,11 @@ class BookManager extends AbstractClassManager
             if ($result) {
                 return new Book(
                     $result['title'],
-                    $result['author_firstname'],
-                    $result['author_lastname'],
+                    $result['author'],
                     $result['author_pseudo'],
                     $result['description'],
+                    $result['status'],
+                    $result['user_id'],
                     $result['image_url'],
                     (int) $result['id'],
                     new DateTime($result['creation_date'])
@@ -137,10 +135,11 @@ class BookManager extends AbstractClassManager
             foreach ($results as $result) {
                 $books[] = new Book(
                     $result['title'],
-                    $result['author_firstname'],
-                    $result['author_lastname'],
+                    $result['author'],
                     $result['author_pseudo'],
                     $result['description'],
+                    $result['status'],
+                    $result['user_id'],
                     $result['image_url'],
                     (int) $result['id'],
                     new DateTime($result['creation_date'])
@@ -168,10 +167,11 @@ class BookManager extends AbstractClassManager
             foreach ($results as $result) {
                 $books[] = new Book(
                     $result['title'],
-                    $result['author_firstname'],
-                    $result['author_lastname'],
+                    $result['author'],
                     $result['author_pseudo'],
                     $result['description'],
+                    $result['status'],
+                    $result['user_id'],
                     $result['image_url'],
                     (int) $result['id'],
                     new DateTime($result['creation_date'])

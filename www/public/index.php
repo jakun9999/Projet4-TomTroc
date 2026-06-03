@@ -33,6 +33,18 @@ try {
             $controller = new BooksController();
             $controller->newBook();
             break;
+        case 'edit-book':
+            $controller = new BooksController();
+            $controller->editBook();
+            break;
+        case 'add-book':
+            $controller = new BooksController();
+            $controller->addBook();
+            break;
+        case 'update-book':
+            $controller = new BooksController();
+            $controller->updateBook();
+            break;
         case 'messaging':
             $controller = new MessagingController();
             $controller->showMessaging();

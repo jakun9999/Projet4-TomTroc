@@ -12,8 +12,7 @@ use DateTime;
 class Book extends AbstractClass
 {
     private string $title;
-    private string $authorFirstName;
-    private string $authorLastName;
+    private string $author;
     private string $authorPseudo;
     private string $description;
     private bool $status;
@@ -27,10 +26,11 @@ class Book extends AbstractClass
      * The imageUrl parameter is also optionnal, as it can be set later by the user.
      * 
      * @param string $title
-     * @param string $authorFirstName
-     * @param string $authorLastName
+     * @param string $author
      * @param string $authorPseudo
      * @param string $description
+     * @param bool $status
+     * @param int $userId
      * @param ?string $imageUrl
      * @param ?int $id
      * @param ?DateTime $creationDate
@@ -38,10 +38,11 @@ class Book extends AbstractClass
     public function __construct(
 
         string $title,
-        string $authorFirstName,
-        string $authorLastName,
+        string $author,
         string $authorPseudo,
         string $description,
+        bool $status,
+        int $userId,
         ?string $imageUrl = '',
         ?int $id = null,
         ?DateTime $creationDate = null
@@ -49,10 +50,11 @@ class Book extends AbstractClass
     ) {
         parent::__construct($id, $creationDate);
         $this->title = $title;
-        $this->authorFirstName = $authorFirstName;
-        $this->authorLastName = $authorLastName;
+        $this->author = $author;
         $this->authorPseudo = $authorPseudo;
         $this->description = $description;
+        $this->status = $status;
+        $this->userId = $userId;
         $this->imageUrl = $imageUrl;
     }
 
@@ -61,14 +63,9 @@ class Book extends AbstractClass
         return $this->title;
     }
 
-    public function getAuthorFirstName(): string
+    public function getAuthor(): string
     {
-        return $this->authorFirstName;
-    }
-
-    public function getAuthorLastName(): string
-    {
-        return $this->authorLastName;
+        return $this->author;
     }
 
     public function getAuthorPseudo(): string
@@ -101,14 +98,9 @@ class Book extends AbstractClass
         $this->title = $title;
     }
 
-    public function setAuthorFirstName(string $authorFirstName): void
+    public function setAuthor(string $author): void
     {
-        $this->authorFirstName = $authorFirstName;
-    }
-
-    public function setAuthorLastName(string $authorLastName): void
-    {
-        $this->authorLastName = $authorLastName;
+        $this->author = $author;
     }
 
     public function setAuthorPseudo(string $authorPseudo): void

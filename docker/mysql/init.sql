@@ -32,8 +32,7 @@ USE `tomtroc`;
 CREATE TABLE `book` (
   `id` int NOT NULL,
   `title` varchar(128) NOT NULL,
-  `author_firstname` varchar(128) NOT NULL,
-  `author_lastname` varchar(128) NOT NULL,
+  `author` varchar(128) NOT NULL,  
   `author_pseudo` varchar(128) NOT NULL,
   `description` text NOT NULL,
   `image_url` varchar(255) DEFAULT NULL,

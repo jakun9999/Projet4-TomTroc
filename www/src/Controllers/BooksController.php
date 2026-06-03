@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Ml\App\Controllers;
 
 use Ml\App\Views\View;
+use Ml\App\Models\Book;
+use Ml\App\Models\BookManager;
+use Ml\App\Models\User;
+use Ml\App\Services\Web;
 
 /**
  * Controller for the books page to display 
@@ -42,7 +46,26 @@ class BooksController
     /**
      * Add a new book to the collection.
      */
-    public function addBook(): void {}
+    public function addBook(): void
+    {
+        if (!Web::controlCsrfToken()) {
+            header('location: /new-book');
+            exit();
+        }
+
+        $title = Web::sanitizeShortString($_POST['title']);
+        $author = Web::sanitizeShortString($_POST['author']);
+        $description = Web::sanitizeShortString($_POST['description']);
+        $status = Web::sanitizeShortString($_POST['status']) === 'true' ? true : false;
+        $imageUrl = ''; // TODO: handle image upload and get the URL
+        $book = new Book($title, $author, '', $description, $status, $_SESSION['user']->getId(), $imageUrl);
+
+        $bookManager = new BookManager();
+        $bookManager->addBook($book);
+
+        header('location: /account');
+        exit();
+    }
 
     /**
      * Update an existing book in the collection.

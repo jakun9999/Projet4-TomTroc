@@ -50,18 +50,24 @@ $success = $params['success'] ?? false;
                     </div>
 
                     <!-- Book information form -->
-                    <form class="flex flex-col ml-5 xl:ml-0">
+                    <form class="flex flex-col ml-5 xl:ml-0" action="<?= $mode === 'edit' ? '/update-book' : '/add-book' ?>" method="POST">
                         <label for="title" class="font-cassian-inter text-[14px] text-cassian-gray xl:mt-0">Titre</label>
                         <input type="text" id="title" name="title" class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75">
                         <label for="author" class="font-cassian-inter text-[14px] text-cassian-gray mt-8">Auteur</label>
                         <input type="text" id="author" name="author" class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75">
-                        <label for="description" class="font-cassian-inter text-[14px] text-cassian-gray mt-8">Description</label>
+                        <label for="description" class="font-cassian-inter text-[14px] text-cassian-gray mt-8">Commentaire</label>
                         <textarea id="description" name="description" class="pl-3.5 pt-4 pr-3 focus:outline-cassian-green bg-cassian-gray-strong h-89 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75"></textarea>
                         <label for="status" class="font-cassian-inter text-[14px] text-cassian-gray mt-8">Disponibilité</label>
                         <select id="status" name="status" class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75">
-                            <option value="available">Disponible</option>
-                            <option value="unavailable">Non disponible</option>
+                            <option value="true">Disponible</option>
+                            <option value="false">Non disponible</option>
                         </select>
+                        <?php
+                        /**
+                         * Call to generate an hidden field with CSRF token
+                         */
+                        echo Ml\App\Services\Web::generateCsrfToken();
+                        ?>
                         <button type="submit" class="bg-cassian-green hover:bg-cassian-green-dark text-white font-cassian-inter text-[14px] py-2.5 px-4 rounded-md mt-11 w-83.75 xl:w-80.5 h-15.75">Valider</button>
                     </form>
                 </div>
