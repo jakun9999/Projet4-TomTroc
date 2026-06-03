@@ -50,6 +50,47 @@ class BookManager extends AbstractClassManager
     }
 
     /**
+     * Update an existing book in the collection.
+     * 
+     * @param Book $book Book object to be updated in the database
+     */
+    public function updateBook(Book $book): void
+    {
+        try {
+
+            $sql = 'UPDATE book SET 
+                title = :title, 
+                author_firstname = :author_firstname, 
+                author_lastname = :author_lastname, 
+                author_pseudo = :author_pseudo, 
+                description = :description, 
+                image_url = :image_url, 
+                status = :status, 
+                user_id = :user_id
+                WHERE id = :id';
+
+            $this->database->query($sql, [
+                'id' => $book->getId(),
+                'title' => $book->getTitle(),
+                'author_firstname' => $book->getAuthorFirstName(),
+                'author_lastname' => $book->getAuthorLastName(),
+                'author_pseudo' => $book->getAuthorPseudo(),
+                'description' => $book->getDescription(),
+                'image_url' => $book->getImageUrl(),
+                'status' => $book->getStatus(),
+                'user_id' => $book->getUserId()
+            ]);
+
+            return;
+        } catch (PDOException $e) {
+
+            // We throw an error as this is an unexpected error that should not happen
+            // meaning the database is not working properly or there is a bug in the code.
+            throw new Exception('An error occurred while updating the book in the database.');
+        }
+    }
+
+    /**
      * Get a book by its id.
      * 
      * @param int $id Id of the book to be retrieved

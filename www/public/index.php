@@ -29,6 +29,10 @@ try {
             $controller = new BooksController();
             $controller->showBooks();
             break;
+        case 'new-book':
+            $controller = new BooksController();
+            $controller->newBook();
+            break;
         case 'messaging':
             $controller = new MessagingController();
             $controller->showMessaging();

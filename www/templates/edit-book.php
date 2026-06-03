@@ -1,9 +1,69 @@
 <?php
+
 /**
  * Template for the edit book page to allow users to 
  * modify book information.
  */
+
+use Ml\App\Services\Utils;
+
+/** @var array $params */
+
+if (isset($_SESSION['user'])) {
+    $user = $_SESSION['user'];
+} else {
+    header('location: /login');
+    exit();
+}
+
+$mode = $params['mode'] ?? 'new'; // 'edit' or 'new'
+
+if ($mode === 'edit') {
+    $book = $params['book'] ?? null;
+    if (!$book) {
+        header('location: /account');
+        exit();
+    }
+}
+
+$success = $params['success'] ?? false;
+
 ?>
-<main class="flex-grow-1 bg-cassian-primary d-flex justify-content-center align-items-center">
-    EDIT BOOK
-</main>
+
+<section class="grow w-full h-full bg-cassian-secondary max-w-94.25 xl:max-w-cassian-1440 mx-auto pb-20 xl:pb-23">
+    <div class="flex flex-col items-start justify-start">
+        <a href="/account" class="font-cassian-inter text-[14px] text-cassian-gray mt-13.5 xl:mt-10 ml-5 xl:ml-37.5"><- retour</a>
+                <?php if ($mode === 'edit'): ?>
+                    <h1 class="font-cassian-playfair text-[30px] xl:text-[26px] text-cassian-black w-67.75 mt-1.75 xl:mt-5.75 ml-5 xl:ml-37.5">Modifier les informations</h1>
+                <?php else: ?>
+                    <h1 class="font-cassian-playfair text-[30px] xl:text-[26px] text-cassian-black w-67.75 mt-1.75 xl:mt-5.75 ml-5 xl:ml-37.5">Nouveau livre</h1>
+                <?php endif; ?>
+
+                <!-- Book Information Form -->
+                <div class="flex flex-col xl:flex-row gap-[32.25px] xl:gap-29.5 bg-cassian-white rounded-[20px] w-93.75 xl:w-full xl:max-w-285 h-full xl:h-auto mt-8.75 xl:mt-5.75 xl:ml-37.5 pt-10.5 xl:pt-14 xl:px-12.5 pb-11.75 xl:pb-16.5">
+
+                    <!-- Book photo div -->
+                    <div class="flex flex-col w-83.75 xl:w-122 h-[397.75px] xl:h-auto ml-5 xl:ml-0 xl:shrink-0">
+                        <p class="font-cassian-inter text-[11px] xl:text-[14px] text-cassian-gray">Photo</p>
+                        <img src="./assets/images/new_book_cover.png" alt="Photo du livre" class="w-83.75 h-83.75 xl:w-122 xl:h-122 object-cover mt-[7.4px] xl:mt-2.5">
+                        <a href="#" class="font-cassian-inter text-[14px] mt-6.25 xl:mt-5.75 self-end">Modifier la photo</a>
+                    </div>
+
+                    <!-- Book information form -->
+                    <form class="flex flex-col ml-5 xl:ml-0">
+                        <label for="title" class="font-cassian-inter text-[14px] text-cassian-gray xl:mt-0">Titre</label>
+                        <input type="text" id="title" name="title" class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75">
+                        <label for="author" class="font-cassian-inter text-[14px] text-cassian-gray mt-8">Auteur</label>
+                        <input type="text" id="author" name="author" class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75">
+                        <label for="description" class="font-cassian-inter text-[14px] text-cassian-gray mt-8">Description</label>
+                        <textarea id="description" name="description" class="pl-3.5 pt-4 pr-3 focus:outline-cassian-green bg-cassian-gray-strong h-89 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75"></textarea>
+                        <label for="status" class="font-cassian-inter text-[14px] text-cassian-gray mt-8">Disponibilité</label>
+                        <select id="status" name="status" class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75">
+                            <option value="available">Disponible</option>
+                            <option value="unavailable">Non disponible</option>
+                        </select>
+                        <button type="submit" class="bg-cassian-green hover:bg-cassian-green-dark text-white font-cassian-inter text-[14px] py-2.5 px-4 rounded-md mt-11 w-83.75 xl:w-80.5 h-15.75">Valider</button>
+                    </form>
+                </div>
+    </div>
+</section>

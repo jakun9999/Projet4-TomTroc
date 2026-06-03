@@ -43,4 +43,9 @@ class BooksController
      * Add a new book to the collection.
      */
     public function addBook(): void {}
+
+    /**
+     * Update an existing book in the collection.
+     */
+    public function updateBook(): void {}
 }
