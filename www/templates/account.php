@@ -19,6 +19,7 @@ if (isset($_SESSION['user'])) {
 $emailMessage = $params['email_message'] ?? '';
 $pseudoMessage = $params['pseudo_message'] ?? '';
 $passwordMessage = $params['password_message'] ?? '';
+$booksCount = $params['books_count'] ?? '0';
 $success = $params['success'] ?? false;
 
 ?>
@@ -49,7 +50,10 @@ $success = $params['success'] ?? false;
                         <h3 class="font-cassian-inter font-semibold text-cassian-black-light text-[8px] tracking-[0.64px] mt-5.25">BIBLIOTHEQUE</h3>
                         <p class="flex justify-center items-center mt-1.5">
                             <span class="shrink-0 w-[10.41px] h-[13.71px] bg-current inline-block mask-library text-cassian-black-light"></span>
-                            <span class="font-cassian-inter text-[14px] text-cassian-black-light">&nbsp;X livres</span>
+                            <span class="font-cassian-inter text-[14px] text-cassian-black-light">&nbsp;
+                                <?= htmlspecialchars($booksCount) ?>
+                                <?= $booksCount > 1 ? 'livres' : 'livre' ?>
+                            </span>
                         </p>
                         <a href="/new-book" class="font-cassian-inter text-[14px] text-cassian-black-light mt-3">Ajouter un livre</a>
                     </div>

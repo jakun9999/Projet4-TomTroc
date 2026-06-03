@@ -183,4 +183,31 @@ class BookManager extends AbstractClassManager
             throw new Exception('An error occurred while fetching the books from the database.');
         }
     }
+
+    public function getBooksByUserId(int $userId)
+    {
+        try {
+            $sql = 'SELECT * FROM book WHERE user_id = :user_id';
+            $results = $this->database->query($sql, ['user_id' => $userId]);
+
+            $books = [];
+            foreach ($results as $result) {
+                $books[] = new Book(
+                    $result['title'],
+                    $result['author'],
+                    $result['author_pseudo'],
+                    $result['description'],
+                    $result['status'],
+                    $result['user_id'],
+                    $result['image_url'],
+                    (int) $result['id'],
+                    new DateTime($result['creation_date'])
+                );
+            }
+
+            return $books;
+        } catch (PDOException $e) {
+            throw new Exception('An error occurred while fetching the books from the database.');
+        }
+    }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ml\App\Controllers;
 
+use Ml\App\Models\BookManager;
 use Ml\App\Views\View;
 use Ml\App\Models\UserManager;
 use Ml\App\Services\Web;
@@ -21,8 +22,10 @@ class AccountController
      */
     public function showAccount(): void
     {
+        $bookManager = new BookManager();
+        $booksCount = count($bookManager->getBooksByUserId($_SESSION['user']->getId()));
         $view = new View('TomTroc - Mon compte');
-        $view->render('account');
+        $view->render('account', ['books_count' => $booksCount]);
     }
 
     /**
