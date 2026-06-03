@@ -18,6 +18,9 @@ if (isset($_SESSION['user'])) {
 
 $mode = $params['mode'] ?? 'new'; // 'edit' or 'new'
 
+// If the page called is the edit book page, a book
+// instance must be provide or we redirect to user
+// account page
 if ($mode === 'edit') {
     $book = $params['book'] ?? null;
     if (!$book) {
@@ -26,7 +29,13 @@ if ($mode === 'edit') {
     }
 }
 
-$success = $params['success'] ?? false;
+$titleValue = $params['title_value'] ?? '';
+$titleMessage = $params['title_message'] ?? '';
+$authorValue = $params['author_value'] ?? '';
+$authorMessage = $params['author_message'] ?? '';
+$descriptionValue = $params['description_value'] ?? '';
+$descriptionMessage = $params['description_message'] ?? '';
+$statusValue = $params['status_value'] ?? 1;
 
 ?>
 
@@ -52,15 +61,30 @@ $success = $params['success'] ?? false;
                     <!-- Book information form -->
                     <form class="flex flex-col ml-5 xl:ml-0" action="<?= $mode === 'edit' ? '/update-book' : '/add-book' ?>" method="POST">
                         <label for="title" class="font-cassian-inter text-[14px] text-cassian-gray xl:mt-0">Titre</label>
-                        <input type="text" id="title" name="title" class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75">
+                        <input type="text" id="title" name="title" value="<?= htmlspecialchars($titleValue ?? '') ?>" class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75">
+                        <?php
+                        if ($titleMessage !== '') {
+                            echo '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($titleMessage) . '</p>';
+                        }
+                        ?>
                         <label for="author" class="font-cassian-inter text-[14px] text-cassian-gray mt-8">Auteur</label>
-                        <input type="text" id="author" name="author" class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75">
+                        <input type="text" id="author" name="author" value="<?= htmlspecialchars($authorValue ?? '') ?>" class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75">
+                        <?php
+                        if ($authorMessage !== '') {
+                            echo '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($authorMessage) . '</p>';
+                        }
+                        ?>
                         <label for="description" class="font-cassian-inter text-[14px] text-cassian-gray mt-8">Commentaire</label>
-                        <textarea id="description" name="description" class="pl-3.5 pt-4 pr-3 focus:outline-cassian-green bg-cassian-gray-strong h-89 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75"></textarea>
+                        <textarea id="description" name="description" class="pl-3.5 pt-4 pr-3 focus:outline-cassian-green bg-cassian-gray-strong h-89 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75"><?= htmlspecialchars($descriptionValue ?? '') ?></textarea>
+                        <?php
+                        if ($descriptionMessage !== '') {
+                            echo '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-red-500 italic">' . htmlspecialchars($descriptionMessage) . '</p>';
+                        }
+                        ?>
                         <label for="status" class="font-cassian-inter text-[14px] text-cassian-gray mt-8">Disponibilité</label>
                         <select id="status" name="status" class="pl-3.5 focus:outline-cassian-green bg-cassian-gray-strong h-12.5 font-cassian-inter text-[14px] border border-cassian-border-form rounded-md mt-2.5 w-83.75 xl:w-108.75">
-                            <option value="true">Disponible</option>
-                            <option value="false">Non disponible</option>
+                            <option value="true" <?= $statusValue === 1 ? 'selected' : '' ?>>Disponible</option>
+                            <option value="false" <?= $statusValue === 0 ? 'selected' : '' ?>>Non disponible</option>
                         </select>
                         <?php
                         /**

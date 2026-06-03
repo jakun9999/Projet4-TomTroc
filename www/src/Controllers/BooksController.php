@@ -56,13 +56,41 @@ class BooksController
         $title = Web::sanitizeShortString($_POST['title']);
         $author = Web::sanitizeShortString($_POST['author']);
         $description = Web::sanitizeShortString($_POST['description']);
-        $status = Web::sanitizeShortString($_POST['status']) === 'true' ? true : false;
+        $status = Web::sanitizeShortString($_POST['status']) === 'true' ? 1 : 0;
         $imageUrl = ''; // TODO: handle image upload and get the URL
+
+        if ($title === '') {
+            $errors['title_message'] = 'Vous devez saisir un titre';
+        }
+
+        if ($author === '') {
+            $errors['author_message'] = 'Vous devez saisir un auteur';
+        }
+
+        if ($description === '') {
+            $errors['description_message'] = 'Vous devez saisir un commentaire';
+        }
+
+        // If errors are present in $_POST data we redirect to the new
+        // book page with already defined value.
+        if (!empty($errors)) {
+            $errors['title_value'] = $title;
+            $errors['author_value'] = $author;
+            $errors['description_value'] = $description;
+            $errors['status_value'] = $status;
+            $errors['mode'] = 'new';
+            $view = new View('TomTroc - Ajouter un livre');
+            $view->render('/edit-book', $errors);
+            exit();
+        }
+
+        // Once the error checks are passed we can add the book.
         $book = new Book($title, $author, '', $description, $status, $_SESSION['user']->getId(), $imageUrl);
 
         $bookManager = new BookManager();
         $bookManager->addBook($book);
 
+        // and redirect to user account page.
         header('location: /account');
         exit();
     }

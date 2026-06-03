@@ -15,7 +15,7 @@ class Book extends AbstractClass
     private string $author;
     private string $authorPseudo;
     private string $description;
-    private bool $status;
+    private int $status;
     private int $userId;
     private string $imageUrl;
 
@@ -29,7 +29,7 @@ class Book extends AbstractClass
      * @param string $author
      * @param string $authorPseudo
      * @param string $description
-     * @param bool $status
+     * @param int $status
      * @param int $userId
      * @param ?string $imageUrl
      * @param ?int $id
@@ -41,7 +41,7 @@ class Book extends AbstractClass
         string $author,
         string $authorPseudo,
         string $description,
-        bool $status,
+        int $status,
         int $userId,
         ?string $imageUrl = '',
         ?int $id = null,
@@ -83,7 +83,7 @@ class Book extends AbstractClass
         return $this->imageUrl;
     }
 
-    public function getStatus(): bool
+    public function getStatus(): int
     {
         return $this->status;
     }
@@ -118,7 +118,7 @@ class Book extends AbstractClass
         $this->imageUrl = $imageUrl;
     }
 
-    public function setStatus(bool $status): void
+    public function setStatus(int $status): void
     {
         $this->status = $status;
     }

@@ -36,7 +36,7 @@ CREATE TABLE `book` (
   `author_pseudo` varchar(128) NOT NULL,
   `description` text NOT NULL,
   `image_url` varchar(255) DEFAULT NULL,
-  `status` varchar(32) NOT NULL,
+  `status` tinyint(1) NOT NULL,
   `creation_date` datetime NOT NULL,
   `user_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
