@@ -128,7 +128,11 @@ class BookManager extends AbstractClassManager
     public function getLastFourBooks(): array
     {
         try {
-            $sql = 'SELECT * FROM book ORDER BY creation_date DESC LIMIT 4';
+            $sql = 'SELECT book.*, user.pseudo 
+                AS user_pseudo
+                FROM book
+                INNER JOIN user ON book.user_id = user.id 
+                ORDER BY creation_date DESC LIMIT 4';
             $results = $this->database->query($sql)->fetchAll();
 
             $books = [];
@@ -142,7 +146,8 @@ class BookManager extends AbstractClassManager
                     $result['user_id'],
                     $result['image_url'],
                     (int) $result['id'],
-                    new DateTime($result['creation_date'])
+                    new DateTime($result['creation_date']),
+                    $result['user_pseudo']
                 );
             }
 
@@ -201,7 +206,7 @@ class BookManager extends AbstractClassManager
                     $result['user_id'],
                     $result['image_url'],
                     (int) $result['id'],
-                    new DateTime($result['creation_date'])
+                    new DateTime($result['creation_date']),
                 );
             }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ml\App\Controllers;
 
+use Ml\App\Models\BookManager;
 use Ml\App\Views\View;
 
 /**
@@ -14,7 +15,9 @@ class HomeController
 {
     public function showHome(): void
     {
+        $bookManager = new BookManager();
+        $books = $bookManager->getLastFourBooks();
         $view = new View('TomTroc - Accueil');
-        $view->render('home');
+        $view->render('home', ['books' => $books]);
     }
 }

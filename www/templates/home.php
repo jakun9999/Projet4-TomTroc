@@ -4,6 +4,10 @@
  * Template for the home page to display 
  * the main landing page.
  */
+
+if (isset($params['books'])) {
+    $books = $params['books'];
+}
 ?>
 
 <!-- Discover section -->
@@ -36,41 +40,26 @@
 </section>
 
 <!-- Last added books section -->
-<section class="w-full bg-cassian-secondary max-w-94.25 xl:max-w-cassian-1440 mx-auto">
-    <div class="pt-12 xl:pt-20 pb-[80.8px] xl:pb-16 flex flex-col xl:gap-12 justify-center items-center px-5 xl:px-0">
-        <h2 class="font-cassian-playfair text-cassian-black-light font-normal text-[28px] xl:text-[32px] mb-[34.39px] xl:mb-8 text-center">Les derniers livres ajoutés</h2>
-        <div class="grid grid-cols-2 xl:grid-cols-4 gap-3.75 xl:gap-9.5">
-            <div class="w-40 h-[259.2] xl:w-50 xl:h-81 pb-[18.4px] xl:pb-5.75 flex flex-col justify-start items-start bg-cassian-white">
-                <img src="./assets/images/test_book_cover.png" alt="Dernier livre" class="w-40 h-40 xl:w-50 xl:h-50 object-cover">
-                <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-black text-[13px] xl:text-[16px] mt-4 xl:mt-5">Esther</p>
-                <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-gray text-[11px] xl:text-[14px] mt-[5.6px] xl:mt-2">Alabaster</p>
-                <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-gray text-[8px] xl:text-[10px] italic mt-[18.2px] xl:mt-5.5">Vendu par : xxx</p>
+<?php if (isset($books)): ?>
+    <section class="w-full bg-cassian-secondary max-w-94.25 xl:max-w-cassian-1440 mx-auto">
+        <div class="pt-12 xl:pt-20 pb-[80.8px] xl:pb-16 flex flex-col xl:gap-12 justify-center items-center px-5 xl:px-0">
+            <h2 class="font-cassian-playfair text-cassian-black-light font-normal text-[28px] xl:text-[32px] mb-[34.39px] xl:mb-8 text-center">Les derniers livres ajoutés</h2>
+            <div class="grid grid-cols-2 xl:grid-cols-4 gap-3.75 xl:gap-9.5">
+                <?php for ($i = 0; $i < count($books); $i++): ?>
+                    <div class="w-40 h-[259.2px] xl:w-50 xl:h-81 pb-[18.4px] xl:pb-5.75 flex flex-col justify-start items-start bg-cassian-white">
+                        <img src="<?= $books[$i]->getImageUrl() !== '' ? htmlspecialchars($books[$i]->getImageUrl()) : './assets/images/new_book_cover.png' ?>" alt="Dernier livre" class="w-40 h-40 xl:w-50 xl:h-50 object-cover">
+                        <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-black text-[13px] xl:text-[16px] mt-4 xl:mt-5"> <?= htmlspecialchars($books[$i]->getTitle() ?? '') ?></p>
+                        <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-gray text-[11px] xl:text-[14px] mt-[5.6px] xl:mt-2"><?= htmlspecialchars($books[$i]->getAuthor() ?? '') ?></p>
+                        <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-gray text-[8px] xl:text-[10px] italic mt-[18.2px] xl:mt-5.5">Vendu par : <?= htmlspecialchars($books[$i]->getUserPseudo() ?? '') ?> </p>
+                    </div>
+                <?php endfor; ?>
             </div>
-            <div class="w-40 h-[259.2] xl:w-50 xl:h-81 pb-[18.4px] xl:pb-5.75 flex flex-col justify-start items-start bg-cassian-white">
-                <img src="./assets/images/test_book_cover.png" alt="Dernier livre" class="w-40 h-40 xl:w-50 xl:h-50 object-cover">
-                <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-black text-[13px] xl:text-[16px] mt-4 xl:mt-5">Esther</p>
-                <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-gray text-[11px] xl:text-[14px] mt-[5.6px] xl:mt-2">Alabaster</p>
-                <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-gray text-[8px] xl:text-[10px] italic mt-[18.2px] xl:mt-5.5">Vendu par : xxx</p>
-            </div>
-            <div class="w-40 h-[259.2] xl:w-50 xl:h-81 pb-[18.4px] xl:pb-5.75 flex flex-col justify-start items-start bg-cassian-white">
-                <img src="./assets/images/test_book_cover.png" alt="Dernier livre" class="w-40 h-40 xl:w-50 xl:h-50 object-cover">
-                <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-black text-[13px] xl:text-[16px] mt-4 xl:mt-5">Esther</p>
-                <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-gray text-[11px] xl:text-[14px] mt-[5.6px] xl:mt-2">Alabaster</p>
-                <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-gray text-[8px] xl:text-[10px] italic mt-[18.2px] xl:mt-5.5">Vendu par : xxx</p>
-            </div>
-            <div class="w-40 h-[259.2] xl:w-50 xl:h-81 pb-[18.4px] xl:pb-5.75 flex flex-col justify-start items-start bg-cassian-white">
-                <img src="./assets/images/test_book_cover.png" alt="Dernier livre" class="w-40 h-40 xl:w-50 xl:h-50 object-cover">
-                <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-black text-[13px] xl:text-[16px] mt-4 xl:mt-5">Esther</p>
-                <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-gray text-[11px] xl:text-[14px] mt-[5.6px] xl:mt-2">Alabaster</p>
-                <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-gray text-[8px] xl:text-[10px] italic mt-[18.2px] xl:mt-5.5">Vendu par : xxx</p>
-            </div>
+            <a href="/books" class="hidden mx-auto font-cassian-inter xl:inline-block bg-cassian-green text-cassian-white font-semibold text-base rounded-[10px] px-9.5 py-4 transition-colors duration-300 ease-in-out hover:bg-cassian-green-strong">
+                Voir tous les livres
+            </a>
         </div>
-        <a href="/books" class="hidden mx-auto font-cassian-inter xl:inline-block bg-cassian-green text-cassian-white font-semibold text-base rounded-[10px] px-9.5 py-4 transition-colors duration-300 ease-in-out hover:bg-cassian-green-strong">
-            Voir tous les livres
-        </a>
-    </div>
-</section>
-
+    </section>
+<?php endif; ?>
 <!-- How it works -->
 <section class="w-full max-w-94.25 xl:max-w-cassian-1440 mx-auto">
     <div class="pt-12 xl:py-20 px-5 xl:px-0 flex flex-col justify-center items-center">

@@ -18,6 +18,7 @@ class Book extends AbstractClass
     private int $status;
     private int $userId;
     private string $imageUrl;
+    private string $userPseudo;
 
     /**
      * Construct a new Book instance.
@@ -34,6 +35,7 @@ class Book extends AbstractClass
      * @param ?string $imageUrl
      * @param ?int $id
      * @param ?DateTime $creationDate
+     * @param ?string $userPseudo
      */
     public function __construct(
 
@@ -45,7 +47,8 @@ class Book extends AbstractClass
         int $userId,
         ?string $imageUrl = '',
         ?int $id = null,
-        ?DateTime $creationDate = null
+        ?DateTime $creationDate = null,
+        ?string $userPseudo = ''
 
     ) {
         parent::__construct($id, $creationDate);
@@ -56,6 +59,7 @@ class Book extends AbstractClass
         $this->status = $status;
         $this->userId = $userId;
         $this->imageUrl = $imageUrl;
+        $this->userPseudo = $userPseudo;
     }
 
     public function getTitle(): string
@@ -93,6 +97,11 @@ class Book extends AbstractClass
         return $this->userId;
     }
 
+    public function getUserPseudo(): string
+    {
+        return $this->userPseudo;
+    }
+
     public function setTitle(string $title): void
     {
         $this->title = $title;
@@ -126,5 +135,10 @@ class Book extends AbstractClass
     public function setUserId(int $userId): void
     {
         $this->userId = $userId;
+    }
+
+    public function setUserPseudo(string $userPseudo): void
+    {
+        $this->userPseudo = $userPseudo;
     }
 }
