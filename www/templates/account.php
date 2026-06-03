@@ -51,6 +51,7 @@ $success = $params['success'] ?? false;
                             <span class="shrink-0 w-[10.41px] h-[13.71px] bg-current inline-block mask-library text-cassian-black-light"></span>
                             <span class="font-cassian-inter text-[14px] text-cassian-black-light">&nbsp;X livres</span>
                         </p>
+                        <a href="/new-book" class="font-cassian-inter text-[14px] text-cassian-black-light mt-3">Ajouter un livre</a>
                     </div>
                 </div>
 
