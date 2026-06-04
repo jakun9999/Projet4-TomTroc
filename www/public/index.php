@@ -25,6 +25,10 @@ try {
             $controller = new HomeController();
             $controller->showHome();
             break;
+        case 'book':
+            $controller = new BooksController();
+            $controller->showBook();
+            break;
         case 'books':
             $controller = new BooksController();
             $controller->showBooks();

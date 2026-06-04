@@ -8,6 +8,7 @@ use Ml\App\Views\View;
 use Ml\App\Models\Book;
 use Ml\App\Models\BookManager;
 use Ml\App\Models\User;
+use Ml\App\Models\UserManager;
 use Ml\App\Services\Web;
 
 /**
@@ -16,6 +17,32 @@ use Ml\App\Services\Web;
  */
 class BooksController
 {
+
+    /**
+     * Display a specific book using its id
+     */
+    public function showBook(): void
+    {
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?? null;
+        if (is_null($id) || $id === false) {
+            header('location: /books');
+            exit();
+        } else {
+            $bookManager = new BookManager();
+            $book = $bookManager->getBookById($id);
+            $userManager = new UserManager();
+            $user = $userManager->getUserById($book->getUserId());
+            if (is_null($book)) {
+                header('location: /books');
+                exit();
+            } else {
+                $view = new View('TomTroc - ' . $book->getTitle());
+                $view->render('single-book', ['book' => $book, 'user' => $user]);
+                return;
+            }
+        }
+    }
+
     /**
      * Display the list of books available for exchange.
      */
