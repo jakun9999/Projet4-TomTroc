@@ -34,11 +34,12 @@ if (isset($params['books'])) {
     <?php else: ?>
         <div class="flex-1 mt-17.5 grid grid-cols-2 xl:grid-cols-4 gap-3.75 xl:gap-x-9.5 xl:gap-y-12 mb-[55.4px] xl:mb-20 mx-auto">
             <?php for ($i = 0; $i < count($books); $i++): ?>
-                <a href="/book?id=<?= htmlspecialchars($books[$i]->getId()) ?? '' ?>">
-                    <div class="book-card w-40 h-[259.2px] xl:w-50 xl:h-81 pb-[18.4px] xl:pb-5.75 flex flex-col justify-start items-start bg-cassian-white"
-                        data-title="<?= strtolower(htmlspecialchars($books[$i]->getTitle() ?? '')) ?>"
-                        data-author="<?= strtolower(htmlspecialchars($books[$i]->getAuthor() ?? '')) ?>"
-                        data-pseudo="<?= strtolower(htmlspecialchars($books[$i]->getUserPseudo() ?? '')) ?>">
+                <a href="/book?id=<?= htmlspecialchars($books[$i]->getId()) ?? '' ?>"
+                    class="book-card"
+                    data-title="<?= strtolower(htmlspecialchars($books[$i]->getTitle() ?? '')) ?>"
+                    data-author="<?= strtolower(htmlspecialchars($books[$i]->getAuthor() ?? '')) ?>"
+                    data-pseudo="<?= strtolower(htmlspecialchars($books[$i]->getUserPseudo() ?? '')) ?>">
+                    <div class="w-40 h-[259.2px] xl:w-50 xl:h-81 pb-[18.4px] xl:pb-5.75 flex flex-col justify-start items-start bg-cassian-white">
                         <img src="<?= $books[$i]->getImageUrl() !== '' ? htmlspecialchars($books[$i]->getImageUrl()) : './assets/images/new_book_cover.png' ?>" alt="Dernier livre" class="w-40 h-40 xl:w-50 xl:h-50 object-cover">
                         <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-black text-[13px] xl:text-[16px] mt-4 xl:mt-5 truncate max-w-34.5 xl:max-w-43"> <?= htmlspecialchars($books[$i]->getTitle() ?? '') ?></p>
                         <p class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-gray text-[11px] xl:text-[14px] mt-[5.6px] xl:mt-2 truncate max-w-34.5 xl:max-w-43"><?= htmlspecialchars($books[$i]->getAuthor() ?? '') ?></p>
