@@ -92,7 +92,7 @@ $statusValue = $params['status_value'] ?? 1;
                          */
                         echo Ml\App\Services\Web::generateCsrfToken();
                         ?>
-                        <button type="submit" class="bg-cassian-green hover:bg-cassian-green-dark text-white font-cassian-inter text-[14px] py-2.5 px-4 rounded-md mt-11 w-83.75 xl:w-80.5 h-15.75">Valider</button>
+                        <button type="submit" class="bg-cassian-green hover:bg-cassian-green-dark text-white font-semibold hover:bg-cassian-green-strong font-cassian-inter text-[14px] py-2.5 px-4 rounded-md mt-11 w-83.75 xl:w-80.5 h-15.75">Valider</button>
                     </form>
                 </div>
     </div>
