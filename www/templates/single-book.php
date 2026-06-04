@@ -38,7 +38,7 @@ if (isset($params['user'])) {
                 <?= htmlspecialchars($book->getDescription() ?? '') ?>
             </p>
             <h3 class="font-cassian-inter font-semibold text-[8px] text-cassian-black-light mt-10 xl:mt-8">PROPRIÉTAIRE</h3>
-            <a href="#">
+            <a href="/public-account?pseudo=<?= htmlspecialchars($user->getPseudo() ?? '') ?>">
                 <div class="flex rounded-[114px] w-39.25 h-15 bg-cassian-white mt-4 pl-1.5 gap-3 justify-start items-center">
                     <img
                         src="<?= htmlspecialchars($user->getPhoto() ?? '') !== '' ? htmlspecialchars($user->getPhoto()) : './assets/images/anonymous.png' ?>"

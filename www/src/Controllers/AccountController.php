@@ -16,6 +16,26 @@ use Ml\App\Services\Web;
  */
 class AccountController
 {
+    public function showPublicAccount(): void
+    {
+        $pseudo = filter_input(INPUT_GET, 'pseudo');
+        $userManager = new UserManager();
+        $user = $userManager->getUserByPseudo($pseudo);
+
+        $bookManager = new BookManager();
+        $books = $bookManager->getBooksByUserId($user->getId());
+        $booksCount = count($books);
+
+        $view = new View('TomTroc - Profil');
+        $view->render(
+            'public-account',
+            [
+                'user' => $user,
+                'books' => $books,
+                'books_count' => $booksCount
+            ]
+        );
+    }
 
     /**
      *  Show the account management page.

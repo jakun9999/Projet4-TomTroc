@@ -175,6 +175,42 @@ class UserManager extends AbstractClassManager
         }
     }
 
+
+    public function getUserByPseudo(string $pseudo): ?User
+    {
+        try {
+
+            $sql = 'SELECT * FROM user WHERE pseudo = :pseudo';
+
+            $result = $this->database->query($sql, [
+                'pseudo' => $pseudo
+            ]);
+
+            $dbUser = $result->fetch();
+            if ($dbUser === false) {
+                return null;
+            }
+
+            $user = new User(
+                $dbUser['pseudo'],
+                '',
+                // We provide the user without email
+                // and password.
+                '',
+                $dbUser['photo'],
+                $dbUser['id'],
+                new DateTime($dbUser['creation_date'])
+            );
+
+            return $user;
+        } catch (PDOException $e) {
+
+            // We throw an error as this is an unexpected error that should not happen
+            // meaning the database is not working properly or there is a bug in the code.
+            throw new Exception("Erreur de base de données : " . $e->getMessage());
+        }
+    }
+
     public function authenticate(User $user, string $email, string $password): bool
     {
         if ($user->getEmail() === $email && password_verify($password, $user->getPassword())) {

@@ -61,6 +61,10 @@ try {
             $controller = new AccountController();
             $controller->updateAccount();
             break;
+        case 'public-account':
+            $controller = new AccountController();
+            $controller->showPublicAccount();
+            break;
         case 'login':
             $controller = new LoginController();
             $controller->showLogin();
