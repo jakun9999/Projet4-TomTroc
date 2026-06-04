@@ -16,15 +16,16 @@ if (isset($params['user'])) {
 
 ?>
 
-<section class="grow w-full h-full bg-cassian-primary max-w-94.25 xl:max-w-cassian-1440 mx-auto">
-    <div class="flex flex-col xl:flex-row justify-center xl:justify-start items-start w-full">
+<section class="flex flex-col grow w-full h-full bg-cassian-primary max-w-94.25 xl:max-w-cassian-1440 mx-auto">
+    <p class="font-cassian-inter text-[10px] font-light text-cassian-gray xl:mt-4 hidden xl:flex xl:ml-37.5">Nos livres > <?= htmlspecialchars($book->getTitle() ?? '') ?></p>
+    <div class="flex flex-col xl:flex-row justify-center xl:justify-start items-start w-full xl:mt-4">
         <div class="order-1 xl:order-1 xl:shrink-0">
             <img
                 src="<?= htmlspecialchars($book->getImageUrl() ?? '' !== '' ? htmlspecialchars($book->getImageUrl()) : './assets/images/new_book_cover.png') ?>"
                 alt="Photo couverture du livre <?= htmlspecialchars($book->getTitle() ?? '') ?>"
                 class="w-93.75 h-[449.48px] xl:w-180 xl:h-215.75 object-cover mt-0">
         </div>
-        <div class="flex flex-col justify-start items-start bg-cassian-secondary order-2 xl:order-2 pt-[40.52px] xl:pt-14.75 px-5 xl:px-21.25 pb-20 w-full">
+        <div class="flex flex-col justify-start items-start bg-cassian-secondary order-2 xl:order-2 pt-[40.52px] xl:pt-14.75 px-5 xl:px-21.25 pb-20 w-full xl:h-215.75">
             <h1 class="font-cassian-playfair text-[30px] xl:text-[2.25rem] text-cassian-black">
                 <?= htmlspecialchars($book->getTitle() ?? '') ?>
             </h1>
@@ -47,7 +48,7 @@ if (isset($params['user'])) {
                 </div>
             </a>
             <a href="#"
-                class="flex justify-center items-center w-83.5 xl:w-121.25 h-15.75 bg-cassian-green hover:bg-cassian-green-strong font-cassian-inter font-semibold text-cassian-white text-[16px] rounded-[10px] mt-10 xl:mt-20">
+                class="flex justify-center items-center w-83.5 xl:w-121.25 h-15.75 transition-colors duration-300 ease-in-out bg-cassian-green hover:bg-cassian-green-strong font-cassian-inter font-semibold text-cassian-white text-[16px] rounded-[10px] mt-10 xl:mt-20">
                 Envoyer un message
             </a>
         </div>
