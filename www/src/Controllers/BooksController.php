@@ -21,8 +21,10 @@ class BooksController
      */
     public function showBooks(): void
     {
+        $bookManager = new BookManager();
+        $books = $bookManager->getAllBooks();
         $view = new View('TomTroc - Nos livres');
-        $view->render('books');
+        $view->render('books', ['books' => $books]);
     }
 
     /**

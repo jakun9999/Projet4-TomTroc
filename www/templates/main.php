@@ -98,6 +98,7 @@
       menu.classList.toggle('hidden');
     });
   </script>
+  <script src="./assets/js/filter.js" defer></script>
 </body>
 
 </html>
