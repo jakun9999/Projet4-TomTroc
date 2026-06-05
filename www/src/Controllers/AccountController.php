@@ -42,10 +42,16 @@ class AccountController
      */
     public function showAccount(): void
     {
-        $bookManager = new BookManager();
-        $booksCount = count($bookManager->getBooksByUserId($_SESSION['user']->getId()));
-        $view = new View('TomTroc - Mon compte');
-        $view->render('account', ['books_count' => $booksCount]);
+        if (isset($_SESSION['user'])) {
+            $bookManager = new BookManager();
+            $booksCount = count($bookManager->getBooksByUserId($_SESSION['user']->getId()));
+            $view = new View('TomTroc - Mon compte');
+            $view->render('account', ['books_count' => $booksCount]);
+            return;
+        } else {
+            header('location: /login');
+            exit();
+        }
     }
 
     /**
@@ -91,6 +97,9 @@ class AccountController
 
         if (!empty($errors)) {
             $view = new View('TomTroc - Mon compte');
+            $bookManager = new BookManager();
+            $booksCount = count($bookManager->getBooksByUserId($_SESSION['user']->getId()));
+            $errors['books_count'] = $booksCount;
             $view->render('account', $errors);
             return;
         }
@@ -124,6 +133,9 @@ class AccountController
 
         $_SESSION['user']->setEmail($email);
         $_SESSION['user']->setPseudo($pseudo);
+        $bookManager = new BookManager();
+        $booksCount = count($bookManager->getBooksByUserId($_SESSION['user']->getId()));
+        $modifiedValues['books_count'] = $booksCount;
         $view = new View('TomTroc - Mon compte');
         $view->render('account', $modifiedValues);
     }

@@ -5,8 +5,6 @@
  * modify book information.
  */
 
-use Ml\App\Services\Utils;
-
 /** @var array $params */
 
 if (isset($_SESSION['user'])) {
