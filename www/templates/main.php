@@ -23,6 +23,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/styles.css">
+    <script src="./assets/js/filter.js" defer></script>
 
 
 </head>
@@ -114,7 +115,6 @@
         menu.classList.toggle('hidden');
     });
     </script>
-    <script src="./assets/js/filter.js" defer></script>
 </body>
 
 </html>

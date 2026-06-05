@@ -97,12 +97,7 @@ $booksCount = $params['books_count'] ?? '0';
                 <h2 class="font-cassian-playfair text-[28px] text-cassian-black">Aucun livre dans la bibliothèque de
                     <?= htmlspecialchars($user->getPseudo() ?? '') ?></h2>
                 <?php endif; ?>
-
-
             </div>
         </div>
-
-        <!-- Account library -->
-
     </div>
 </section>
