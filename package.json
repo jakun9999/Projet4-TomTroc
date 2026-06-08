@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev:css": "npx @tailwindcss/cli -i ./www/public/assets/css/input.css -o ./www/public/assets/css/styles.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
+  },
+  "dependencies": {
+    "@tailwindcss/oxide-linux-x64-gnu": "^4.3.0"
+  }
+}

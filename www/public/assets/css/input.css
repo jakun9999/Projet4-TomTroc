@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  /* Customer colors */
+  --color-cassian-primary: #f5f3ef;
+  --color-cassian-secondary: #faf9f7;
+  --color-cassian-white: #ffffff;
+  --color-cassian-black: #000000;
+  --color-cassian-black-light: #292929;
+  --color-cassian-gray: #a6a6a6;
+  --color-cassian-green: #00ac66;
+  --color-cassian-green-strong: #006d41;
+  --color-cassian-green-light: #6dc5a1;
+  --color-cassian-border-form: #f0f0f0;
+  --color-cassian-gray-strong: #edf2f6;
+
+  /* Custom fonts */
+  --font-cassian-inter: Inter, sans-serif;
+  --font-cassian-playfair: Playfair Display, serif;
+
+  /* Custom container max size */
+  --max-width-cassian-1440: 1440px;
+}
+
+/* Custom icon masks */
+.mask-messaging {
+  mask: url("../images/icon-messagerie.svg") no-repeat center / contain;
+  -webkit-mask: url("../images/icon-messagerie.svg") no-repeat center / contain;
+}
+.mask-account {
+  mask: url("../images/icon-account.svg") no-repeat center / contain;
+  -webkit-mask: url("../images/icon-account.svg") no-repeat center / contain;
+}
+
+.mask-library {
+  mask: url("../images/icon-library.svg") no-repeat center / contain;
+  -webkit-mask: url("../images/icon-library.svg") no-repeat / contain;
+}
+
+/* Change to leading space and tracking to match figma proto */
+@layer base {
+  * {
+    letter-spacing: -0.01em;
+    line-height: 1.188;
+  }
+}

@@ -77,8 +77,8 @@ CREATE TABLE `message` (
 
 CREATE TABLE `user` (
   `id` int NOT NULL,
-  `pseudo` varchar(128) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `pseudo` varchar(128) NOT NULL UNIQUE,
+  `email` varchar(255) NOT NULL UNIQUE,
   `photo` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `creation_date` datetime NOT NULL
