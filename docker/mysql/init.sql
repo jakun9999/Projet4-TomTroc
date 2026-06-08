@@ -32,11 +32,11 @@ USE `tomtroc`;
 CREATE TABLE `book` (
   `id` int NOT NULL,
   `title` varchar(128) NOT NULL,
-  `author_firstname` varchar(128) NOT NULL,
-  `author_lastname` varchar(128) NOT NULL,
+  `author` varchar(128) NOT NULL,  
   `author_pseudo` varchar(128) NOT NULL,
   `description` text NOT NULL,
-  `status` varchar(32) NOT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
   `creation_date` datetime NOT NULL,
   `user_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

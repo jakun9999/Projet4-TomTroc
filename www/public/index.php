@@ -25,9 +25,29 @@ try {
             $controller = new HomeController();
             $controller->showHome();
             break;
+        case 'book':
+            $controller = new BooksController();
+            $controller->showBook();
+            break;
         case 'books':
             $controller = new BooksController();
             $controller->showBooks();
+            break;
+        case 'new-book':
+            $controller = new BooksController();
+            $controller->newBook();
+            break;
+        case 'edit-book':
+            $controller = new BooksController();
+            $controller->editBook();
+            break;
+        case 'add-book':
+            $controller = new BooksController();
+            $controller->addBook();
+            break;
+        case 'update-book':
+            $controller = new BooksController();
+            $controller->updateBook();
             break;
         case 'messaging':
             $controller = new MessagingController();
@@ -40,6 +60,13 @@ try {
         case 'update-account':
             $controller = new AccountController();
             $controller->updateAccount();
+            break;
+        case 'delete-book':
+            $controller = new BooksController();
+            $controller->deleteBook();
+        case 'public-account':
+            $controller = new AccountController();
+            $controller->showPublicAccount();
             break;
         case 'login':
             $controller = new LoginController();
