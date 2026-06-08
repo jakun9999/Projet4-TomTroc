@@ -77,7 +77,7 @@ $booksCount = $params['books_count'] ?? '0';
                     <?php $number = 0; ?>
                     <?php foreach ($books as $book): ?>
                         <?php $number++ ?>
-                        <div class="flex flex-col xl:flex-row justify-center xl:justify-start xl:items-center px-14 
+                        <div class="flex flex-col xl:flex-row xl:justify-start xl:items-center px-14 
                         xl:pl-16.5 xl:pr-15.75 pt-13 pb-9.25 xl:py-6.5 font-cassian-inter text-[14px] xl:text-[12px] 
                         border-t border-cassian-primary h-62.75 w-83.25 xl:h-32.5 xl:w-192.75 rounded-[20px] 
                         xl:rounded-none

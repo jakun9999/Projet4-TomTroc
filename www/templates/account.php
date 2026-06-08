@@ -190,13 +190,13 @@ $success = $params['success'] ?? false;
                     <?php foreach ($books as $book): // Render each div for each book 
                     ?>
                         <?php $number++ ?>
-                        <div class="flex flex-col xl:flex-row justify-center xl:justify-start xl:items-center px-14 
+                        <div class="flex flex-col xl:flex-row xl:justify-start xl:items-center px-14 
                         xl:pl-16.5 xl:pr-15.75 pt-13 pb-9.25 xl:py-6.5 font-cassian-inter text-[14px] xl:text-[12px] 
-                        border-t border-cassian-primary h-62.75 w-83.25 xl:h-32.5 xl:w-285 rounded-[20px] 
+                        border-t border-cassian-primary h-81.75 w-83.25 xl:h-32.5 xl:w-285 rounded-[20px] 
                         xl:rounded-none 
                         <?= $number % 2 === 1 ? 'bg-cassian-white' : 'bg-cassian-white xl:bg-cassian-gray-strong' ?> 
                         <?= $number === count($books) ? 'xl:rounded-b-[20px]' : '' ?>">
-                            <div class="flex items-center">
+                            <div class="flex">
                                 <img src="<?= ($book->getImageUrl() ?? '') !== ''
                                                 ? htmlspecialchars($book->getImageUrl())
                                                 : './assets/images/new_book_cover.png' ?>"
@@ -209,21 +209,40 @@ $success = $params['success'] ?? false;
                                     <p class=" w-31 xl:w-42.5 pr-1.5 truncate xl:line-clamp-3">
                                         <?= htmlspecialchars($book->getAuthor() ?? '') ?>
                                     </p>
+                                    <p
+                                        class="block xl:hidden xl:ml-16.25 w-[70.62px] h-[18.4px] rounded-[29.58px] 
+                                        font-cassian-inter font-medium text-[8.88px] text-cassian-white py-[3.7px] 
+                                        px-[13.31px] text-center mt-4 xl:mt-0
+                                        <?php if ($book->getStatus()) {
+                                            echo ' bg-cassian-green-light';
+                                        } else {
+                                            echo ' bg-cassian-status-red';
+                                        }
+                                        ?>
+                                        " aria-hidden="true">
+                                        <?php if ($book->getStatus()) {
+                                            echo 'disponible';
+                                        } else {
+                                            echo 'non dispo.';
+                                        }
+                                        ?>
+                                    </p>
                                 </div>
                             </div>
-                            <p class="italic line-clamp-3 xl:line-clamp-4 mt-5.25 xl:mt-0 xl:w-32">
+                            <p class="italic h-auto line-clamp-3 xl:line-clamp-4 mt-5.25 xl:mt-0 xl:w-32">
                                 <?= htmlspecialchars($book->getDescription() ?? '') ?>
                             </p>
                             <p
-                                class="xl:ml-16.25 w-[70.62px] h-[18.4px] rounded-[29.58px] font-cassian-inter 
-                                font-medium text-[8.88px] text-cassian-white py-[3.7px] px-[13.31px] text-center 
+                                class="hidden xl:block xl:ml-16.25 w-[70.62px] h-[18.4px] rounded-[29.58px] 
+                                font-cassian-inter font-medium text-[8.88px] text-cassian-white py-[3.7px] 
+                                px-[13.31px] text-center 
                                 <?php if ($book->getStatus()) {
                                     echo ' bg-cassian-green-light';
                                 } else {
                                     echo ' bg-cassian-status-red';
                                 }
                                 ?>
-                            ">
+                            " aria-hidden="true">
                                 <?php if ($book->getStatus()) {
                                     echo 'disponible';
                                 } else {
@@ -231,7 +250,8 @@ $success = $params['success'] ?? false;
                                 }
                                 ?>
                             </p>
-                            <div class="flex font-cassian-inter text-[12px] underline xl:ml-17.75">
+                            <div class="flex font-cassian-inter text-[12px] underline mt-10.75 xl:mt-0 ml-1.25 
+                            xl:ml-17.75">
                                 <a href="#" class="text-cassian-black-light">Éditer</a>
                                 <button onclick="confirmDelete(<?= $book->getId() ?>)"
                                     class="text-cassian-text-red ml-7 cursor-pointer">
