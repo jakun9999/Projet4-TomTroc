@@ -252,7 +252,7 @@ $success = $params['success'] ?? false;
                             </p>
                             <div class="flex font-cassian-inter text-[12px] underline mt-10.75 xl:mt-0 ml-1.25 
                             xl:ml-17.75">
-                                <a href="#" class="text-cassian-black-light">Éditer</a>
+                                <a href="/edit-book?book=<?= $book->getId() ?>" class="text-cassian-black-light">Éditer</a>
                                 <button onclick="confirmDelete(<?= $book->getId() ?>)"
                                     class="text-cassian-text-red ml-7 cursor-pointer">
                                     Supprimer
