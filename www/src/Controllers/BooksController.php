@@ -124,6 +124,22 @@ class BooksController
         exit();
     }
 
+    public function deleteBook(): void
+    {
+        if (!isset($_SESSION['user'])) {
+            header('location: /login');
+            exit();
+        }
+
+        $bookId = filter_input(INPUT_GET, 'book', FILTER_VALIDATE_INT);
+        $bookManager = new BookManager();
+        $book = $bookManager->getBookById($bookId);
+        if (isset($book) && $book->getUserId() === $_SESSION['user']->getId()) {
+            $bookManager->deleteBook($book->getId());
+        }
+        header('location: /account');
+        exit();
+    }
     /**
      * Update an existing book in the collection.
      */

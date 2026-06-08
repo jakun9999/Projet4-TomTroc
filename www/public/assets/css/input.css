@@ -13,6 +13,8 @@
   --color-cassian-green-light: #6dc5a1;
   --color-cassian-border-form: #f0f0f0;
   --color-cassian-gray-strong: #edf2f6;
+  --color-cassian-status-red: #c56d6d;
+  --color-cassian-text-red: #cb2d2d;
 
   /* Custom fonts */
   --font-cassian-inter: Inter, sans-serif;

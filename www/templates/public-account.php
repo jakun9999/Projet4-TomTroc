@@ -67,7 +67,7 @@ $booksCount = $params['books_count'] ?? '0';
             mb-10.75 xl:mb-53">
                 <!-- Book list header row -->
                 <div class="hidden xl:flex xl:flex-row bg-cassian-white font-cassian-inter text-[8px] font-semibold 
-                pt-[33.24px] pb-[8.25px]">
+                pt-[33.24px] pb-[8.25px] rounded-t-[20px]">
                     <span class="ml-16.5">PHOTO</span>
                     <span class="ml-31.75">TITRE</span>
                     <span class="ml-38.75">AUTEUR</span>
@@ -76,11 +76,13 @@ $booksCount = $params['books_count'] ?? '0';
                 <?php if (isset($books) && !empty($books)): ?>
                     <?php $number = 0; ?>
                     <?php foreach ($books as $book): ?>
+                        <?php $number++ ?>
                         <div class="flex flex-col xl:flex-row justify-center xl:justify-start xl:items-center px-14 
                         xl:pl-16.5 xl:pr-15.75 pt-13 pb-9.25 xl:py-6.5 font-cassian-inter text-[14px] xl:text-[12px] 
                         border-t border-cassian-primary h-62.75 w-83.25 xl:h-32.5 xl:w-192.75 rounded-[20px] 
                         xl:rounded-none
-                        <?= $number % 2 === 0 ? 'bg-cassian-white' : 'bg-cassian-white xl:bg-cassian-gray-strong' ?>">
+                        <?= $number % 2 === 1 ? 'bg-cassian-white' : 'bg-cassian-white xl:bg-cassian-gray-strong' ?> 
+                        <?= $number === count($books) ? 'xl:rounded-b-[20px]' : '' ?>">
                             <div class="flex items-center">
                                 <img src="<?= ($book->getImageUrl() ?? '') !== ''
                                                 ? htmlspecialchars($book->getImageUrl())
@@ -100,7 +102,6 @@ $booksCount = $params['books_count'] ?? '0';
                                 <?= htmlspecialchars($book->getDescription() ?? '') ?>
                             </p>
                         </div>
-                        <?php $number++ ?>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <h2 class="font-cassian-playfair text-cassian-black 

@@ -46,7 +46,10 @@ class AccountController
             $bookManager = new BookManager();
             $booksCount = count($bookManager->getBooksByUserId($_SESSION['user']->getId()));
             $view = new View('TomTroc - Mon compte');
-            $view->render('account', ['books_count' => $booksCount]);
+            $view->render('account', [
+                'books' => $bookManager->getBooksByUserId($_SESSION['user']->getId()),
+                'books_count' => $booksCount
+            ]);
             return;
         } else {
             header('location: /login');

@@ -194,7 +194,7 @@ class BookManager extends AbstractClassManager
         }
     }
 
-    public function getBooksByUserId(int $userId)
+    public function getBooksByUserId(int $userId): array
     {
         try {
             $sql = 'SELECT * FROM book WHERE user_id = :user_id';
@@ -216,6 +216,18 @@ class BookManager extends AbstractClassManager
             }
 
             return $books;
+        } catch (PDOException $e) {
+            throw new Exception('An error occurred while fetching the books from the database.');
+        }
+    }
+
+    public function deleteBook(int $id): void
+    {
+        try {
+            $sql = 'DELETE FROM book
+                WHERE id = :id';
+
+            $result = $this->database->query($sql, ['id' => $id]);
         } catch (PDOException $e) {
             throw new Exception('An error occurred while fetching the books from the database.');
         }

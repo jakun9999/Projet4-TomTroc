@@ -61,6 +61,9 @@ try {
             $controller = new AccountController();
             $controller->updateAccount();
             break;
+        case 'delete-book':
+            $controller = new BooksController();
+            $controller->deleteBook();
         case 'public-account':
             $controller = new AccountController();
             $controller->showPublicAccount();
