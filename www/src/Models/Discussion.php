@@ -20,7 +20,6 @@ class Discussion extends AbstractClass
     private string $user2Photo;
     private array $messages;
 
-    #[Override]
     public function __construct(
         int $user1Id,
         int $user2Id,
@@ -30,7 +29,6 @@ class Discussion extends AbstractClass
         ?string $user2Photo = '',
         ?int $id = null,
         ?DateTime $creationDate = null,
-        ?array $messages = []
     ) {
         $this->user1Id = $user1Id;
         $this->user2Id = $user2Id;
@@ -38,7 +36,6 @@ class Discussion extends AbstractClass
         $this->user2Pseudo = $user2Pseudo;
         $this->user1Photo = $user1Photo;
         $this->user2Photo = $user2Photo;
-        $this->messages = $messages;
         return parent::__construct($id, $creationDate);
     }
 
@@ -72,11 +69,6 @@ class Discussion extends AbstractClass
         return $this->user2Photo;
     }
 
-    public function getMessages(): array
-    {
-        return $this->getMessages();
-    }
-
     public function setUser1Id(int $userId): void
     {
         $this->user1Id = $userId;
@@ -105,10 +97,5 @@ class Discussion extends AbstractClass
     public function setUser2Photo(string $userPhoto): void
     {
         $this->user2Photo = $userPhoto;
-    }
-
-    public function setMessages(array $messages): void
-    {
-        $this->setMessages($messages);
     }
 }

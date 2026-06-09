@@ -17,19 +17,23 @@ class DiscussionManager extends AbstractClassManager
     {
         try {
 
-            $sql = 'SELECT * FROM discussion
-                    WHERE user_1_id = :user_id
-                    OR user_2_id = :user_id';
+            $sql = 'SELECT d.*, 
+                    u1.pseudo AS user_1_pseudo, u1.photo AS user_1_photo,
+                    u2.pseudo AS user_2_pseudo, u2.photo AS user_2_photo
+                    FROM discussion d
+                    INNER JOIN user u1 ON d.user_1_id = u1.id
+                    INNER JOIN user u2 ON d.user_2_id = u2.id
+                    WHERE d.user_1_id = :user_id 
+                    OR d.user_2_id = :user_id';
 
             $results = $this->database->query($sql, [
                 'user_id' => $userId
             ]);
 
             $discussions = [];
-            $messageManager = new MessageManager();
 
             foreach ($results as $result) {
-                $messages = $messageManager->getAllMessageByDisccusionId($result['id']);
+
                 $discussions[] = new Discussion(
                     $result['user_1_id'],
                     $result['user_2_id'],
@@ -39,7 +43,6 @@ class DiscussionManager extends AbstractClassManager
                     $result['user_2_photo'],
                     $result['id'],
                     $result['creation_date'],
-                    $messages
                 );
             }
 
@@ -48,7 +51,7 @@ class DiscussionManager extends AbstractClassManager
 
             // We throw an error as this is an unexpected error that should not happen
             // meaning the database is not working properly or there is a bug in the code.
-            throw new Exception('An error occurred while fetching discussions from the database.');
+            throw new Exception($e . ' An error occurred while fetching discussions from the database.');
         }
     }
 
