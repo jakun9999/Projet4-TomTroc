@@ -51,7 +51,7 @@ if (isset($params['user'])) {
                         class="font-cassian-inter text-[14px]"><?= htmlspecialchars($user->getPseudo() ?? 'Inconnu') ?></span>
                 </div>
             </a>
-            <a href="#"
+            <a href="/new-message?to=<?= htmlspecialchars($book->getUserId()) ?>"
                 class="flex justify-center items-center w-83.5 xl:w-121.25 h-15.75 transition-colors duration-300 ease-in-out bg-cassian-green hover:bg-cassian-green-strong font-cassian-inter font-semibold text-cassian-white text-[16px] rounded-[10px] mt-10 xl:mt-20">
                 Envoyer un message
             </a>

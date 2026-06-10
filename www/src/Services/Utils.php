@@ -14,6 +14,45 @@ class Utils
 {
 
     /**
+     * Generate a string with "Aujourd'hui" + hour (HH:MM)
+     * or Date (DD.MM) + hour (HH:MM).
+     * 
+     * @param DateTime $dateTime DateTime to be converted for message time.
+     * 
+     * @return string A formated string more convenient for message and 
+     * discussion date and time display.
+     */
+    public static function displayMessageDateTime(DateTime $dateTime): string
+    {
+        $today = new DateTime('now');
+
+        if ($dateTime->format('Y-m-d') === $today->format('Y-m-d')) {
+            return "Aujourd'hui " . $dateTime->format('H:i');
+        } else {
+            return $dateTime->format('d.m H:i');
+        }
+    }
+
+    /**
+     * Generate a string with last message hour if last message is from today
+     * or the date (d.m) if last message is older.
+     * 
+     * @param DateTime $dateTime DateTime to be converted to a string.
+     * 
+     * @return string Formated string
+     */
+    public static function displayDiscussionDate(DateTime $dateTime): string
+    {
+        $today = new DateTime('now');
+
+        if ($dateTime->format('Y-m-d') === $today->format('Y-m-d')) {
+            return $dateTime->format('H:i');
+        } else {
+            return $dateTime->format('d.m');
+        }
+    }
+
+    /**
      * Generate a string with the age based on the
      * difference between a DateTime and today.
      * 
