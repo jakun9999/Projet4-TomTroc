@@ -1,6 +1,7 @@
 .env
 .env.local
 .env.*.local
+www/storage/uploads/*
 www/storage/logs/
 www/config/conf.php
 www/vendor/

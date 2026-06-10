@@ -30,7 +30,7 @@ $booksCount = $params['books_count'] ?? '0';
                 <div class="flex flex-col items-center">
                     <img src="
                     <?= $user->getPhoto() ?? '' !== '' ?
-                        htmlspecialchars($user->getPhoto()) :
+                        'get_image.php?name=' . htmlspecialchars($user->getPhoto()) :
                         './assets/images/anonymous.png' ?>"
                         alt="" class="h-33.75 w-33.75 rounded-full object-cover" />
                 </div>
@@ -85,7 +85,7 @@ $booksCount = $params['books_count'] ?? '0';
                         <?= $number === count($books) ? 'xl:rounded-b-[20px]' : '' ?>">
                             <div class="flex items-center">
                                 <img src="<?= ($book->getImageUrl() ?? '') !== ''
-                                                ? htmlspecialchars($book->getImageUrl())
+                                                ? 'get_image.php?name=' . htmlspecialchars($book->getImageUrl())
                                                 : './assets/images/new_book_cover.png' ?>"
                                     alt="Photo de couverture du livre <?= htmlspecialchars($book->getTitle() ?? '') ?>"
                                     class="w-19.75 h-19.75 xl:w-19.5 xl:h-19.5 object-cover">

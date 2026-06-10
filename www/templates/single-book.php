@@ -44,7 +44,7 @@ if (isset($params['user'])) {
             <a href="/public-account?pseudo=<?= htmlspecialchars($user->getPseudo() ?? '') ?>">
                 <div
                     class="flex rounded-[114px] w-39.25 h-15 bg-cassian-white mt-4 pl-1.5 gap-3 justify-start items-center">
-                    <img src="<?= htmlspecialchars($user->getPhoto() ?? '') !== '' ? htmlspecialchars($user->getPhoto()) : './assets/images/anonymous.png' ?>"
+                    <img src="<?= $user->getPhoto() ?? '' !== '' ? 'get_image.php?name=' . htmlspecialchars($user->getPhoto()) : './assets/images/anonymous.png' ?>"
                         alt="Photo de profil de <?= htmlspecialchars($user->getPseudo() ?? 'Inconnu') ?>"
                         class="w-12 h-12 rounded-[114px]">
                     <span

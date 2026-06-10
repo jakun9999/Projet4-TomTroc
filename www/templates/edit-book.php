@@ -64,25 +64,28 @@ $descriptionMessage = $params['description_message'] ?? '';
                 <?php endif; ?>
 
                 <!-- Book Information Form -->
-                <div class="flex flex-col xl:flex-row gap-[32.25px] xl:gap-29.5 bg-cassian-white rounded-[20px] 
+                <form class="flex flex-col xl:flex-row gap-[32.25px] xl:gap-29.5 bg-cassian-white rounded-[20px] 
                 w-93.75 xl:w-full xl:max-w-285 h-full xl:h-auto mt-8.75 xl:mt-5.75 xl:ml-37.5 pt-10.5 xl:pt-14 
-                xl:px-12.5 pb-11.75 xl:pb-16.5">
-
+                xl:px-12.5 pb-11.75 xl:pb-16.5"
+                    action="<?= $mode === 'edit' ? '/update-book' : '/add-book' ?>"
+                    method="POST" enctype="multipart/form-data">
+                    <script src="./assets/js/upload.js" defer></script>
                     <!-- Book photo div -->
                     <div class="flex flex-col w-83.75 xl:w-122 h-[397.75px] xl:h-auto ml-5 xl:ml-0 xl:shrink-0">
                         <p class="font-cassian-inter text-[11px] xl:text-[14px] text-cassian-gray">Photo</p>
-                        <img src="<?= $imageUrl ?? '' !== '' ? 'get_image.php?name=' . htmlspecialchars($imageUrl) : './assets/images/new_book_cover.png' ?>" alt="Photo du livre" class="w-83.75 h-83.75 
+                        <img id="preview" src="<?= $imageUrl ?? '' !== '' ? 'get_image.php?name=' . htmlspecialchars($imageUrl) : './assets/images/new_book_cover.png' ?>" alt="Photo du livre" class="w-83.75 h-83.75 
                         xl:w-122 xl:h-122 object-cover mt-[7.4px] xl:mt-2.5">
-                        <a href="#" class="font-cassian-inter text-[16px] xl:text-[12px] mt-6.25 xl:mt-5.75 self-end 
-                        underline text-cassian-black-light">
+                        <input hidden type="file" id="cover" name="cover" accept="image/*">
+                        <button
+                            type="button"
+                            id="change-cover"
+                            class="font-cassian-inter text-[16px] xl:text-[12px] mt-6.25 xl:mt-5.75 self-end underline text-cassian-black-light hover:cursor-pointer">
                             Modifier la photo
-                        </a>
+                        </button>
                     </div>
 
                     <!-- Book information form -->
-                    <form class="flex flex-col ml-5 xl:ml-0"
-                        action="<?= $mode === 'edit' ? '/update-book' : '/add-book' ?>"
-                        method="POST">
+                    <div class="flex flex-col ml-5 xl:ml-0">
                         <label for="title" class="font-cassian-inter text-[14px] text-cassian-gray xl:mt-0">
                             Titre
                         </label>
@@ -148,7 +151,7 @@ $descriptionMessage = $params['description_message'] ?? '';
                         rounded-md mt-11 w-83.75 xl:w-80.5 h-15.75 transition-colors duration-300 ease-in-out">
                             Valider
                         </button>
-                    </form>
-                </div>
+                    </div>
+                </form>
     </div>
 </section>

@@ -36,20 +36,34 @@ $success = $params['success'] ?? false;
             </h1>
 
             <!-- Account details -->
-            <div class="flex flex-col xl:flex-row gap-8 xl:gap-8.25 mt-10 xl:mt-12">
-
+            <form
+                action="/update-account"
+                method="POST"
+                enctype="multipart/form-data"
+                class="flex flex-col xl:flex-row gap-8 xl:gap-8.25 mt-10 xl:mt-12">
+                <script src="./assets/js/upload.js" defer></script>
                 <!-- Account information (photo, name, library summary) -->
                 <div
                     class="flex flex-col gap-12 pt-12 pb-9 xl:pb-23.25 rounded-[20px] items-center w-83.75 xl:w-136.75 
                     h-112.75 xl:h-127 bg-cassian-white">
                     <!-- Photo and modify link -->
                     <div class="flex flex-col items-center">
-                        <img src="./assets/images/anonymous.png" alt="" class="rounded-full w-33.75 h-33.75 
-                        object-cover
-                        ">
-                        <a href="#" class="font-cassian-inter text-[14px] text-cassian-gray mt-1.25 underline">
+                        <img
+                            id="preview"
+                            src="<?= $user->getPhoto() ?? '' !== '' ?
+                                        'get_image.php?name=' . htmlspecialchars($user->getPhoto()) :
+                                        './assets/images/anonymous.png'
+                                    ?>"
+                            alt=""
+                            class="rounded-full w-33.75 h-33.75 object-cover">
+                        <input hidden type="file" id="cover" name="cover" accept="image/*">
+                        <button
+                            type="button"
+                            id="change-cover"
+                            class="font-cassian-inter text-[14px] text-cassian-gray mt-1.25 underline 
+                        hover:cursor-pointer">
                             modifier
-                        </a>
+                        </button>
                     </div>
                     <!-- separator -->
                     <hr class="w-60.5 h-px bg-cassian-primary text-cassian-primary ">
@@ -90,8 +104,7 @@ $success = $params['success'] ?? false;
                         <h3 class="text-left font-cassian-inter text-[16px] text-cassian-black-light">
                             Vos informations personnelles
                         </h3>
-                        <form action="/update-account" method="POST"
-                            class="flex flex-col mt-5.5 xl:mt-6.5 xl:w-80.5 w-full">
+                        <div class="flex flex-col mt-5.5 xl:mt-6.5 xl:w-80.5 w-full">
 
                             <label for="email" class="font-cassian-inter text-cassian-gray text-[14px]">Adresse
                                 email</label>
@@ -164,11 +177,11 @@ $success = $params['success'] ?? false;
                                 duration-300 ease-in-out hover:bg-cassian-green-strong">
                                 Enregistrer
                             </button>
-                        </form>
+                        </div>
                     </div>
 
                 </div>
-            </div>
+            </form>
 
             <!-- Account library -->
             <!-- Book list area -->

@@ -102,4 +102,82 @@ class Web
         $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#_\-])[\s\S]{8,}$/';
         return (bool) preg_match($regex, $password);
     }
+
+    public static function uploadImage(array $file): ?string
+    {
+        if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
+            die("Erreur lors de l'upload.");
+        }
+
+        // 5MB limited size
+        if ($file['size'] > 5 * 1024 * 1024) {
+            die("Fichier trop volumineux.");
+        }
+
+        $allowedMimeTypes = [
+            'image/jpeg' => 'jpg',
+            'image/png'  => 'png',
+            'image/gif'  => 'gif',
+            'image/webp' => 'webp'
+        ];
+
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        $realMimeType = $finfo->file($file['tmp_name']);
+
+        if (!array_key_exists($realMimeType, $allowedMimeTypes)) {
+            die("Format de fichier non autorisé.");
+        }
+
+        $extension = $allowedMimeTypes[$realMimeType];
+
+        $timeStamp = (new \DateTime())->format('Ymd_His_v');
+        $secureName = $timeStamp . '_' . bin2hex(random_bytes(16)) . '.' . $extension;
+        $uploadDir = '/var/www/storage/uploads/';
+        $destination = $uploadDir . $secureName;
+
+        // Load image and manage it depending on the file type
+        switch ($realMimeType) {
+            case 'image/jpeg':
+                $imageSrc = \imagecreatefromjpeg($file['tmp_name']);
+                if ($imageSrc) {
+                    imagejpeg($imageSrc, $destination, 85);
+                }
+                break;
+
+            case 'image/png':
+                $imageSrc = \imagecreatefrompng($file['tmp_name']);
+                if ($imageSrc) {
+
+                    \imagealphablending($imageSrc, false);
+                    \imagesavealpha($imageSrc, true);
+                    \imagepng($imageSrc, $destination, 6);
+                }
+                break;
+
+            case 'image/gif':
+                $imageSrc = \imagecreatefromgif($file['tmp_name']);
+                if ($imageSrc) {
+                    \imagegif($imageSrc, $destination);
+                }
+                break;
+
+            case 'image/webp':
+                $imageSrc = \imagecreatefromwebp($file['tmp_name']);
+                if ($imageSrc) {
+                    \imagewebp($imageSrc, $destination, 80);
+                }
+                break;
+        }
+
+        // delete temp file if it still exists
+        if (\file_exists($file['tmp_name'])) {
+            @unlink($file['tmp_name']);
+        }
+
+        if (!\file_exists($destination)) {
+            die("Échec du traitement sécurisé de l'image.");
+        }
+
+        return $secureName;
+    }
 }
