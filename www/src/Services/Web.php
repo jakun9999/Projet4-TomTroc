@@ -83,7 +83,7 @@ class Web
 
         $output = trim($input);
         $output = str_replace(["\r", "\n", "\t"], '', $output);
-        $output = htmlspecialchars($output, ENT_QUOTES, 'UTF-8');
+        $output = mb_convert_encoding($output, 'UTF-8', 'UTF-8');
 
         return $output;
     }
