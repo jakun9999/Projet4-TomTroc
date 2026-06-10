@@ -21,10 +21,10 @@ class Discussion extends AbstractClass
     public function __construct(
         int $currentUserId,
         int $otherUserId,
-        ?string $currentUserPseudo = '',
-        ?string $otherUserPseudo = '',
-        ?string $currentUserPhoto = '',
-        ?string $otherUserPhoto = '',
+        string $currentUserPseudo = '',
+        string $otherUserPseudo = '',
+        string $currentUserPhoto = '',
+        string $otherUserPhoto = '',
         ?int $id = null,
         ?DateTime $creationDate = null,
     ) {
@@ -33,7 +33,7 @@ class Discussion extends AbstractClass
         $this->currentUserPseudo = $currentUserPseudo;
         $this->otherUserPseudo = $otherUserPseudo;
         $this->currentUserPhoto = $currentUserPhoto;
-        $this->currentUserPhoto = $currentUserPhoto;
+        $this->otherUserPhoto = $currentUserPhoto;
         return parent::__construct($id, $creationDate);
     }
 

@@ -6,6 +6,7 @@ namespace Ml\App\Controllers;
 
 use Ml\App\Models\Discussion;
 use Ml\App\Models\DiscussionManager;
+use Ml\App\Models\MessageManager;
 use Ml\App\Models\UserManager;
 use Ml\App\Views\View;
 
@@ -64,7 +65,7 @@ class MessagingController
         // We need to check if a discussion with the destination user
         // already exists
         foreach ($discussions as $discussion) {
-            if ($discussion->getOtherUserId === $otherUserId) {
+            if ($discussion->getOtherUserId() === $otherUserId) {
                 $selectedDiscussion = $discussion;
                 break;
             }
@@ -75,6 +76,12 @@ class MessagingController
         if (is_null($selectedDiscussion)) {
             $userManager = new UserManager();
             $otherUser = $userManager->getUserById($otherUserId);
+
+            // if user id doesn't exists we redirect to book list.
+            if (is_null($otherUser)) {
+                header('location: /books');
+                exit();
+            }
 
             // We remove destination password from memory immediately
             // for security reason
@@ -96,12 +103,18 @@ class MessagingController
             // unset this temp user for security reason, avoiding to keep
             // it in memory.
             unset($otherUser);
+        } else {
+            // a previous discussion exists, we load messages from this
+            // selected discussion so that template can load it.
+            $messageManager = new MessageManager();
+            $selectedDiscussionMessages = $messageManager->getAllMessageByDisccusionId($selectedDiscussion->getId());
         }
 
         $view = new View('TomTroc - Messagerie');
         $view->render('messaging', [
             'discussions' => $discussions,
-            'selected_discussion' => $selectedDiscussion
+            'selected_discussion' => $selectedDiscussion,
+            'selected_discussion_messages' => isset($selectedDiscussionMessages) ? $selectedDiscussionMessages : []
         ]);
         return;
     }
