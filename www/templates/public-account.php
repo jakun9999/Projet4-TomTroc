@@ -53,7 +53,7 @@ $booksCount = $params['books_count'] ?? '0';
                         <span class="font-cassian-inter text-cassian-black-light text-[14px]">&nbsp;
                             <?= htmlspecialchars($booksCount) ?> <?= $booksCount > 1 ? 'livres' : 'livre' ?></span>
                     </p>
-                    <a href="/books"
+                    <a href="/new-message?to=<?= htmlspecialchars($user->getId() ?? '') ?>"
                         class="font-cassian-inter text-cassian-green border-cassian-green 
                         hover:bg-cassian-green-strong hover:text-cassian-white mx-auto mt-11.25 flex h-15.75 
                         w-53.75 items-center justify-center rounded-[10px] border text-base font-semibold 
