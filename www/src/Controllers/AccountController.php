@@ -142,10 +142,5 @@ class AccountController
         $_SESSION['user']->setPseudo($pseudo);
         header('location: /account');
         exit();
-        // $bookManager = new BookManager();
-        // $booksCount = count($bookManager->getBooksByUserId($_SESSION['user']->getId()));
-        // $modifiedValues['books_count'] = $booksCount;
-        // $view = new View('TomTroc - Mon compte');
-        // $view->render('account', $modifiedValues);
     }
 }

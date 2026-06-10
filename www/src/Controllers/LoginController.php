@@ -68,8 +68,7 @@ class LoginController
             $user->setPassword('');
             unset($password);
             $_SESSION['user'] = $user;
-            $view = new View('TomTroc - Accueil');
-            $view->render('home');
+            header('location: /home');
             return;
         }
     }
