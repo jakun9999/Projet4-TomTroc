@@ -64,23 +64,25 @@
                         <a class="flex items-center py-1 xl:py-0 text-[14px] font-cassian-inter transition-all duration-200 <?= $template === 'books' ? 'font-semibold text-cassian-black-light' : 'font-normal text-cassian-black-light hover:font-semibold' ?>"
                             href="/books">Nos livres à l'échange</a>
                     </li>
-                    <li class="flex xl:ml-auto">
-                        <a class="flex gap-1.5 items-center py-1 xl:py-0  text-[14px] font-cassian-inter transition-all duration-200 <?= $template === 'messaging' ? 'font-semibold text-cassian-black-light' : 'font-normal text-cassian-black-light hover:font-semibold' ?>"
-                            href="/messaging">
-                            <span class="shrink-0 w-3.75 h-[13.13px] bg-current inline-block mask-messaging"></span>
-                            <span>Messagerie</span>
-                            <span
-                                class="shrink-0 rounded-full bg-cassian-black-light text-white text-[0.75rem] px-1.5 font-normal">3</span>
-                        </a>
-                    </li>
-                    <li class="flex xl:ml-14.5">
-                        <a class="flex gap-1.5 items-center py-1 xl:py-0 text-[14px] font-cassian-inter transition-all duration-200 <?= $template === 'account' ? 'font-semibold text-cassian-black-light' : 'font-normal text-cassian-black-light hover:font-semibold' ?>"
-                            href="/account">
-                            <span class="shrink-0 w-[9.29px] h-3.25 bg-current inline-block mask-account"></span>
-                            <span>Mon compte</span>
-                        </a>
-                    </li>
-                    <li class="flex xl:ml-14.5">
+                    <?php if (isset($_SESSION['user'])): ?>
+                        <li class="flex xl:ml-auto">
+                            <a class="flex gap-1.5 items-center py-1 xl:py-0  text-[14px] font-cassian-inter transition-all duration-200 <?= $template === 'messaging' ? 'font-semibold text-cassian-black-light' : 'font-normal text-cassian-black-light hover:font-semibold' ?>"
+                                href="/messaging">
+                                <span class="shrink-0 w-3.75 h-[13.13px] bg-current inline-block mask-messaging"></span>
+                                <span>Messagerie</span>
+                                <span
+                                    class="shrink-0 rounded-full bg-cassian-black-light text-white text-[0.75rem] px-1.5 font-normal">3</span>
+                            </a>
+                        </li>
+                        <li class="flex xl:ml-14.5">
+                            <a class="flex gap-1.5 items-center py-1 xl:py-0 text-[14px] font-cassian-inter transition-all duration-200 <?= $template === 'account' ? 'font-semibold text-cassian-black-light' : 'font-normal text-cassian-black-light hover:font-semibold' ?>"
+                                href="/account">
+                                <span class="shrink-0 w-[9.29px] h-3.25 bg-current inline-block mask-account"></span>
+                                <span>Mon compte</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    <li class="flex <?= isset($_SESSION['user']) ? 'xl:ml-14.5' : 'xl:ml-auto' ?>">
                         <a class="flex items-center py-1 xl:py-0 text-[14px] font-cassian-inter transition-all duration-200 <?= $template === 'login' ? 'font-semibold text-cassian-black-light' : 'font-normal text-cassian-black-light hover:font-semibold' ?>"
                             href="<?= isset($_SESSION['user']) ? '/logout' : '/login' ?>">
                             <?= isset($_SESSION['user']) ? 'Déconnexion' : 'Connexion' ?>
@@ -110,10 +112,10 @@
     </footer>
 
     <script>
-    document.getElementById('menu-toggler').addEventListener('click', function() {
-        var menu = document.getElementById('nav-menu');
-        menu.classList.toggle('hidden');
-    });
+        document.getElementById('menu-toggler').addEventListener('click', function() {
+            var menu = document.getElementById('nav-menu');
+            menu.classList.toggle('hidden');
+        });
     </script>
 </body>
 
