@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ml\App\Models;
 
 use DateTime;
-use Override;
 
 /**
  * Class to handle message objects
@@ -13,16 +12,16 @@ use Override;
 class Message extends AbstractClass
 {
     private int $userId;
-    private int $discussionId;
+    private ?int $discussionId = null;
     private string $content;
     private bool $isRead;
     private string $userPhoto;
 
-    #[Override]
+
     public function __construct(
         int $userId,
         string $content,
-        ?bool $isRead = false,
+        bool $isRead = false,
         ?int $id = null,
         ?DateTime $creationDate = null,
         ?int $discussionId = null,
@@ -41,14 +40,14 @@ class Message extends AbstractClass
         return $this->userId;
     }
 
-    public function getDiscussionId(): int
+    public function getDiscussionId(): ?int
     {
         return $this->discussionId;
     }
 
     public function getContent(): string
     {
-        return $this->getContent();
+        return $this->content;
     }
 
     public function getStatus(): bool

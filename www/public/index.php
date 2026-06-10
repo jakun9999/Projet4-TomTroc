@@ -57,6 +57,14 @@ try {
             $controller = new MessagingController();
             $controller->newMessage();
             break;
+        case 'send-message':
+            $controller = new MessagingController();
+            $controller->sendMessage();
+            break;
+        case 'show-discussion':
+            $controller = new MessagingController();
+            $controller->showDiscussion();
+            break;
         case 'account':
             $controller = new AccountController();
             $controller->showAccount();

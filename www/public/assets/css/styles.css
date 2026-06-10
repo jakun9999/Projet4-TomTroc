@@ -345,6 +345,9 @@
   .mt-\[7\.4px\] {
     margin-top: 7.4px;
   }
+  .mt-\[8px\] {
+    margin-top: 8px;
+  }
   .mt-\[18\.2px\] {
     margin-top: 18.2px;
   }
@@ -1694,6 +1697,26 @@
   .xl\:h-auto {
     @media (width >= 80rem) {
       height: auto;
+    }
+  }
+  .xl\:max-h-100 {
+    @media (width >= 80rem) {
+      max-height: calc(var(--spacing) * 100);
+    }
+  }
+  .xl\:max-h-120 {
+    @media (width >= 80rem) {
+      max-height: calc(var(--spacing) * 120);
+    }
+  }
+  .xl\:max-h-150 {
+    @media (width >= 80rem) {
+      max-height: calc(var(--spacing) * 150);
+    }
+  }
+  .xl\:max-h-\[400px\] {
+    @media (width >= 80rem) {
+      max-height: 400px;
     }
   }
   .xl\:min-h-screen {

@@ -26,7 +26,7 @@ class Utils
     {
         $today = new DateTime('now');
 
-        if ($dateTime->format('Y-m-d') === $today('Y-m-d')) {
+        if ($dateTime->format('Y-m-d') === $today->format('Y-m-d')) {
             return "Aujourd'hui " . $dateTime->format('H:i');
         } else {
             return $dateTime->format('d.m H:i');

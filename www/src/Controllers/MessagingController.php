@@ -6,9 +6,11 @@ namespace Ml\App\Controllers;
 
 use Ml\App\Models\Discussion;
 use Ml\App\Models\DiscussionManager;
+use Ml\App\Models\Message;
 use Ml\App\Models\MessageManager;
 use Ml\App\Models\UserManager;
 use Ml\App\Views\View;
+use Ml\App\Services\Web;
 
 /**
  * Controller for the messaging page to allow 
@@ -16,6 +18,16 @@ use Ml\App\Views\View;
  */
 class MessagingController
 {
+
+    private DiscussionManager $discussionManager;
+    private MessageManager $messageManager;
+
+    public function __construct()
+    {
+        $this->discussionManager = new DiscussionManager();
+        $this->messageManager = new MessageManager();
+    }
+
 
     /**
      * Simply render messaging page with latest discussion message selected.
@@ -30,10 +42,49 @@ class MessagingController
             exit();
         }
 
-        $discussionManager = new DiscussionManager();
-        $discussions = $discussionManager->getAllDiscussionByUserId($_SESSION['user']->getId());
+
+        $discussions = $this->discussionManager->getAllDiscussionByUserId($_SESSION['user']->getId());
+        $messages = [];
+        foreach ($discussions as $discussion) {
+            $messages[$discussion->getId()] = $this->messageManager->getAllMessageByDisccusionId($discussion->getId());
+        }
+
         $view = new View('TomTroc - Messagerie');
-        $view->render('messaging', ['discussions' => $discussions]);
+        $view->render('messaging', [
+            'discussions' => $discussions,
+            'selected_discussion' => $discussions[0],
+            'messages' => $messages
+        ]);
+        return;
+    }
+
+    public function showDiscussion(): void
+    {
+        // If visitor is not an authenticated user, we redirect him
+        // to login page.
+        if (!isset($_SESSION['user'])) {
+            header('location: /login');
+            exit();
+        }
+
+        $otherUserId = filter_input(INPUT_GET, 'with', FILTER_VALIDATE_INT);
+
+        $discussions = $this->discussionManager->getAllDiscussionByUserId($_SESSION['user']->getId());
+        $messages = [];
+        foreach ($discussions as $discussion) {
+            if ($discussion->getOtherUserId() === $otherUserId) {
+                $selectedDiscussion = $discussion;
+            }
+            $messages[$discussion->getId()] = $this->messageManager->getAllMessageByDisccusionId($discussion->getId());
+        }
+
+        $view = new View('TomTroc - Messagerie');
+        $view->render('messaging', [
+            'discussions' => $discussions,
+            'selected_discussion' => $selectedDiscussion ?? $discussions[0],
+            'messages' => $messages
+        ]);
+        return;
     }
 
     /**
@@ -56,9 +107,8 @@ class MessagingController
             header('location: /books');
         }
 
-        $discussionManager = new DiscussionManager();
-        $discussions = $discussionManager->getAllDiscussionByUserId($_SESSION['user']->getId());
-
+        $discussions = $this->discussionManager->getAllDiscussionByUserId($_SESSION['user']->getId());
+        $messages = [];
         // Creating the new discussion to be passed to template
         $selectedDiscussion = null;
 
@@ -67,8 +117,8 @@ class MessagingController
         foreach ($discussions as $discussion) {
             if ($discussion->getOtherUserId() === $otherUserId) {
                 $selectedDiscussion = $discussion;
-                break;
             }
+            $messages[$discussion->getId()] = $this->messageManager->getAllMessageByDisccusionId($discussion->getId());
         }
 
         // If no discussion was already done with the destination user
@@ -106,15 +156,17 @@ class MessagingController
         } else {
             // a previous discussion exists, we load messages from this
             // selected discussion so that template can load it.
-            $messageManager = new MessageManager();
-            $selectedDiscussionMessages = $messageManager->getAllMessageByDisccusionId($selectedDiscussion->getId());
+
+            $selectedDiscussionMessages = $this->messageManager->getAllMessageByDisccusionId(
+                $selectedDiscussion->getId()
+            );
         }
 
         $view = new View('TomTroc - Messagerie');
         $view->render('messaging', [
             'discussions' => $discussions,
             'selected_discussion' => $selectedDiscussion,
-            'selected_discussion_messages' => isset($selectedDiscussionMessages) ? $selectedDiscussionMessages : []
+            'messages' => $messages
         ]);
         return;
     }
@@ -123,5 +175,20 @@ class MessagingController
      * Called when the message form is used to manage recording and display of 
      * a new message sent by the user.
      */
-    public function sendMessage(): void {}
+    public function sendMessage(): void
+    {
+        if (!isset($_SESSION['user']) && !Web::controlCsrfToken()) {
+            header('location: /login');
+            exit();
+        }
+
+        $receiverId = filter_input(INPUT_POST, 'to', FILTER_VALIDATE_INT);
+        $content = Web::sanitizeShortString($_POST['message']);
+        $messageManager = new MessageManager();
+        $message = new Message($_SESSION['user']->getId(), $content);
+        $message = $messageManager->addMessage($message, $receiverId);
+
+        header('location: /new-message?to=' . $receiverId);
+        exit();
+    }
 }

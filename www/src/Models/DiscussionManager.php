@@ -31,21 +31,23 @@ class DiscussionManager extends AbstractClassManager
                 'user_id' => $userId
             ]);
 
+            $rows = $results->fetchAll(\PDO::FETCH_ASSOC);
+
             $discussions = [];
 
-            foreach ($results as $result) {
+            foreach ($rows as $row) {
 
                 // converting user1 and user2 to currentUser and otherUser
                 // $_SESSION['user'] is placed first
-                $currentUserId = $result['user_1_id'] === $userId ? $result['user_1_id'] : $result['user_2_id'];
-                $otherUserId = $result['user_1_id'] === $userId ? $result['user_2_id'] : $result['user_1_id'];
+                $currentUserId = $row['user_1_id'] === $userId ? $row['user_1_id'] : $row['user_2_id'];
+                $otherUserId = $row['user_1_id'] === $userId ? $row['user_2_id'] : $row['user_1_id'];
 
-                $currentUserPseudo = $result['user_1_id'] === $userId ? $result['user_1_pseudo'] : $result['user_2_pseudo'];
-                $otherUserPseudo = $result['user_1_id'] === $userId ? $result['user_2_pseudo'] : $result['user_1_pseudo'];
+                $currentUserPseudo = $row['user_1_id'] === $userId ? $row['user_1_pseudo'] : $row['user_2_pseudo'];
+                $otherUserPseudo = $row['user_1_id'] === $userId ? $row['user_2_pseudo'] : $row['user_1_pseudo'];
 
 
-                $currentUserPhoto = $result['user_1_id'] === $userId ? $result['user_1_photo'] : $result['user_2_photo'];
-                $otherUserPhoto = $result['user_1_id'] === $userId ? $result['user_2_photo'] : $result['user_1_photo'];
+                $currentUserPhoto = $row['user_1_id'] === $userId ? $row['user_1_photo'] : $row['user_2_photo'];
+                $otherUserPhoto = $row['user_1_id'] === $userId ? $row['user_2_photo'] : $row['user_1_photo'];
 
                 $discussions[] = new Discussion(
                     $currentUserId,
@@ -54,8 +56,8 @@ class DiscussionManager extends AbstractClassManager
                     $otherUserPseudo,
                     $currentUserPhoto,
                     $otherUserPhoto,
-                    $result['id'],
-                    $result['creation_date'],
+                    $row['id'],
+                    new DateTime($row['creation_date']),
                 );
             }
 
@@ -68,7 +70,7 @@ class DiscussionManager extends AbstractClassManager
         }
     }
 
-    public function addDiscussion(Discussion $discussion): void
+    public function addDiscussion(Discussion $discussion): Discussion
     {
         try {
 
@@ -85,7 +87,7 @@ class DiscussionManager extends AbstractClassManager
             $pdo = $this->database->getPDO();
             $discussion->setId((int) $pdo->lastInsertId());
             $discussion->setCreationDate(new DateTime());
-            return;
+            return $discussion;
         } catch (PDOException $e) {
 
             // We throw an error as this is an unexpected error that should not happen
@@ -111,6 +113,34 @@ class DiscussionManager extends AbstractClassManager
                 return true;
             } else {
                 return false;
+            }
+        } catch (PDOException $e) {
+
+            // We throw an error as this is an unexpected error that should not happen
+            // meaning the database is not working properly or there is a bug in the code.
+            throw new Exception('An error occurred while accessing the database.');
+        }
+    }
+
+    public function getExistingDiscussionId(int $user1Id, int $user2Id): ?int
+    {
+        try {
+
+            $sql = 'SELECT id FROM discussion
+            WHERE (user_1_id = :user_1_id AND user_2_id = :user_2_id)
+            OR (user_1_id = :user_2_id AND user_2_id = :user_1_id)';
+
+            $results = $this->database->query($sql, [
+                'user_1_id' => $user1Id,
+                'user_2_id' => $user2Id
+            ]);
+
+            $discussion = $results->fetch(\PDO::FETCH_ASSOC);
+
+            if ($discussion !== false) {
+                return $discussion['id'];
+            } else {
+                return null;
             }
         } catch (PDOException $e) {
 
