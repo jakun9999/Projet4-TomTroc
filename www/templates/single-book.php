@@ -21,7 +21,7 @@ if (isset($params['user'])) {
         > <?= htmlspecialchars($book->getTitle() ?? '') ?></p>
     <div class="flex flex-col xl:flex-row justify-center xl:justify-start items-start w-full xl:mt-4">
         <div class="order-1 xl:order-1 xl:shrink-0">
-            <img src="<?= htmlspecialchars($book->getImageUrl() ?? '' !== '' ? htmlspecialchars($book->getImageUrl()) : './assets/images/new_book_cover.png') ?>"
+            <img src="<?= $book->getImageUrl() ?? '' !== '' ? 'get_image.php?name=' . htmlspecialchars($book->getImageUrl()) : './assets/images/new_book_cover.png' ?>"
                 alt="Photo couverture du livre <?= htmlspecialchars($book->getTitle() ?? '') ?>"
                 class="w-93.75 h-[449.48px] xl:w-180 xl:h-215.75 object-cover mt-0">
         </div>

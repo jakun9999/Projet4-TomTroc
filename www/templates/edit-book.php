@@ -26,6 +26,7 @@ if ($mode === 'edit') {
         exit();
     }
 
+    $imageUrl = $book->getImageUrl();
     $titleValue = $book->getTitle();
     $authorValue = $book->getAuthor();
     $descriptionValue = $book->getDescription();
@@ -70,7 +71,7 @@ $descriptionMessage = $params['description_message'] ?? '';
                     <!-- Book photo div -->
                     <div class="flex flex-col w-83.75 xl:w-122 h-[397.75px] xl:h-auto ml-5 xl:ml-0 xl:shrink-0">
                         <p class="font-cassian-inter text-[11px] xl:text-[14px] text-cassian-gray">Photo</p>
-                        <img src="./assets/images/new_book_cover.png" alt="Photo du livre" class="w-83.75 h-83.75 
+                        <img src="<?= $imageUrl ?? '' !== '' ? 'get_image.php?name=' . htmlspecialchars($imageUrl) : './assets/images/new_book_cover.png' ?>" alt="Photo du livre" class="w-83.75 h-83.75 
                         xl:w-122 xl:h-122 object-cover mt-[7.4px] xl:mt-2.5">
                         <a href="#" class="font-cassian-inter text-[16px] xl:text-[12px] mt-6.25 xl:mt-5.75 self-end 
                         underline text-cassian-black-light">

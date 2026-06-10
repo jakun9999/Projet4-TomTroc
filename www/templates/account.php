@@ -198,7 +198,7 @@ $success = $params['success'] ?? false;
                         <?= $number === count($books) ? 'xl:rounded-b-[20px]' : '' ?>">
                             <div class="flex">
                                 <img src="<?= ($book->getImageUrl() ?? '') !== ''
-                                                ? htmlspecialchars($book->getImageUrl())
+                                                ? 'get_image.php?name=' . htmlspecialchars($book->getImageUrl())
                                                 : './assets/images/new_book_cover.png' ?>"
                                     alt="Photo de couverture du livre <?= htmlspecialchars($book->getTitle() ?? '') ?>"
                                     class="w-19.75 h-19.75 xl:w-19.5 xl:h-19.5 object-cover">
