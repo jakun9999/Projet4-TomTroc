@@ -52,7 +52,7 @@ class MessagingController
         $view = new View('TomTroc - Messagerie');
         $view->render('messaging', [
             'discussions' => $discussions,
-            'selected_discussion' => $discussions[0],
+            'selected_discussion' => $discussions[0] ?? null,
             'messages' => $messages
         ]);
         return;
