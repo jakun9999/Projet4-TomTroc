@@ -106,12 +106,12 @@ class Web
     public static function uploadImage(array $file): ?string
     {
         if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
-            die("Erreur lors de l'upload.");
+            return null;
         }
 
         // 5MB limited size
         if ($file['size'] > 5 * 1024 * 1024) {
-            die("Fichier trop volumineux.");
+            return null;
         }
 
         $allowedMimeTypes = [
@@ -125,7 +125,7 @@ class Web
         $realMimeType = $finfo->file($file['tmp_name']);
 
         if (!array_key_exists($realMimeType, $allowedMimeTypes)) {
-            die("Format de fichier non autorisé.");
+            return null;
         }
 
         $extension = $allowedMimeTypes[$realMimeType];
@@ -175,7 +175,7 @@ class Web
         }
 
         if (!\file_exists($destination)) {
-            die("Échec du traitement sécurisé de l'image.");
+            return null;
         }
 
         return $secureName;

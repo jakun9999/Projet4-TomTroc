@@ -110,6 +110,8 @@ class BooksController
         $file = $_FILES['cover'] ?? null;
         $imageUrl = Web::uploadImage($file) ?? '';
 
+
+
         if ($title === '') {
             $errors['title_message'] = 'Vous devez saisir un titre';
         }

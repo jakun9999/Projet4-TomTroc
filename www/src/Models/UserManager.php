@@ -225,6 +225,15 @@ class UserManager extends AbstractClassManager
 
         try {
 
+            // Managing to keep unchanged recorded photo if receiving a '' url.
+            $sql = 'SELECT * FROM user WHERE id = :id';
+            $result = $this->database->query($sql, ['id' => $user->getId()]);
+            $row = $result->fetch(\PDO::FETCH_ASSOC);
+
+            if ($row['photo'] !== '' && $photo === '') {
+                $photo = ($row['photo']);
+            }
+
             $sql = 'UPDATE user SET pseudo = :pseudo, email = :email, password = :password, photo = :photo WHERE id = :id';
 
             $this->database->query($sql, [

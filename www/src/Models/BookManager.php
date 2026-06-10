@@ -57,6 +57,15 @@ class BookManager extends AbstractClassManager
     {
         try {
 
+            // Managing to keep unchanged recorded image if receiving a '' url.
+            $sql = 'SELECT * FROM book WHERE id = :id';
+            $result = $this->database->query($sql, ['id' => $book->getId()]);
+            $row = $result->fetch(\PDO::FETCH_ASSOC);
+
+            if ($row['image_url'] !== '' && $book->getImageUrl() === '') {
+                $book->setImageUrl($row['image_url']);
+            }
+
             $sql = 'UPDATE book SET 
                 title = :title, 
                 author = :author,                 
