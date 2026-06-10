@@ -9,7 +9,8 @@ use PDOException;
 use Exception;
 
 /**
- * Class managing discussions
+ * Class managing discussions. Convert user1 and user2 to currentUser
+ * and otherUser to simplify messaging template.
  */
 class DiscussionManager extends AbstractClassManager
 {
@@ -34,13 +35,25 @@ class DiscussionManager extends AbstractClassManager
 
             foreach ($results as $result) {
 
+                // converting user1 and user2 to currentUser and otherUser
+                // $_SESSION['user'] is placed first
+                $currentUserId = $result['user_1_id'] === $userId ? $result['user_1_id'] : $result['user_2_id'];
+                $otherUserId = $result['user_1_id'] === $userId ? $result['user_2_id'] : $result['user_1_id'];
+
+                $currentUserPseudo = $result['user_1_id'] === $userId ? $result['user_1_pseudo'] : $result['user_2_pseudo'];
+                $otherUserPseudo = $result['user_1_id'] === $userId ? $result['user_2_pseudo'] : $result['user_1_pseudo'];
+
+
+                $currentUserPhoto = $result['user_1_id'] === $userId ? $result['user_1_photo'] : $result['user_2_photo'];
+                $otherUserPhoto = $result['user_1_id'] === $userId ? $result['user_2_photo'] : $result['user_1_photo'];
+
                 $discussions[] = new Discussion(
-                    $result['user_1_id'],
-                    $result['user_2_id'],
-                    $result['user_1_pseudo'],
-                    $result['user_2_pseudo'],
-                    $result['user_1_photo'],
-                    $result['user_2_photo'],
+                    $currentUserId,
+                    $otherUserId,
+                    $currentUserPseudo,
+                    $otherUserPseudo,
+                    $currentUserPhoto,
+                    $otherUserPhoto,
                     $result['id'],
                     $result['creation_date'],
                 );
@@ -65,8 +78,8 @@ class DiscussionManager extends AbstractClassManager
                     (:user_1_id, :user_2_id, NOW())';
 
             $this->database->query($sql, [
-                'user_1_id' => $discussion->getUser1Id(),
-                'user_2_id' => $discussion->getUser2Id()
+                'user_1_id' => $discussion->getCurrentUserId(),
+                'user_2_id' => $discussion->getOtherUserId()
             ]);
 
             $pdo = $this->database->getPDO();

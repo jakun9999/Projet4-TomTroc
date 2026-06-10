@@ -57,21 +57,28 @@ class MessagingController
 
         $discussionManager = new DiscussionManager();
         $discussions = $discussionManager->getAllDiscussionByUserId($_SESSION['user']->getId());
+
+        // Creating the new discussion to be passed to template
         $selectedDiscussion = null;
 
+        // We need to check if a discussion with the destination user
+        // already exists
         foreach ($discussions as $discussion) {
-            if (
-                $discussion->getUser1Id === $otherUserId ||
-                $discussion->getUser2Id === $otherUserId
-            ) {
+            if ($discussion->getOtherUserId === $otherUserId) {
                 $selectedDiscussion = $discussion;
                 break;
             }
         }
 
+        // If no discussion was already done with the destination user
+        // we will create to new one.
         if (is_null($selectedDiscussion)) {
             $userManager = new UserManager();
             $otherUser = $userManager->getUserById($otherUserId);
+
+            // We remove destination password from memory immediately
+            // for security reason
+            $otherUser->setPassword('');
 
             $selectedDiscussion = new Discussion(
                 $_SESSION['user']->getId(),
@@ -82,10 +89,12 @@ class MessagingController
                 $otherUser->getPhoto()
             );
 
+            // We add this new discussion to discussions[] array so that
+            // template will be able to display it.
             $discussions[] = $selectedDiscussion;
 
             // unset this temp user for security reason, avoiding to keep
-            // it in memory with its password.
+            // it in memory.
             unset($otherUser);
         }
 

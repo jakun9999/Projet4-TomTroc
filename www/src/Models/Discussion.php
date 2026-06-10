@@ -5,97 +5,95 @@ declare(strict_types=1);
 namespace Ml\App\Models;
 
 use DateTime;
-use Override;
 
 /**
  * Class to handle discussion objects
  */
 class Discussion extends AbstractClass
 {
-    private int $user1Id;
-    private int $user2Id;
-    private string $user1Pseudo;
-    private string $user2Pseudo;
-    private string $user1Photo;
-    private string $user2Photo;
-    private array $messages;
+    private int $currentUserId;
+    private int $otherUserId;
+    private string $currentUserPseudo;
+    private string $otherUserPseudo;
+    private string $currentUserPhoto;
+    private string $otherUserPhoto;
 
     public function __construct(
-        int $user1Id,
-        int $user2Id,
-        ?string $user1Pseudo = '',
-        ?string $user2Pseudo = '',
-        ?string $user1Photo = '',
-        ?string $user2Photo = '',
+        int $currentUserId,
+        int $otherUserId,
+        ?string $currentUserPseudo = '',
+        ?string $otherUserPseudo = '',
+        ?string $currentUserPhoto = '',
+        ?string $otherUserPhoto = '',
         ?int $id = null,
         ?DateTime $creationDate = null,
     ) {
-        $this->user1Id = $user1Id;
-        $this->user2Id = $user2Id;
-        $this->user1Pseudo = $user1Pseudo;
-        $this->user2Pseudo = $user2Pseudo;
-        $this->user1Photo = $user1Photo;
-        $this->user2Photo = $user2Photo;
+        $this->currentUserId = $currentUserId;
+        $this->otherUserId = $otherUserId;
+        $this->currentUserPseudo = $currentUserPseudo;
+        $this->otherUserPseudo = $otherUserPseudo;
+        $this->currentUserPhoto = $currentUserPhoto;
+        $this->currentUserPhoto = $currentUserPhoto;
         return parent::__construct($id, $creationDate);
     }
 
-    public function getUser1Id(): int
+    public function getCurrentUserId(): int
     {
-        return $this->user1Id;
+        return $this->currentUserId;
     }
 
-    public function getUser2Id(): int
+    public function getOtherUserId(): int
     {
-        return $this->user2Id;
+        return $this->otherUserId;
     }
 
-    public function getUser1Pseudo(): string
+    public function getCurrentUserPseudo(): string
     {
-        return $this->user1Pseudo;
+        return $this->currentUserPseudo;
     }
 
-    public function getUser2Pseudo(): string
+    public function getOtherUserPseudo(): string
     {
-        return $this->user2Pseudo;
+        return $this->otherUserPseudo;
     }
 
-    public function getUser1Photo(): string
+    public function getCurrentUserPhoto(): string
     {
-        return $this->user1Photo;
+        return $this->currentUserPhoto;
     }
 
-    public function getUser2Photo(): string
+    public function getOtherUserPhoto(): string
     {
-        return $this->user2Photo;
+        return $this->otherUserPhoto;
     }
 
-    public function setUser1Id(int $userId): void
+    public function setCurrentUserId(int $userId): void
     {
-        $this->user1Id = $userId;
+        $this->currentUserId = $userId;
     }
 
-    public function setUser2Id(int $userId): void
+    public function setOtherUserId(int $userId): void
     {
-        $this->user2Id = $userId;
+        $this->otherUserId = $userId;
     }
 
-    public function setUser1Pseudo(string $userPseudo): void
+    public function setCurrentUserPseudo(string $userPseudo): void
     {
-        $this->user1Pseudo = $userPseudo;
+        $this->currentUserPseudo = $userPseudo;
     }
 
-    public function setUser2Pseudo(string $userPseudo): void
+    public function setOtherUserPseudo(string $userPseudo): void
     {
-        $this->user2Pseudo = $userPseudo;
+        $this->otherUserPseudo = $userPseudo;
     }
 
-    public function setUser1Photo(string $userPhoto): void
+    public function setCurrentUserPhoto(string $userPhoto): void
     {
-        $this->user1Photo = $userPhoto;
+        $this->currentUserPhoto = $userPhoto;
     }
 
-    public function setUser2Photo(string $userPhoto): void
+    public function setOtherUserPhoto(string $userPhoto): void
     {
-        $this->user2Photo = $userPhoto;
+        $this->otherUserPhoto = $userPhoto;
     }
 }
