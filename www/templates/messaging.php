@@ -59,7 +59,7 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                         ?>
                         ">
                         <img src="<?= $discussion->getOtherUserPhoto() !== '' ?
-                                        htmlspecialchars($discussion->getOtherUserPhoto()) :
+                                        'get_image.php?name=' . htmlspecialchars($discussion->getOtherUserPhoto()) :
                                         './assets/images/anonymous.png' ?>"
                             alt="Photo de profil de <?= htmlspecialchars($discussion->getOtherUserPseudo() ?? '') ?>"
                             class="w-12 h-12 object-cover rounded-full">
@@ -92,7 +92,7 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                 <div class="flex gap-3 items-center flex-none">
                     <img src="
                             <?= $selectedDiscussion->getOtherUserPhoto() ?? '' !== '' ?
-                                htmlspecialchars($selectedDiscussion->getOtherUserPhoto()) :
+                                'get_image.php?name=' . htmlspecialchars($selectedDiscussion->getOtherUserPhoto()) :
                                 './assets/images/anonymous.png'
                             ?>"
                         alt="" class="w-12 h-12 object-cover rounded-full">
@@ -122,7 +122,7 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                                 <div class="flex gap-1.5 items-center">
                                     <img src="
                                     <?= $selectedDiscussion->getOtherUserPhoto() ?? '' !== '' ?
-                                        htmlspecialchars($selectedDiscussion->getOtherUserPhoto()) :
+                                        'get_image.php?name=' . htmlspecialchars($selectedDiscussion->getOtherUserPhoto()) :
                                         './assets/images/anonymous.png'
                                     ?>"
                                         alt="" class="w-6 h-6 object-cover rounded-full">

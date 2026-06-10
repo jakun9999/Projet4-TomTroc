@@ -33,7 +33,7 @@ class Discussion extends AbstractClass
         $this->currentUserPseudo = $currentUserPseudo;
         $this->otherUserPseudo = $otherUserPseudo;
         $this->currentUserPhoto = $currentUserPhoto;
-        $this->otherUserPhoto = $currentUserPhoto;
+        $this->otherUserPhoto = $otherUserPhoto;
         return parent::__construct($id, $creationDate);
     }
 
