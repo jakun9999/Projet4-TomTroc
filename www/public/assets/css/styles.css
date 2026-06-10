@@ -345,9 +345,6 @@
   .mt-\[7\.4px\] {
     margin-top: 7.4px;
   }
-  .mt-\[8px\] {
-    margin-top: 8px;
-  }
   .mt-\[18\.2px\] {
     margin-top: 18.2px;
   }
@@ -795,9 +792,6 @@
   .flex-col {
     flex-direction: column;
   }
-  .flex-row {
-    flex-direction: row;
-  }
   .items-center {
     align-items: center;
   }
@@ -862,9 +856,6 @@
   }
   .overflow-x-hidden {
     overflow-x: hidden;
-  }
-  .overflow-y-auto {
-    overflow-y: auto;
   }
   .rounded-\[10px\] {
     border-radius: 10px;
@@ -1288,6 +1279,13 @@
     --tw-ease: var(--ease-in-out);
     transition-timing-function: var(--ease-in-out);
   }
+  .hover\:cursor-pointer {
+    &:hover {
+      @media (hover: hover) {
+        cursor: pointer;
+      }
+    }
+  }
   .hover\:bg-cassian-green-strong {
     &:hover {
       @media (hover: hover) {
@@ -1416,11 +1414,6 @@
   .xl\:mt-8 {
     @media (width >= 80rem) {
       margin-top: calc(var(--spacing) * 8);
-    }
-  }
-  .xl\:mt-8\.75 {
-    @media (width >= 80rem) {
-      margin-top: calc(var(--spacing) * 8.75);
     }
   }
   .xl\:mt-10 {
@@ -1634,11 +1627,6 @@
       height: calc(var(--spacing) * 81);
     }
   }
-  .xl\:h-100 {
-    @media (width >= 80rem) {
-      height: calc(var(--spacing) * 100);
-    }
-  }
   .xl\:h-122 {
     @media (width >= 80rem) {
       height: calc(var(--spacing) * 122);
@@ -1654,21 +1642,6 @@
       height: calc(var(--spacing) * 134.75);
     }
   }
-  .xl\:h-140 {
-    @media (width >= 80rem) {
-      height: calc(var(--spacing) * 140);
-    }
-  }
-  .xl\:h-150 {
-    @media (width >= 80rem) {
-      height: calc(var(--spacing) * 150);
-    }
-  }
-  .xl\:h-165\.75 {
-    @media (width >= 80rem) {
-      height: calc(var(--spacing) * 165.75);
-    }
-  }
   .xl\:h-215\.75 {
     @media (width >= 80rem) {
       height: calc(var(--spacing) * 215.75);
@@ -1679,44 +1652,9 @@
       height: calc(var(--spacing) * 221.5);
     }
   }
-  .xl\:h-\[463px\] {
-    @media (width >= 80rem) {
-      height: 463px;
-    }
-  }
-  .xl\:h-\[563px\] {
-    @media (width >= 80rem) {
-      height: 563px;
-    }
-  }
-  .xl\:h-\[663px\] {
-    @media (width >= 80rem) {
-      height: 663px;
-    }
-  }
   .xl\:h-auto {
     @media (width >= 80rem) {
       height: auto;
-    }
-  }
-  .xl\:max-h-100 {
-    @media (width >= 80rem) {
-      max-height: calc(var(--spacing) * 100);
-    }
-  }
-  .xl\:max-h-120 {
-    @media (width >= 80rem) {
-      max-height: calc(var(--spacing) * 120);
-    }
-  }
-  .xl\:max-h-150 {
-    @media (width >= 80rem) {
-      max-height: calc(var(--spacing) * 150);
-    }
-  }
-  .xl\:max-h-\[400px\] {
-    @media (width >= 80rem) {
-      max-height: 400px;
     }
   }
   .xl\:min-h-screen {

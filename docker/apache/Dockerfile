@@ -3,7 +3,15 @@ FROM php:8.3-apache
 # Installing security mod
 RUN apt-get update && \
     apt-get install -y \
-    libapache2-mod-security2 libzip-dev zip && \
+        libpng-dev \
+        libjpeg-dev \
+        libfreetype6-dev \
+        libgif-dev \
+        libapache2-mod-security2 \
+        libzip-dev \
+        zip && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd && \
     rm -rf /var/lib/apt/lists/*
 
 # Extensions PHP courantes

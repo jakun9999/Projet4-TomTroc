@@ -105,7 +105,10 @@ class BooksController
         $author = Web::sanitizeShortString($_POST['author']);
         $description = Web::sanitizeShortString($_POST['description']);
         $status = Web::sanitizeShortString($_POST['status']) === 'true' ? 1 : 0;
-        $imageUrl = ''; // TODO: handle image upload and get the URL
+
+        // Management of image upload
+        $file = $_FILES['cover'] ?? null;
+        $imageUrl = Web::uploadImage($file) ?? '';
 
         if ($title === '') {
             $errors['title_message'] = 'Vous devez saisir un titre';
@@ -179,7 +182,11 @@ class BooksController
         $description = Web::sanitizeShortString($_POST['description']);
         $status = Web::sanitizeShortString($_POST['status']) === 'true' ? 1 : 0;
         $id = filter_input(INPUT_POST, 'book', FILTER_VALIDATE_INT);
-        $imageUrl = ''; // TODO: handle image upload and get the URL
+
+        // Management of image upload
+        $file = $_FILES['cover'] ?? null;
+        $imageUrl = Web::uploadImage($file) ?? '';
+
 
         if ($title === '') {
             $errors['title_message'] = 'Vous devez saisir un titre';
