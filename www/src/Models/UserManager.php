@@ -220,18 +220,19 @@ class UserManager extends AbstractClassManager
         }
     }
 
-    public function updateUser(User $user, string $newPseudo, string $newEmail, string $newPassword): void
+    public function updateUser(User $user, string $newPseudo, string $newEmail, string $newPassword, string $photo): void
     {
 
         try {
 
-            $sql = 'UPDATE user SET pseudo = :pseudo, email = :email, password = :password WHERE id = :id';
+            $sql = 'UPDATE user SET pseudo = :pseudo, email = :email, password = :password, photo = :photo WHERE id = :id';
 
             $this->database->query($sql, [
                 'pseudo' => $newPseudo,
                 'email' => $newEmail,
                 'password' => $this->hashPassword($newPassword),
-                'id' => $user->getId()
+                'id' => $user->getId(),
+                'photo' => $photo
             ]);
 
             return;

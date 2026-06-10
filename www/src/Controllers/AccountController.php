@@ -116,7 +116,11 @@ class AccountController
         }
         unset($user);
 
-        $userManager->updateUser($_SESSION['user'], $pseudo, $email, $password);
+        // Management of image upload
+        $file = $_FILES['cover'] ?? null;
+        $photo = Web::uploadImage($file) ?? '';
+
+        $userManager->updateUser($_SESSION['user'], $pseudo, $email, $password, $photo);
         $modifiedValues['success'] = true;
 
         if ($_SESSION['user']->getEmail() !== $email) {

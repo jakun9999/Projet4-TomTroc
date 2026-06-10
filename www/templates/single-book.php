@@ -21,7 +21,7 @@ if (isset($params['user'])) {
         > <?= htmlspecialchars($book->getTitle() ?? '') ?></p>
     <div class="flex flex-col xl:flex-row justify-center xl:justify-start items-start w-full xl:mt-4">
         <div class="order-1 xl:order-1 xl:shrink-0">
-            <img src="<?= htmlspecialchars($book->getImageUrl() ?? '' !== '' ? htmlspecialchars($book->getImageUrl()) : './assets/images/new_book_cover.png') ?>"
+            <img src="<?= $book->getImageUrl() ?? '' !== '' ? 'get_image.php?name=' . htmlspecialchars($book->getImageUrl()) : './assets/images/new_book_cover.png' ?>"
                 alt="Photo couverture du livre <?= htmlspecialchars($book->getTitle() ?? '') ?>"
                 class="w-93.75 h-[449.48px] xl:w-180 xl:h-215.75 object-cover mt-0">
         </div>
@@ -44,7 +44,7 @@ if (isset($params['user'])) {
             <a href="/public-account?pseudo=<?= htmlspecialchars($user->getPseudo() ?? '') ?>">
                 <div
                     class="flex rounded-[114px] w-39.25 h-15 bg-cassian-white mt-4 pl-1.5 gap-3 justify-start items-center">
-                    <img src="<?= htmlspecialchars($user->getPhoto() ?? '') !== '' ? htmlspecialchars($user->getPhoto()) : './assets/images/anonymous.png' ?>"
+                    <img src="<?= $user->getPhoto() ?? '' !== '' ? 'get_image.php?name=' . htmlspecialchars($user->getPhoto()) : './assets/images/anonymous.png' ?>"
                         alt="Photo de profil de <?= htmlspecialchars($user->getPseudo() ?? 'Inconnu') ?>"
                         class="w-12 h-12 rounded-[114px]">
                     <span
