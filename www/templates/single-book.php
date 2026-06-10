@@ -14,6 +14,13 @@ if (isset($params['user'])) {
     $user = $params['user'];
 }
 
+// We don't want to display the own user book in public page, 
+// we redirect to the edit page
+if (isset($_SESSION['user']) && $_SESSION['user']->getId() === $user->getId()) {
+    header('location: /edit-book?book=' . $book->getId());
+    exit();
+}
+
 ?>
 
 <section class="flex flex-col grow w-full h-full bg-cassian-primary max-w-94.25 xl:max-w-cassian-1440 mx-auto">
