@@ -18,6 +18,18 @@ class Discussion extends AbstractClass
     private string $currentUserPhoto;
     private string $otherUserPhoto;
 
+    /**
+     * Discussion class constructor.
+     * 
+     * @param int $currentUserId user id of the logged in user who's loading 
+     * discussions.
+     * @param int $otherUserId user id of people with whom current user has
+     * discussions.
+     * @param string $currentUserPseudo 
+     * @param string $otherUserPseudo
+     * @param string $currentUserPhoto
+     * @param string $otherUserPhoto
+     */
     public function __construct(
         int $currentUserId,
         int $otherUserId,

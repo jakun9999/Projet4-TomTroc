@@ -7,7 +7,6 @@ namespace Ml\App\Models;
 use PDO;
 use PDOStatement;
 
-
 /**
  * Class used for database connection and queries.
  * Should not be instantiated directly, use DatabaseManager::getInstance() instead.
@@ -19,7 +18,6 @@ class DatabaseManager
 {
 
     private static ?DatabaseManager $instance = null;
-
     private PDO $pdo;
 
     /**
@@ -27,7 +25,6 @@ class DatabaseManager
      */
     private function __construct()
     {
-        // On se connecte à la base de données.
         $this->pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_ROOT, DB_PASS);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);

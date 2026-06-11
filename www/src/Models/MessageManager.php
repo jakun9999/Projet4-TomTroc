@@ -5,17 +5,22 @@ declare(strict_types=1);
 namespace Ml\App\Models;
 
 use DateTime;
-use PDOException;
 use Exception;
+use PDOException;
 
 /**
  * Manage Message objects to be recorder or read
  */
 class MessageManager extends AbstractClassManager
 {
-
     private DiscussionManager $discussionManager;
 
+    /**
+     * MessageManager constructeur.
+     * 
+     * Extends AbstractClassManager and initialize 
+     * other class managers we uses.
+     */
     public function __construct(?DatabaseManager $database = null)
     {
         $this->discussionManager = new DiscussionManager();
@@ -23,54 +28,72 @@ class MessageManager extends AbstractClassManager
     }
 
     /**
-     * Add a new message in database
+     * Add a new message in database.
+     * 
+     * Add a new message in database but also create a new discussion
+     * if no existing discussion between the sender and the destination.
+     * 
+     * @param Message $message
+     * @param int $destinationUserId Used if a discussion needs to be reacted.
+     * 
+     * @return Message Returns a message with new discussion id.
+     * 
      */
     public function addMessage(Message $message, int $destinationUserId): Message
     {
         try {
-
-            // 1. Récupérer ou valider l'ID de la discussion
+            // We check if a discussion Id already exists in the message.
             $discussionId = $message->getDiscussionId();
 
-            // Si le message n'a pas encore d'ID de discussion, on cherche s'il en existe une
+            // If an id exists, we check that this id is real and correct.
             if (is_null($discussionId)) {
                 $discussionId = $this->discussionManager->getExistingDiscussionId($message->getUserId(), $destinationUserId);
 
-                // Si aucune discussion n'existe, on la crée
+                // If there is no discussion id, we can now create a new discussion.
                 if (is_null($discussionId)) {
                     $discussion = new Discussion($message->getUserId(), $destinationUserId);
                     $discussion = $this->discussionManager->addDiscussion($discussion);
                     $discussionId = $discussion->getId();
                 }
 
-                // On met à jour l'objet message avec l'ID trouvé ou créé
+                // And we provide to the message the correct discussionId.
                 $message->setDiscussionId($discussionId);
             }
 
-            // 2. Insertion du message en base de données
-            $sql = 'INSERT INTO message (user_id, creation_date, discussion_id, content, is_read)
-                VALUES (:user_id, NOW(), :discussion_id, :content, :is_read)';
+            $sql = 'INSERT INTO message 
+                    (user_id, creation_date, discussion_id, content, is_read)
+                    VALUES 
+                    (:user_id, NOW(), :discussion_id, :content, :is_read)';
 
-            $this->database->query($sql, [
-                'user_id'       => $message->getUserId(),
-                'discussion_id' => $message->getDiscussionId(),
-                'content'       => $message->getContent(),
-                'is_read'       => (int) $message->getStatus() // Cast en int au cas où la DB attend un TINYINT/BOOLEAN
-            ]);
+            $this->database->query(
+                $sql,
+                [
+                    'user_id' => $message->getUserId(),
+                    'discussion_id' => $message->getDiscussionId(),
+                    'content' => $message->getContent(),
+                    'is_read' => (int) $message->getStatus(), // Cast to int if DB await a TINYINT/BOOLEAN
+                ]
+            );
 
-            // 3. Hydratation finale de l'objet Message avant le retour
+            // We hydrate message with newly created information (id and creation date)
             $pdo = $this->database->getPDO();
             $message->setId((int) $pdo->lastInsertId());
             $message->setCreationDate(new DateTime());
 
             return $message;
         } catch (\PDOException $e) {
-            // Loggez l'erreur originale $e ici si vous avez un système de log (ex: Monolog)
             throw new \Exception('An error occurred while adding the message to the database.', 0, $e);
         }
     }
 
-    public function getAllMessageByDisccusionId(int $discussionID): array
+    /**
+     * Provides all the messages related to a discussion.
+     * 
+     * @param int $discussionId
+     * 
+     * @return array Returns an array of Message.
+     */
+    public function getAllMessageByDisccusionId(int $discussionId): array
     {
         try {
             $sql = 'SELECT message.*, user.photo
@@ -80,7 +103,7 @@ class MessageManager extends AbstractClassManager
             WHERE discussion_id = :discussion_id
             ORDER BY creation_date ASC';
 
-            $results = $this->database->query($sql, ['discussion_id' => $discussionID]);
+            $results = $this->database->query($sql, ['discussion_id' => $discussionId]);
 
             $rows = $results->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -103,10 +126,14 @@ class MessageManager extends AbstractClassManager
         }
     }
 
+    /**
+     * Change message status (read / not read).
+     * 
+     * @param int $id Message id.
+     */
     public function setMessageRead(int $id): void
     {
         try {
-
             $sql = 'UPDATE message SET is_read = :is_read WHERE id = :id';
 
             $this->database->query($sql, [

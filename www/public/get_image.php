@@ -1,4 +1,8 @@
 <?php
+// Script to make the link between users/visitors only allowed to access
+// www/public and uploaded image which are in a read/write folder not accessible
+// to users/visitors.
+
 // usage example : serve_image.php?name=le_nom_genere.jpg
 $name = $_GET['name'] ?? '';
 
@@ -29,4 +33,3 @@ if (!empty($name) && file_exists($filePath)) {
 
 // If file not found, returns a 404 error.
 http_response_code(404);
-echo "Image non trouvée.";

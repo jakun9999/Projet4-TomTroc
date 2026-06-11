@@ -104,6 +104,13 @@ class Web
         return (bool) preg_match($regex, $password);
     }
 
+    /**
+     * Manage upload image from user (profil pictures and book cover images).
+     * 
+     * @param array $file
+     * 
+     * @return ?string Returns the new name of the file or null.
+     */
     public static function uploadImage(array $file): ?string
     {
         if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
@@ -136,12 +143,14 @@ class Web
         $uploadDir = '/var/www/storage/uploads/';
         $destination = $uploadDir . $secureName;
 
-        // Load image and manage it depending on the file type
+        // We rewrite the image from its temp location to new location with
+        // a random name and rewritten completely the image with GD PHP
+        // extension to remove any malicious code embbeded in the image.
         switch ($realMimeType) {
             case 'image/jpeg':
                 $imageSrc = \imagecreatefromjpeg($file['tmp_name']);
                 if ($imageSrc) {
-                    imagejpeg($imageSrc, $destination, 85);
+                    imagejpeg($imageSrc, $destination, 85); // Quality at 85
                 }
                 break;
 
@@ -151,7 +160,7 @@ class Web
 
                     \imagealphablending($imageSrc, false);
                     \imagesavealpha($imageSrc, true);
-                    \imagepng($imageSrc, $destination, 6);
+                    \imagepng($imageSrc, $destination, 6); // Quality at 6
                 }
                 break;
 
@@ -165,7 +174,7 @@ class Web
             case 'image/webp':
                 $imageSrc = \imagecreatefromwebp($file['tmp_name']);
                 if ($imageSrc) {
-                    \imagewebp($imageSrc, $destination, 80);
+                    \imagewebp($imageSrc, $destination, 80); // Quality at 80
                 }
                 break;
         }
