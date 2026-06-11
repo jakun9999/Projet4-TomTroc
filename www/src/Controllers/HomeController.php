@@ -13,11 +13,26 @@ use Ml\App\Views\View;
  */
 class HomeController
 {
+    private BookManager $bookManager;
+
+    /**
+     * Homecontroller constructor.
+     * 
+     * Initialize class managers.
+     */
+    public function __construct()
+    {
+        $this->bookManager = new BookManager();
+    }
+
+    /**
+     * Call for view/template for the home page.
+     */
     public function showHome(): void
     {
-        $bookManager = new BookManager();
-        $books = $bookManager->getLastFourBooks();
+        $books = $this->bookManager->getLastFourBooks();
         $view = new View('TomTroc - Accueil');
         $view->render('home', ['books' => $books]);
+        return;
     }
 }

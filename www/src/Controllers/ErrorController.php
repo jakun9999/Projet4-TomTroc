@@ -18,6 +18,9 @@ class ErrorController
     public const MSG_PAGE_DOES_NOT_EXISTS = "404 - La page demandée n'existe pas";
     public const ERRCODE_EXCEPTION = 2;
 
+    /**
+     * Function in charge of displaying error page like 404 page not found.
+     */
     public function showError(string $title, int $errorCode, array $params = []): void
     {
         switch ($errorCode) {

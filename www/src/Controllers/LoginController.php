@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Ml\App\Controllers;
 
 use Ml\App\Models\UserManager;
-use Ml\App\Views\View;
 use Ml\App\Services\Web;
+use Ml\App\Views\View;
 
 /**
  * Controller for the login page to allow 
@@ -14,6 +14,17 @@ use Ml\App\Services\Web;
  */
 class LoginController
 {
+    private UserManager $userManager;
+
+    /**
+     * LoginController constructor.
+     * 
+     * Initialize class managers.
+     */
+    public function __construct()
+    {
+        $this->userManager = new UserManager();
+    }
 
     /**
      * Manage call to empty login page. 
@@ -22,15 +33,16 @@ class LoginController
     {
         $view = new View('TomTroc - Connexion');
         $view->render('login');
+        return;
     }
 
     /**
-     * If a CSRF token exists, we try to authenticate 
-     * the user.
+     * Authenticate the visitor as user.
+     * 
+     * Only possible if a correct CSRF token is provided.
      */
     public function authenticate(): void
     {
-
         // If CSRF token fails, redirect to
         // empty login page.
         if (!Web::controlCsrfToken()) {
@@ -43,6 +55,7 @@ class LoginController
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         $password = $_POST['password'] ?? '';
 
+        $errors = [];
         if ($email === false || is_null($email) || $password === '') {
             $errors['login_message'] = 'Email ou mot de passe incorrect';
             $errors['email_value'] = $email;
@@ -51,26 +64,29 @@ class LoginController
             return;
         }
 
-        $userManager = new UserManager();
-        $user = $userManager->getUserByEmail($email);
+        $user = $this->userManager->getUserByEmail($email);
 
-        if (is_null($user) || $user === false || !$userManager->authenticate($user, $email, $password)) {
+        if (
+            is_null($user) ||
+            $user === false ||
+            !$this->userManager->authenticate($user, $email, $password)
+        ) {
             $errors['login_message'] = 'Email ou mot de passe incorrect';
             $errors['email_value'] = $email;
             unset($user);
             unset($password);
             $this->showLoginError($errors);
             return;
-        } else {
-
-            // We store the $user in $_SESSION global without
-            // password information
-            $user->setPassword('');
-            unset($password);
-            $_SESSION['user'] = $user;
-            header('location: /home');
-            return;
         }
+
+        // We store the $user in $_SESSION global without
+        // password information
+        $user->setPassword('');
+        unset($password);
+        $_SESSION['user'] = $user;
+
+        header('location: /home');
+        return;
     }
 
     /**
@@ -96,5 +112,6 @@ class LoginController
     {
         $view = new View('TomTroc - Login');
         $view->render('login', $params);
+        return;
     }
 }

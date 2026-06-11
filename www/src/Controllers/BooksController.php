@@ -6,7 +6,6 @@ namespace Ml\App\Controllers;
 
 use Ml\App\Models\Book;
 use Ml\App\Models\BookManager;
-use Ml\App\Models\User;
 use Ml\App\Models\UserManager;
 use Ml\App\Services\Web;
 use Ml\App\Views\View;

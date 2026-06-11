@@ -6,8 +6,8 @@ namespace Ml\App\Controllers;
 
 use Ml\App\Models\User;
 use Ml\App\Models\UserManager;
-use Ml\App\Views\View;
 use Ml\App\Services\Web;
+use Ml\App\Views\View;
 
 /**
  * Controller for the subscribe page to allow 
@@ -15,17 +15,27 @@ use Ml\App\Services\Web;
  */
 class SubscribeController
 {
+    private UserManager $userManager;
+
+    /**
+     * Subscribe Controller constructor.
+     * 
+     * Initialize class managers.
+     */
+    public function __construct()
+    {
+        $this->userManager = new UserManager();
+    }
 
     /**
      * Call subscription page to display it.
      * 
-     * If we detect a CSRF token we check if the visitor is
-     * trying to subscribe, if not we display an empty subscription form.
      */
     public function showSubscribe(): void
     {
         $view = new View('TomTroc - Inscription');
         $view->render('subscribe');
+        return;
     }
 
     /**
@@ -34,7 +44,6 @@ class SubscribeController
      */
     public function register(): void
     {
-
         // We check if CSRF token is correct
         // if not we redirect to subscription empty page
         if (!Web::controlCsrfToken()) {
@@ -47,6 +56,7 @@ class SubscribeController
         $password = $_POST['password'] ?? '';
 
         // We control if input data are correct
+        $errors = [];
         if ($pseudo === '') {
             $errors['pseudo_message'] = 'Un pseudonyme correct doit être défini';
         }
@@ -61,33 +71,33 @@ class SubscribeController
                                             (@$!%*?&#_\-)';
         }
 
-        if (isset($errors)) {
+        if (!empty($errors)) {
             $errors['pseudo_value'] = $pseudo;
             $errors['email_value'] = $email;
             $this->showSubscribeError($errors);
             return;
-        } else {
-            $user = new User($pseudo, $email, $password);
-            $userManager = new UserManager();
+        }
 
-            // We check if pseudo and email are not already used by another user
-            if ($userManager->isPseudoExist($pseudo)) {
-                $errors['pseudo_message'] = 'Ce pseudonyme est déjà utilisé';
-            }
-            if ($userManager->isEmailExist($email)) {
-                $errors['email_message'] = 'Cet email est déjà utilisé';
-            }
+        $user = new User($pseudo, $email, $password);
 
-            if (empty($errors)) {
-                $userManager->addUser($user);
-                $view = new View('TomTroc - Connexion');
-                $view->render('login', ['subscription_successful' => true]);
-            } else {
-                $this->showSubscribeError($errors);
-            }
 
+        // We check if pseudo and email are not already used by another user
+        if ($this->userManager->isPseudoExist($pseudo)) {
+            $errors['pseudo_message'] = 'Ce pseudonyme est déjà utilisé';
+        }
+        if ($this->userManager->isEmailExist($email)) {
+            $errors['email_message'] = 'Cet email est déjà utilisé';
+        }
+
+        if (!empty($errors)) {
+            $this->showSubscribeError($errors);
             return;
         }
+
+        $this->userManager->addUser($user);
+        $view = new View('TomTroc - Connexion');
+        $view->render('login', ['subscription_successful' => true]);
+        return;
     }
 
     /**
@@ -101,5 +111,6 @@ class SubscribeController
     {
         $view = new View('TomTroc - Inscription');
         $view->render('subscribe', $params);
+        return;
     }
 }
