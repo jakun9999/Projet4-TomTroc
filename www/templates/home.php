@@ -36,7 +36,7 @@ if (isset($params['books'])) {
                 <div class="inline-block">
                     <img src="./assets/images/hamza.png"
                         class="xl:w-101 xl:h-134.75 w-94.25 h-125.75 object-cover max-w-full"
-                        alt="Photo de Hamza au milieu de livres">
+                        alt="Hamza, un homme lisant assis sur les marches de l'entrée d'une maison au milieu de milliers de livres.">
                     <span
                         class="font-cassian-inter block text-right text-[12px] italic text-cassian-gray mt-1.25 xl:mt-3 xl:pr-0.75 pr-6.75">Hamza</span>
                 </div>
@@ -58,7 +58,7 @@ if (isset($params['books'])) {
                         <div
                             class="w-40 h-[259.2px] xl:w-50 xl:h-81 pb-[18.4px] xl:pb-5.75 flex flex-col justify-start items-start bg-cassian-white">
                             <img src="<?= $books[$i]->getImageUrl() !== '' ? 'get_image.php?name=' . htmlspecialchars($books[$i]->getImageUrl()) : './assets/images/new_book_cover.png' ?>"
-                                alt="Dernier livre" class="w-40 h-40 xl:w-50 xl:h-50 object-cover">
+                                alt="Couverture du livre <?= $books[$i]->getTitle() ?>." class="w-40 h-40 xl:w-50 xl:h-50 object-cover">
                             <p
                                 class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-black text-[13px] xl:text-[16px] mt-4 xl:mt-5">
                                 <?= htmlspecialchars($books[$i]->getTitle() ?? '') ?></p>
@@ -122,8 +122,8 @@ if (isset($params['books'])) {
 <!-- Our core values -->
 <section class="pb-22.25 max-w-94.25 xl:max-w-cassian-1440 mx-auto w-full">
     <div class="flex flex-col justify-start items-center">
-        <img src="./assets/images/values_hd.png" alt="Nos valeurs" class="hidden xl:block">
-        <img src="./assets/images/values_sd.png" alt="Nos valeurs" class="xl:hidden w-93.75 h-106.25 object-cover">
+        <img src="./assets/images/values_hd.png" alt="" class="hidden xl:block">
+        <img src="./assets/images/values_sd.png" alt="" class="xl:hidden w-93.75 h-106.25 object-cover">
         <div class="flex flex-col justify-center items-start mt-8.25 xl:mt-20 px-5 xl:px-0">
             <h2 class="font-cassian-playfair text-cassian-black-light font-normal text-[28px] xl:text-[32px]">Nos
                 valeurs</h2>
@@ -132,14 +132,14 @@ if (isset($params['books'])) {
                 Chez Tom Troc, nous mettons l'accent sur le partage, la découverte et la communauté. Nos valeurs sont
                 ancrées dans notre passion pour les livres et notre désir de créer des liens entre les lecteurs. Nous
                 croyons en la puissance des histoires pour rassembler les gens et inspirer des conversations
-                enrichissantes. <br /><br />Notre association a été fondée avec une conviction profonde : chaque livre
-                mérite d'être lu et partagé. <br /><br />Nous sommes passionnés par la création d'une plateforme
+                enrichissantes. <br><br>Notre association a été fondée avec une conviction profonde : chaque livre
+                mérite d'être lu et partagé. <br><br>Nous sommes passionnés par la création d'une plateforme
                 conviviale qui permet aux lecteurs de se connecter, de partager leurs découvertes littéraires et
                 d'échanger des livres qui attendent patiemment sur les étagères.</p>
             <div class="flex flex-col xl:flex-row justify-start items-start mt-7 xl:mt-6.25 w-full">
                 <p class="pt-3.5 font-cassian-inter italic font-normal text-cassian-gray text-[12px]">L'équipe Tom Troc
                 </p>
-                <img src="./assets/images/signature.png" alt="Signature de l'équipe TomTroc"
+                <img src="./assets/images/signature.png" alt="Signature de l'équipe TomTroc sous la forme d'un coeur dessiné en vert."
                     class="mt-15.5 xl:mt-0 block mx-auto xl:mx-0 xl:ml-59.75 w-30 h-25.5 object-cover">
             </div>
         </div>

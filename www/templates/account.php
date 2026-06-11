@@ -54,9 +54,16 @@ $success = $params['success'] ?? false;
                                         'get_image.php?name=' . htmlspecialchars($user->getPhoto()) :
                                         './assets/images/anonymous.png'
                                     ?>"
-                            alt=""
+                            alt="Ma photo de profil."
                             class="rounded-full w-33.75 h-33.75 object-cover">
-                        <input hidden type="file" id="cover" name="cover" accept="image/*">
+                        <input
+                            hidden
+                            aria-hidden="true"
+                            aria-label="lien de ma nouvelle photo de profil"
+                            type="file"
+                            id="cover"
+                            name="cover"
+                            accept="image/*">
                         <button
                             type="button"
                             id="change-cover"

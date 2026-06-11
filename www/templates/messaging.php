@@ -65,9 +65,9 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                             class="w-12 h-12 object-cover rounded-full">
                         <div class="flex flex-col ml-3">
                             <div class="flex justify-between items-start">
-                                <h3 class="w-33.5 font-cassian-inter text-[14px] truncate">
+                                <h2 class="w-33.5 font-cassian-inter text-[14px] truncate">
                                     <?= htmlspecialchars($discussion->getOtherUserPseudo() ?? '') ?>
-                                </h3>
+                                </h2>
                                 <p class="font-cassian-inter text-[12px] self-end">
                                     <?= htmlspecialchars($lastMessageDate ?? '') ?>
                                 </p>
@@ -122,7 +122,8 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                                 <div class="flex gap-1.5 items-center">
                                     <img src="
                                     <?= $selectedDiscussion->getOtherUserPhoto() ?? '' !== '' ?
-                                        'get_image.php?name=' . htmlspecialchars($selectedDiscussion->getOtherUserPhoto()) :
+                                        'get_image.php?name=' .
+                                        htmlspecialchars($selectedDiscussion->getOtherUserPhoto()) :
                                         './assets/images/anonymous.png'
                                     ?>"
                                         alt="" class="w-6 h-6 object-cover rounded-full">
@@ -144,7 +145,12 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                 <form action="/send-message"
                     method="POST"
                     class="flex flex-col xl:flex-row self-end xl:gap-5.25 flex-none">
-                    <input type="text" id="message" name="message" placeholder="Tapez votre message ici"
+                    <input
+                        type="text"
+                        id="message"
+                        aria-label="Tapez votre message ici"
+                        name="message"
+                        placeholder="Tapez votre message ici"
                         class="w-83.75 xl:w-157 h-12.25 bg-cassian-white rounded-md border 
                         border-cassian-border-form font-cassian-inter text-[14px] px-5.5 xl:px-10.5 ml-1.5 
                         focus:outline-cassian-green">
@@ -154,7 +160,12 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                      */
                     echo Ml\App\Services\Web::generateCsrfToken();
                     ?>
-                    <input hidden name="to" value="<?= htmlspecialchars($selectedDiscussion->getOtherUserId()) ?>">
+                    <input
+                        hidden
+                        name="to"
+                        aria-hidden="true"
+                        aria-label="Identifiant du destinataire du message"
+                        value="<?= htmlspecialchars($selectedDiscussion->getOtherUserId()) ?>">
                     <button class="w-83.75 xl:w-33 h-12.25 font-cassian-inter bg-cassian-green 
                         text-cassian-white font-semibold text-center rounded-[10px] px-9.5 py-4 transition-colors 
                         duration-300 ease-in-out hover:bg-cassian-green-strong">
@@ -164,5 +175,5 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
         </div>
     <?php endif; ?>
     </div>
-    </div>
+
 </section>

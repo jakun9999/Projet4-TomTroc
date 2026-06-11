@@ -39,7 +39,7 @@
             <div class="flex items-center justify-between w-full xl:w-auto">
                 <a href="/home" class="inline-block">
                     <img src="./assets/images/logo_hd.png" class="h-[25.66px] w-19.5 xl:h-12.75 xl:w-38.75"
-                        alt="Logo Tom Troc">
+                        alt="Logo Tom Troc représentant deux T blancs sur fond vert.">
                 </a>
 
                 <button id="menu-toggler" type="button"
@@ -106,7 +106,7 @@
             <div class="xl:ml-10">Mentions légales</div>
             <div class="xl:ml-10">Tom Troc&copy;</div>
             <img src="./assets/images/logo_alone.svg" class="w-5.5 h-[17.36] xl:ml-10 xl:mr-11.5 xl:pl-2"
-                alt="Logo Tom Troc">
+                alt="Petit Logo Tom Troc avec deux T verts sur fond blanc.">
         </div>
 
     </footer>

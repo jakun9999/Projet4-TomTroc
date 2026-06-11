@@ -75,7 +75,14 @@ $descriptionMessage = $params['description_message'] ?? '';
                         <p class="font-cassian-inter text-[11px] xl:text-[14px] text-cassian-gray">Photo</p>
                         <img id="preview" src="<?= $imageUrl ?? '' !== '' ? 'get_image.php?name=' . htmlspecialchars($imageUrl) : './assets/images/new_book_cover.png' ?>" alt="Photo du livre" class="w-83.75 h-83.75 
                         xl:w-122 xl:h-122 object-cover mt-[7.4px] xl:mt-2.5">
-                        <input hidden type="file" id="cover" name="cover" accept="image/*">
+                        <input
+                            hidden
+                            type="file"
+                            aria-hidden="true"
+                            aria-label="Lien nouvelle couverture du livre"
+                            id="cover"
+                            name="cover"
+                            accept="image/*">
                         <button
                             type="button"
                             id="change-cover"
@@ -143,7 +150,7 @@ $descriptionMessage = $params['description_message'] ?? '';
                         ?>
                         <?php
                         if ($mode === 'edit') {
-                            echo '<input hidden name="book" value="' . $book->getId() . '">';
+                            echo '<input hidden  aria-hidden="true" aria-label="Identifiant du livre" name="book" value="' . $book->getId() . '">';
                         }
                         ?>
                         <button type="submit" class="bg-cassian-green hover:bg-cassian-green-dark text-white 

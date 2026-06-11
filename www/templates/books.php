@@ -24,8 +24,14 @@ if (isset($params['books'])) {
                 </svg>
             </div>
 
-            <input type="text" id="search-bar" placeholder="Rechercher un livre"
-                class="w-full h-12.5 pl-10 pr-[12.15px] bg-cassian-white text-cassian-gray placeholder-cassian-gray border border-cassian-border-form rounded-md font-cassian-inter text-[14px] focus:outline-cassian-green">
+            <input
+                type="text"
+                id="search-bar"
+                placeholder="Rechercher un livre"
+                aria-label="Rechercher un livre sur le site"
+                class="w-full h-12.5 pl-10 pr-[12.15px] bg-cassian-white text-cassian-gray 
+                placeholder-cassian-gray border border-cassian-border-form rounded-md font-cassian-inter 
+                text-[14px] focus:outline-cassian-green">
         </div>
 
     </div>
@@ -44,7 +50,7 @@ if (isset($params['books'])) {
                     <div
                         class="w-40 h-[259.2px] xl:w-50 xl:h-81 pb-[18.4px] xl:pb-5.75 flex flex-col justify-start items-start bg-cassian-white">
                         <img src="<?= $books[$i]->getImageUrl() !== '' ? 'get_image.php?name=' . htmlspecialchars($books[$i]->getImageUrl()) : './assets/images/new_book_cover.png' ?>"
-                            alt="Dernier livre" class="w-40 h-40 xl:w-50 xl:h-50 object-cover">
+                            alt="Couverture du livre <?= $books[$i]->getTitle() ?>." class="w-40 h-40 xl:w-50 xl:h-50 object-cover">
                         <p
                             class="font-cassian-inter ml-[11.2px] xl:ml-3.5 text-cassian-black text-[13px] xl:text-[16px] mt-4 xl:mt-5 truncate max-w-34.5 xl:max-w-43">
                             <?= htmlspecialchars($books[$i]->getTitle() ?? '') ?></p>

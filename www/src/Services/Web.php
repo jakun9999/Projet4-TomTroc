@@ -34,7 +34,8 @@ class Web
     public static function generateCsrfToken(): string
     {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-        return '<input hidden name="tok" value="' . $_SESSION['csrf_token'] . '">';
+        return '<input hidden aria-hidden="true" aria-label="CSRF Token" name="tok" value="' .
+            $_SESSION['csrf_token'] . '">';
     }
 
     /**

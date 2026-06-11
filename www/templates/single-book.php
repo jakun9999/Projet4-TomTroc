@@ -29,7 +29,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']->getId() === $user->getId()) {
     <div class="flex flex-col xl:flex-row justify-center xl:justify-start items-start w-full xl:mt-4">
         <div class="order-1 xl:order-1 xl:shrink-0">
             <img src="<?= $book->getImageUrl() ?? '' !== '' ? 'get_image.php?name=' . htmlspecialchars($book->getImageUrl()) : './assets/images/new_book_cover.png' ?>"
-                alt="Photo couverture du livre <?= htmlspecialchars($book->getTitle() ?? '') ?>"
+                alt="Couverture du livre <?= htmlspecialchars($book->getTitle() ?? '') ?>."
                 class="w-93.75 h-[449.48px] xl:w-180 xl:h-215.75 object-cover mt-0">
         </div>
         <div
@@ -52,7 +52,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']->getId() === $user->getId()) {
                 <div
                     class="flex rounded-[114px] w-39.25 h-15 bg-cassian-white mt-4 pl-1.5 gap-3 justify-start items-center">
                     <img src="<?= $user->getPhoto() ?? '' !== '' ? 'get_image.php?name=' . htmlspecialchars($user->getPhoto()) : './assets/images/anonymous.png' ?>"
-                        alt="Photo de profil de <?= htmlspecialchars($user->getPseudo() ?? 'Inconnu') ?>"
+                        alt="Photo de profil de <?= htmlspecialchars($user->getPseudo() ?? 'Inconnu') ?>."
                         class="w-12 h-12 rounded-[114px]">
                     <span
                         class="font-cassian-inter text-[14px]"><?= htmlspecialchars($user->getPseudo() ?? 'Inconnu') ?></span>

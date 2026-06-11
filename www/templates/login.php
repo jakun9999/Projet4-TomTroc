@@ -53,7 +53,7 @@ $loginMessage = $params['login_message'] ?? '';
             </p>
         </div>
         <div class="order-2 xl:order-2 xl:shrink-0 xl:ml-auto">
-            <img src="./assets/images/login.png" alt="Des livres dans une librairie"
+            <img src="./assets/images/login.png" alt=""
                 class="w-[375.44px] h-115.5 xl:w-180 xl:h-221.5 object-cover mt-25 xl:mt-0">
         </div>
     </div>
