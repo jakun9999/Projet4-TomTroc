@@ -77,7 +77,7 @@ if (isset($_SESSION['user'])) {
                                 <span>Messagerie</span>
                                 <span
                                     id="unread"
-                                    class="shrink-0 rounded-full bg-cassian-black-light text-white text-[0.75rem] px-1.5 font-normal">0</span>
+                                    class="shrink-0 rounded-full bg-cassian-black-light text-white text-[0.75rem] px-1 py-0.75 font-normal">0</span>
                             </a>
                         </li>
                         <li class="flex xl:ml-14.5">
