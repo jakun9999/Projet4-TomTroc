@@ -65,7 +65,7 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                             class="w-12 h-12 object-cover rounded-full">
                         <div class="flex flex-col ml-3">
                             <div class="flex justify-between items-start">
-                                <h2 class="w-33.5 font-cassian-inter text-[14px] truncate">
+                                <h2 class="w-33.5 font-cassian-inter text-[14px] text-cassian-black-light truncate">
                                     <?= htmlspecialchars($discussion->getOtherUserPseudo() ?? '') ?>
                                 </h2>
                                 <p class="font-cassian-inter text-[12px] self-end">
@@ -96,7 +96,7 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                                 './assets/images/anonymous.png'
                             ?>"
                         alt="" class="w-12 h-12 object-cover rounded-full">
-                    <p class="font-cassian-inter font-semibold text-[14px]">
+                    <p class="font-cassian-inter font-semibold text-[14px] text-cassian-black-light">
                         <?= htmlspecialchars($selectedDiscussion->getOtherUserPseudo() ??  '') ?>
                     </p>
                 </div>
@@ -113,7 +113,7 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                                     echo htmlspecialchars($dateString);
                                     ?>
                                 </p>
-                                <p class="font-cassian-inter text-[12px] bg-cassian-gray-strong px-4.5 py-2.5 mt-2">
+                                <p class="font-cassian-inter text-[12px] text-cassian-black-light bg-cassian-gray-strong rounded-[3px] px-4.5 py-2.5 mt-2">
                                     <?= htmlspecialchars($message->getContent() ?? '') ?>
                                 </p>
                             </div>
@@ -134,7 +134,7 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                                         ?>
                                     </p>
                                 </div>
-                                <p class="font-cassian-inter text-[12px] bg-cassian-white px-4.5 py-2.5 mt-2">
+                                <p class="font-cassian-inter text-[12px] text-cassian-black-light bg-cassian-white rounded-[3px] px-4.5 py-2.5 mt-2">
                                     <?= htmlspecialchars($message->getContent() ?? '') ?>
                                 </p>
                             </div>
