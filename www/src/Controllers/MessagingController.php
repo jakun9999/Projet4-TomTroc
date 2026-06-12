@@ -21,6 +21,12 @@ class MessagingController
 
     private DiscussionManager $discussionManager;
     private MessageManager $messageManager;
+    // Const used for mobile display of either discussion list or messages.
+    const string MOBILE_CSS_DISCUSSION_ON = 'flex flex-col';
+    const string MOBILE_CSS_DISCUSSION_OFF = 'hidden xl:flex xl:flex-col';
+    const string MOBILE_CSS_MESSAGES_ON = 'flex flex-col';
+    const string MOBILE_CSS_MESSAGES_OFF = 'hidden xl:flex xl:flex-col';
+
 
     /**
      * Messaging controller constructor.
@@ -64,6 +70,8 @@ class MessagingController
                 'discussions' => $discussions,
                 'selected_discussion' => $discussions[0] ?? null,
                 'messages' => $messages,
+                'mobile_css_discussions' => self::MOBILE_CSS_DISCUSSION_ON,
+                'mobile_css_messages' => self::MOBILE_CSS_MESSAGES_OFF,
             ]
         );
         return;
@@ -100,6 +108,8 @@ class MessagingController
                 'discussions' => $discussions,
                 'selected_discussion' => $selectedDiscussion ?? $discussions[0],
                 'messages' => $messages,
+                'mobile_css_discussions' => self::MOBILE_CSS_DISCUSSION_OFF,
+                'mobile_css_messages' => self::MOBILE_CSS_MESSAGES_ON,
             ]
         );
         return;
@@ -182,6 +192,8 @@ class MessagingController
                 'discussions' => $discussions,
                 'selected_discussion' => $selectedDiscussion,
                 'messages' => $messages,
+                'mobile_css_discussions' => self::MOBILE_CSS_DISCUSSION_OFF,
+                'mobile_css_messages' => self::MOBILE_CSS_MESSAGES_ON,
             ]
         );
         return;

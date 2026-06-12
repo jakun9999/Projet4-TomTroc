@@ -17,6 +17,8 @@ if (!isset($_SESSION['user'])) {
 $discussions = $params['discussions'] ?? [];
 $selectedDiscussion = $params['selected_discussion'] ?? null;
 $messages = $params['messages'] ?? [];
+$discussionsCss = $params['mobile_css_discussions'] ?? 'flex flex-col';
+$messagesCss = $params['mobile_css_messages'] ?? 'hidden xl:flex xl:flex-col';
 
 // discussion details to be displayed in main DIV if no discussion was
 // previously selected.
@@ -30,7 +32,9 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
     <div class="flex flex-1 xl:w-285 min-h-full">
 
         <!-- Discussion list left pane -->
-        <div class="flex flex-col w-83.75 xl:w-77 min-h-full bg-cassian-secondary">
+        <div
+            class="<?= $discussionsCss ?> w-83.75 xl:w-77 min-h-full bg-cassian-secondary"
+            id="discussions">
             <h1 class="xl:ml-8.5 mt-13.75 font-cassian-playfair text-[26px]">Messagerie</h1>
             <div class="flex flex-col mt-6.75">
                 <?php foreach ($discussions as $discussion): ?>
@@ -82,14 +86,21 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
         </div>
 
         <!-- Discussion messages -->
-        <div class="hidden xl:flex flex-col w-83.75 xl:w-208 xl:flex-1 min-h-full xl:pl-11 xl:pt-8.75 xl:pb-24.5 
-        bg-cassian-secondary
-         xl:bg-cassian-primary">
+        <div
+            class="<?= $messagesCss ?> w-83.75 xl:w-208 xl:flex-1 min-h-full xl:pl-11 xl:pt-8.75 xl:pb-24.5 bg-cassian-secondary xl:bg-cassian-primary"
+            id="messages">
             <?php if (!isset($discussions) || empty($discussions)): ?>
                 <p class="font-cassian-playfair text-4xl">Aucune discussion à afficher</p>
             <?php else: ?>
-                <p class="xl:hidden font-cassian-inter text-[14px] text-cassian-gray">retour</p>
-                <div class="flex gap-3 items-center flex-none">
+                <a
+                    class="flex items-center xl:hidden font-cassian-inter text-[14px] text-cassian-gray mt-5.75 xl:mt-0"
+                    href='/messaging'>
+                    <span
+                        class="shrink-0 w-3.75 h-[13.13px] bg-current inline-block mask-back">
+                    </span>
+                    <span>retour</span>
+                </a>
+                <div class="flex gap-3 items-center flex-none mt-2.75 xl:mt-0">
                     <img src="
                             <?= $selectedDiscussion->getOtherUserPhoto() ?? '' !== '' ?
                                 'get_image.php?name=' . htmlspecialchars($selectedDiscussion->getOtherUserPhoto()) :
@@ -102,7 +113,7 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                 </div>
 
                 <!-- Messages -->
-                <div class="flex flex-col xl:w-191 xl:grow xl:overflow-y-auto xl:pb-24.5">
+                <div class="flex flex-col xl:w-191 xl:grow xl:overflow-y-auto xl:pb-24.5 mt-11 xl:mt-0 mb-18.25 xl:mb-0">
                     <?php foreach ($messages[$selectedDiscussion->getId()] ?? [] as $message): // Message from current user
                     ?>
                         <?php if ($message->getUserId() === $_SESSION['user']->getId()): ?>
@@ -144,7 +155,7 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                 <!-- new message form -->
                 <form action="/send-message"
                     method="POST"
-                    class="flex flex-col xl:flex-row self-end xl:gap-5.25 flex-none">
+                    class="flex flex-col xl:flex-row mt-auto xl:mt-0 xl:self-end xl:gap-5.25 items-center flex-none">
                     <input
                         type="text"
                         id="message"
@@ -152,7 +163,7 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                         name="message"
                         placeholder="Tapez votre message ici"
                         class="w-83.75 xl:w-157 h-12.25 bg-cassian-white rounded-md border 
-                        border-cassian-border-form font-cassian-inter text-[14px] px-5.5 xl:px-10.5 ml-1.5 
+                        border-cassian-border-form font-cassian-inter text-[14px] px-5.5 xl:px-10.5 xl:ml-1.5 
                         focus:outline-cassian-green">
                     <?php
                     /**
@@ -167,8 +178,8 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                         aria-label="Identifiant du destinataire du message"
                         value="<?= htmlspecialchars($selectedDiscussion->getOtherUserId()) ?>">
                     <button class="w-83.75 xl:w-33 h-12.25 font-cassian-inter bg-cassian-green 
-                        text-cassian-white font-semibold text-center rounded-[10px] px-9.5 py-4 transition-colors 
-                        duration-300 ease-in-out hover:bg-cassian-green-strong">
+                        text-cassian-white font-semibold text-center rounded-[10px] px-9.5 py-4 transition-colors duration-300 ease-in-out hover:bg-cassian-green-strong
+                        mt-2.75 xl:mt-0 mb-10.5 xl:mb-0">
                         Envoyer
                     </button>
                 </form>
