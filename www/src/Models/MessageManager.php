@@ -141,7 +141,6 @@ class MessageManager extends AbstractClassManager
                 'id' => $id
             ]);
         } catch (PDOException $e) {
-
             // We throw an error as this is an unexpected error that should not happen
             // meaning the database is not working properly or there is a bug in the code.
             throw new Exception('An error occurred while updating the message status in the database.');

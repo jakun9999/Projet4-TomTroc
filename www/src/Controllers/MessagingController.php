@@ -89,6 +89,7 @@ class MessagingController
             exit();
         }
 
+        $currentUserId = $_SESSION['user']->getId();
         $otherUserId = filter_input(INPUT_GET, 'with', FILTER_VALIDATE_INT);
 
         $discussions = $this->discussionManager->getAllDiscussionByUserId($_SESSION['user']->getId());
@@ -99,6 +100,20 @@ class MessagingController
             }
             $messages[$discussion->getId()] =
                 $this->messageManager->getAllMessageByDisccusionId($discussion->getId());
+
+            // Before displaying messaging page with specified discussion
+            // we set unread messages of this discussion as read where the sender
+            // is not current user.
+            if (isset($selectedDiscussion)) {
+                foreach ($messages[$selectedDiscussion->getId()] as $message) {
+                    if ($message->getUserId() !== $currentUserId) {
+                        // it change status in DB
+                        $this->messageManager->setMessageRead($message->getId());
+                        // it change status in message object
+                        $message->setStatus(true);
+                    }
+                }
+            }
         }
 
         $view = new View('TomTroc - Messagerie');
