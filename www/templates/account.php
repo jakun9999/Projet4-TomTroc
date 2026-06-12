@@ -298,7 +298,7 @@ $success = $params['success'] ?? false;
                     </script>
                 <?php else: ?>
                     <h2 class=" font-cassian-playfair text-cassian-black text-[28px] self-center xl:mt-8">
-                        Aucun livre votre bibliothèque
+                        Aucun livre dans votre bibliothèque
                     </h2>
 
                 <?php endif; ?>
