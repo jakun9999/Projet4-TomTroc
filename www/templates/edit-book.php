@@ -130,8 +130,7 @@ $descriptionMessage = $params['description_message'] ?? '';
                 <textarea id="description" name="description" class="pl-3.5 pt-4 pr-3 
                         focus:outline-cassian-green bg-cassian-gray-strong h-89 font-cassian-inter text-[14px] 
                         border border-cassian-border-form rounded-md 
-                        mt-2.5 w-83.75 xl:w-108.75"><?= htmlspecialchars($descriptionValue ?? '') ?>
-                    </textarea>
+                        mt-2.5 w-83.75 xl:w-108.75"><?= htmlspecialchars($descriptionValue ?? '') ?></textarea>
                 <?php
                 if ($descriptionMessage !== '') {
                     echo '<p class="mt-1 pl-3 font-cassian-inter text-[10px] text-red-500 italic">' .
