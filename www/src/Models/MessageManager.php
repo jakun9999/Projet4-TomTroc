@@ -147,4 +147,33 @@ class MessageManager extends AbstractClassManager
             throw new Exception('An error occurred while updating the message status in the database.');
         }
     }
+
+    /**
+     * Provides unread message count for a specific user id.
+     * 
+     * tips: user_id in message table is always sender id.
+     * 
+     * @param int $userId
+     * 
+     * @return ?int Return int as unread message count of null.
+     */
+    public function getUnReadMessagesByUserId(int $userId): ?int
+    {
+        try {
+            $sql = 'SELECT COUNT(m.id) AS total_unread
+                    FROM message m
+                    INNER JOIN discussion d ON m.discussion_id = d.id
+                    WHERE (d.user_1_id = :user_id OR d.user_2_id = :user_id)
+                    AND m.is_read = 0
+                    AND m.user_id != :user_id';
+
+            $count = (int)$this->database->query($sql, ['user_id' => $userId])->fetchColumn();
+
+            return $count !== false ? $count : null;
+        } catch (PDOException $e) {
+            // We throw an error as this is an unexpected error that should not happen
+            // meaning the database is not working properly or there is a bug in the code.
+            throw new Exception('An error occurred while counting unread messages in the database.');
+        }
+    }
 }

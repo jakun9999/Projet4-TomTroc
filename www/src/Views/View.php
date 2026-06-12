@@ -33,9 +33,7 @@ class View
     public function render(string $template, array $params = [])
     {
         $title = $this->title;
-
         $content = $this->generateContent($template, $params);
-
         ob_start();
         require TEMPLATE_MAIN_PATH;
         echo ob_get_clean();

@@ -220,4 +220,26 @@ class MessagingController
         header('location: /new-message?to=' . $receiverId);
         exit();
     }
+
+    /**
+     * Only used for AJAX api to get unread count in nav bar
+     * for authenticated users.
+     * 
+     */
+    public function getUnreadMessagesCount(): void
+    {
+        // Only authorized for logged in people        
+        if (!isset($_SESSION['user'])) {
+            http_response_code(401);
+            echo json_encode(['error' => 'Accès non autorisé']);
+            exit;
+        }
+
+        $userId = $_SESSION['user']->getId();
+        $count = $this->messageManager->getUnReadMessagesByUserId($userId);
+
+        header('Content-Type: application/json');
+        echo json_encode(['unread_messages_count' => $count]);
+        exit;
+    }
 }

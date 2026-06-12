@@ -9,6 +9,10 @@
 /** @var string $content */
 /** @var string $template */
 
+$anonymous = true;
+if (isset($_SESSION['user'])) {
+    $anonymous = false;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -24,6 +28,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/styles.css">
     <script src="./assets/js/filter.js" defer></script>
+    <?= !$anonymous ? '<script src="./assets/js/unread.js" defer></script>' : '' ?>
 
 
 </head>
@@ -71,7 +76,8 @@
                                 <span class="shrink-0 w-3.75 h-[13.13px] bg-current inline-block mask-messaging"></span>
                                 <span>Messagerie</span>
                                 <span
-                                    class="shrink-0 rounded-full bg-cassian-black-light text-white text-[0.75rem] px-1.5 font-normal">3</span>
+                                    id="unread"
+                                    class="shrink-0 rounded-full bg-cassian-black-light text-white text-[0.75rem] px-1.5 font-normal">0</span>
                             </a>
                         </li>
                         <li class="flex xl:ml-14.5">

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ml\App\Controllers;
 
 use Ml\App\Models\BookManager;
+use Ml\App\Models\MessageManager;
 use Ml\App\Models\UserManager;
 use Ml\App\Views\View;
 use Ml\App\Services\Web;
@@ -19,6 +20,7 @@ class AccountController
 
     private UserManager $userManager;
     private BookManager $bookManager;
+    private MessageManager $messageManager;
 
     /**
      * AccountController Constructor.

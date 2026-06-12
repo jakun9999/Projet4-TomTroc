@@ -87,6 +87,9 @@ try {
         case 'logout':
             $loginController->logout();
             break;
+        case 'unread-count':
+            $messagingController->getUnreadMessagesCount();
+            break;
         default:
             http_response_code(404);
             $errorController->showError('TomTroc - Erreur', ErrorController::ERRCODE_PAGE_DOES_NOT_EXISTS);
