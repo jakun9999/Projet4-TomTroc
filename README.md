@@ -32,7 +32,6 @@ Use the following command in VS Code while in root folder, open a terminal :
 
 ```
 composer install
-
 ```
 
 ## How to install tailwind in the project.
@@ -41,28 +40,25 @@ run following command.
 
 ```
 npm install tailwindcss @tailwindcss/cli @tailwindcss/oxide-linux-x64-gnu
-
 ```
 
 ## Always start tailwindcss watcher before modifying any template css classes !
 
 ```
 npx tailwindcss -i ./www/public/assets/css/input.css -o ./www/public/assets/css/styles.css --watch
-
 ```
 
 ## How to start dev mode.
 
 ```
 docker compose up --build -d
-
 ```
 
 ## Remarks
 
-\*\* Image upload forms and subscription form may take a few seconds to be processed.
-\*\* This is mainly due in development environment to security measures (password)
-\*\* encryption and image treatment against embedded code.
+Image upload forms and subscription form may take a few seconds to be processed.
+This is mainly due in development environment to security measures (password)
+encryption and image treatment against embedded code.
 
 ## Author
 
