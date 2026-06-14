@@ -32,20 +32,20 @@ $booksCount = $params['books_count'] ?? '0';
                     <?= $user->getPhoto() ?? '' !== '' ?
                         'get_image.php?name=' . htmlspecialchars($user->getPhoto()) :
                         './assets/images/anonymous.png' ?>"
-                        alt="" class="h-33.75 w-33.75 rounded-full object-cover" />
+                        alt="" class="h-33.75 w-33.75 rounded-full object-cover">
                 </div>
                 <!-- separator -->
-                <hr class="bg-cassian-primary text-cassian-primary mt-17.5 h-px w-60.5" />
+                <hr class="bg-cassian-primary text-cassian-primary mt-17.5 h-px w-60.5">
                 <!-- Account summary -->
                 <div class="mt-12 flex flex-col items-center">
                     <h1 class="font-cassian-playfair text-cassian-black-light text-[24px]"><?= $user->getPseudo(); ?>
                     </h1>
                     <p class="font-cassian-inter text-cassian-gray mt-2.75 text-[14px]">Membre depuis
                         <?= htmlspecialchars(Utils::age($user->getCreationDate())) ?></p>
-                    <h3
+                    <h2
                         class="font-cassian-inter text-cassian-black-light mt-5.25 text-[8px] font-semibold 
                         tracking-[0.64px]">
-                        BIBLIOTHEQUE</h3>
+                        BIBLIOTHEQUE</h2>
                     <p class="mt-1.5 flex items-center justify-center">
                         <span
                             class="mask-library text-cassian-black-light inline-block h-[13.71px] w-[10.41px] 

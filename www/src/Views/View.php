@@ -33,14 +33,21 @@ class View
     public function render(string $template, array $params = [])
     {
         $title = $this->title;
-
         $content = $this->generateContent($template, $params);
-
         ob_start();
         require TEMPLATE_MAIN_PATH;
         echo ob_get_clean();
     }
 
+    /**
+     * Generate the content of the page to be included in main.php template.
+     * 
+     * @param string $template     
+     * @param array $params Set of params which will be used in the template.
+     * 
+     * @return string Returns the content to be loaded between the header 
+     * and footer provided by main.php.
+     */
     public function generateContent(string $template, array $params = []): string
     {
         $templateFile = TEMPLATE_PATH . $template . '.php';

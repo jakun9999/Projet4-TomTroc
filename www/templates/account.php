@@ -54,9 +54,16 @@ $success = $params['success'] ?? false;
                                         'get_image.php?name=' . htmlspecialchars($user->getPhoto()) :
                                         './assets/images/anonymous.png'
                                     ?>"
-                            alt=""
+                            alt="Ma photo de profil."
                             class="rounded-full w-33.75 h-33.75 object-cover">
-                        <input hidden type="file" id="cover" name="cover" accept="image/*">
+                        <input
+                            hidden
+                            aria-hidden="true"
+                            aria-label="lien de ma nouvelle photo de profil"
+                            type="file"
+                            id="cover"
+                            name="cover"
+                            accept="image/*">
                         <button
                             type="button"
                             id="change-cover"
@@ -265,8 +272,13 @@ $success = $params['success'] ?? false;
                             </p>
                             <div class="flex font-cassian-inter text-[12px] underline mt-10.75 xl:mt-0 ml-1.25 
                             xl:ml-17.75">
-                                <a href="/edit-book?book=<?= $book->getId() ?>" class="text-cassian-black-light">Éditer</a>
-                                <button onclick="confirmDelete(<?= $book->getId() ?>)"
+                                <a
+                                    href="/edit-book?book=<?= $book->getId() ?>"
+                                    class="text-cassian-black-light">
+                                    Éditer
+                                </a>
+                                <button
+                                    onclick="confirmDelete(<?= $book->getId() ?>)"
                                     class="text-cassian-text-red ml-7 cursor-pointer">
                                     Supprimer
                                 </button>
@@ -291,9 +303,8 @@ $success = $params['success'] ?? false;
                     </script>
                 <?php else: ?>
                     <h2 class=" font-cassian-playfair text-cassian-black text-[28px] self-center xl:mt-8">
-                        Aucun livre votre bibliothèque
+                        Aucun livre dans votre bibliothèque
                     </h2>
-
                 <?php endif; ?>
             </div>
         </div>

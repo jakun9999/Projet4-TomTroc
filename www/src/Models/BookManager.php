@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Ml\App\Models;
 
 use DateTime;
-use PDOException;
 use Exception;
+use PDO;
+use PDOException;
 
 /**
  * Model representing a book in the TomTroc application.
@@ -21,7 +22,6 @@ class BookManager extends AbstractClassManager
     public function addBook(Book $book): void
     {
         try {
-
             $sql = 'INSERT INTO book 
                 (title, author, author_pseudo, description, image_url, status, user_id, creation_date) 
                 VALUES (:title, :author, :author_pseudo, :description, :image_url, :status, :user_id, NOW())';
@@ -41,7 +41,6 @@ class BookManager extends AbstractClassManager
             $book->setCreationDate(new DateTime());
             return;
         } catch (PDOException $e) {
-
             // We throw an error as this is an unexpected error that should not happen
             // meaning the database is not working properly or there is a bug in the code.
             throw new Exception('An error occurred while adding the book to the database.');
@@ -56,7 +55,17 @@ class BookManager extends AbstractClassManager
     public function updateBook(Book $book): void
     {
         try {
+            // Before updating image url, we check if an empty string is
+            // provided while an url is present in database.
+            // We do this to avoid deleting a valid url by an empty string.
+            $sql = 'SELECT * FROM book WHERE id = :id';
+            $result = $this->database->query($sql, ['id' => $book->getId()]);
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+            if ($row['image_url'] !== '' && $book->getImageUrl() === '') {
+                $book->setImageUrl($row['image_url']);
+            }
 
+            // Now we can update the book without any risk for existing image.
             $sql = 'UPDATE book SET 
                 title = :title, 
                 author = :author,                 
@@ -80,7 +89,6 @@ class BookManager extends AbstractClassManager
 
             return;
         } catch (PDOException $e) {
-
             // We throw an error as this is an unexpected error that should not happen
             // meaning the database is not working properly or there is a bug in the code.
             throw new Exception('An error occurred while updating the book in the database.');
@@ -194,6 +202,13 @@ class BookManager extends AbstractClassManager
         }
     }
 
+    /**
+     * Provide book collection base on user id.
+     * 
+     * @param int $userId User id to be used.
+     * 
+     * @return array Returns an array of user's books.
+     */
     public function getBooksByUserId(int $userId): array
     {
         try {
@@ -221,15 +236,33 @@ class BookManager extends AbstractClassManager
         }
     }
 
+    /**
+     * Delete a book based on its id and its cover if not default cover.
+     */
     public function deleteBook(int $id): void
     {
         try {
+            // Because user may have uploaded his/her own book cover image,
+            // We first need to check it imageUrl is not '' and then
+            // consider deleting user file from upload dir.            
+            $sql = 'SELECT image_url FROM book WHERE id = :id';
+            $result = $this->database->query($sql, ['id' => $id])->fetch(PDO::FETCH_ASSOC);
+            if (!is_null($result) && $result !== false && !empty($result)) {
+                $fileName = $result['image_url'];
+                $uploadDir = '/var/www/storage/uploads/';
+                if ($fileName !== '' && file_exists($uploadDir . $fileName)) {
+                    unlink($uploadDir . $fileName);
+                }
+            }
+
+            // We can now delete the book from the database, no custom image are 
+            // still here.
             $sql = 'DELETE FROM book
                 WHERE id = :id';
 
-            $result = $this->database->query($sql, ['id' => $id]);
+            $this->database->query($sql, ['id' => $id]);
         } catch (PDOException $e) {
-            throw new Exception('An error occurred while fetching the books from the database.');
+            throw new Exception('An error occurred while deleting the book from the database.');
         }
     }
 }

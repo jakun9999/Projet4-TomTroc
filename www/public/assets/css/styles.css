@@ -264,6 +264,9 @@
   .mt-5\.25 {
     margin-top: calc(var(--spacing) * 5.25);
   }
+  .mt-5\.75 {
+    margin-top: calc(var(--spacing) * 5.75);
+  }
   .mt-6 {
     margin-top: calc(var(--spacing) * 6);
   }
@@ -360,11 +363,20 @@
   .mb-10 {
     margin-bottom: calc(var(--spacing) * 10);
   }
+  .mb-10\.5 {
+    margin-bottom: calc(var(--spacing) * 10.5);
+  }
   .mb-10\.75 {
     margin-bottom: calc(var(--spacing) * 10.75);
   }
   .mb-12 {
     margin-bottom: calc(var(--spacing) * 12);
+  }
+  .mb-18 {
+    margin-bottom: calc(var(--spacing) * 18);
+  }
+  .mb-18\.25 {
+    margin-bottom: calc(var(--spacing) * 18.25);
   }
   .mb-\[34\.39px\] {
     margin-bottom: 34.39px;
@@ -374,9 +386,6 @@
   }
   .ml-1 {
     margin-left: calc(var(--spacing) * 1);
-  }
-  .ml-1\.5 {
-    margin-left: calc(var(--spacing) * 1.5);
   }
   .ml-1\.25 {
     margin-left: calc(var(--spacing) * 1.25);
@@ -857,6 +866,9 @@
   .overflow-x-hidden {
     overflow-x: hidden;
   }
+  .rounded-\[3px\] {
+    border-radius: 3px;
+  }
   .rounded-\[10px\] {
     border-radius: 10px;
   }
@@ -965,8 +977,23 @@
   .px-\[13\.31px\] {
     padding-inline: 13.31px;
   }
+  .py-0 {
+    padding-block: calc(var(--spacing) * 0);
+  }
+  .py-0\.5 {
+    padding-block: calc(var(--spacing) * 0.5);
+  }
+  .py-0\.75 {
+    padding-block: calc(var(--spacing) * 0.75);
+  }
   .py-1 {
     padding-block: calc(var(--spacing) * 1);
+  }
+  .py-1\.5 {
+    padding-block: calc(var(--spacing) * 1.5);
+  }
+  .py-1\.25 {
+    padding-block: calc(var(--spacing) * 1.25);
   }
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
@@ -1496,6 +1523,11 @@
       margin-left: calc(var(--spacing) * 0);
     }
   }
+  .xl\:ml-1\.5 {
+    @media (width >= 80rem) {
+      margin-left: calc(var(--spacing) * 1.5);
+    }
+  }
   .xl\:ml-3\.5 {
     @media (width >= 80rem) {
       margin-left: calc(var(--spacing) * 3.5);
@@ -1847,6 +1879,11 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
+  .xl\:flex-col {
+    @media (width >= 80rem) {
+      flex-direction: column;
+    }
+  }
   .xl\:flex-row {
     @media (width >= 80rem) {
       flex-direction: row;
@@ -2175,6 +2212,10 @@
 .mask-library {
   mask: url("../images/icon-library.svg") no-repeat center / contain;
   -webkit-mask: url("../images/icon-library.svg") no-repeat / contain;
+}
+.mask-back {
+  mask: url("../images/icon-back.svg") no-repeat center / contain;
+  -webkit-mask: url("../images/icon-back.svg") no-repeat center / contain;
 }
 @layer base {
   * {

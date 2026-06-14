@@ -1,13 +1,13 @@
 <?php
 require_once __DIR__ . '/../src/bootstrap.php';
 
-use Ml\App\Controllers\HomeController;
-use Ml\App\Controllers\BooksController;
-use Ml\App\Controllers\MessagingController;
 use Ml\App\Controllers\AccountController;
-use Ml\App\Controllers\LoginController;
-use Ml\App\Controllers\SubscribeController;
+use Ml\App\Controllers\BooksController;
 use Ml\App\Controllers\ErrorController;
+use Ml\App\Controllers\HomeController;
+use Ml\App\Controllers\LoginController;
+use Ml\App\Controllers\MessagingController;
+use Ml\App\Controllers\SubscribeController;
 use Ml\App\Services\Web;
 
 ini_set('display_errors', '1');
@@ -16,94 +16,83 @@ error_reporting(E_ALL);
 
 /** Routing page */
 $action = Web::getAction();
+$homeController = new HomeController();
+$booksController = new BooksController();
+$messagingController = new MessagingController();
+$accountController = new AccountController();
+$loginController = new LoginController();
+$subscribeController = new SubscribeController();
+$errorController = new ErrorController();
 
 try {
     switch ($action) {
         case null:
         case '':
         case 'home':
-            $controller = new HomeController();
-            $controller->showHome();
+            $homeController->showHome();
             break;
         case 'book':
-            $controller = new BooksController();
-            $controller->showBook();
+            $booksController->showBook();
             break;
         case 'books':
-            $controller = new BooksController();
-            $controller->showBooks();
+            $booksController->showBooks();
             break;
         case 'new-book':
-            $controller = new BooksController();
-            $controller->newBook();
+            $booksController->newBook();
             break;
         case 'edit-book':
-            $controller = new BooksController();
-            $controller->editBook();
+            $booksController->editBook();
             break;
         case 'add-book':
-            $controller = new BooksController();
-            $controller->addBook();
+            $booksController->addBook();
             break;
         case 'update-book':
-            $controller = new BooksController();
-            $controller->updateBook();
+            $booksController->updateBook();
             break;
         case 'messaging':
-            $controller = new MessagingController();
-            $controller->showMessaging();
+            $messagingController->showMessaging();
             break;
         case 'new-message':
-            $controller = new MessagingController();
-            $controller->newMessage();
+            $messagingController->newMessage();
             break;
         case 'send-message':
-            $controller = new MessagingController();
-            $controller->sendMessage();
+            $messagingController->sendMessage();
             break;
         case 'show-discussion':
-            $controller = new MessagingController();
-            $controller->showDiscussion();
+            $messagingController->showDiscussion();
             break;
         case 'account':
-            $controller = new AccountController();
-            $controller->showAccount();
+            $accountController->showAccount();
             break;
         case 'update-account':
-            $controller = new AccountController();
-            $controller->updateAccount();
+            $accountController->updateAccount();
             break;
         case 'delete-book':
-            $controller = new BooksController();
-            $controller->deleteBook();
+            $booksController->deleteBook();
         case 'public-account':
-            $controller = new AccountController();
-            $controller->showPublicAccount();
+            $accountController->showPublicAccount();
             break;
         case 'login':
-            $controller = new LoginController();
-            $controller->showLogin();
+            $loginController->showLogin();
             break;
         case 'authenticate':
-            $controller = new LoginController();
-            $controller->authenticate();
+            $loginController->authenticate();
             break;
         case 'subscribe':
-            $controller = new SubscribeController();
-            $controller->showSubscribe();
+            $subscribeController->showSubscribe();
             break;
         case 'register':
-            $controller = new SubscribeController();
-            $controller->register();
+            $subscribeController->register();
             break;
         case 'logout':
-            $controller = new LoginController();
-            $controller->logout();
+            $loginController->logout();
+            break;
+        case 'unread-count':
+            $messagingController->getUnreadMessagesCount();
             break;
         default:
             http_response_code(404);
-            $controller = new ErrorController();
-            $controller->showError('TomTroc - Erreur', ErrorController::ERRCODE_PAGE_DOES_NOT_EXISTS);
+            $errorController->showError('TomTroc - Erreur', ErrorController::ERRCODE_PAGE_DOES_NOT_EXISTS);
             break;
     }
 } catch (\Throwable $e) {

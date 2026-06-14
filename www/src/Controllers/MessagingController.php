@@ -9,8 +9,8 @@ use Ml\App\Models\DiscussionManager;
 use Ml\App\Models\Message;
 use Ml\App\Models\MessageManager;
 use Ml\App\Models\UserManager;
-use Ml\App\Views\View;
 use Ml\App\Services\Web;
+use Ml\App\Views\View;
 
 /**
  * Controller for the messaging page to allow 
@@ -21,13 +21,23 @@ class MessagingController
 
     private DiscussionManager $discussionManager;
     private MessageManager $messageManager;
+    // Const used for mobile display of either discussion list or messages.
+    const string MOBILE_CSS_DISCUSSION_ON = 'flex flex-col';
+    const string MOBILE_CSS_DISCUSSION_OFF = 'hidden xl:flex xl:flex-col';
+    const string MOBILE_CSS_MESSAGES_ON = 'flex flex-col';
+    const string MOBILE_CSS_MESSAGES_OFF = 'hidden xl:flex xl:flex-col';
 
+
+    /**
+     * Messaging controller constructor.
+     * 
+     * Initialize class Managers.
+     */
     public function __construct()
     {
         $this->discussionManager = new DiscussionManager();
         $this->messageManager = new MessageManager();
     }
-
 
     /**
      * Simply render messaging page with latest discussion message selected.
@@ -42,22 +52,34 @@ class MessagingController
             exit();
         }
 
-
+        // We gather all discussions and all messages for all discussions.
+        // Messages are store in an associative array with discussion id as key.
+        // Possible performance improvement: 
+        // inner join to get only latest discussion messages.
         $discussions = $this->discussionManager->getAllDiscussionByUserId($_SESSION['user']->getId());
         $messages = [];
         foreach ($discussions as $discussion) {
-            $messages[$discussion->getId()] = $this->messageManager->getAllMessageByDisccusionId($discussion->getId());
+            $messages[$discussion->getId()] =
+                $this->messageManager->getAllMessageByDisccusionId($discussion->getId());
         }
 
         $view = new View('TomTroc - Messagerie');
-        $view->render('messaging', [
-            'discussions' => $discussions,
-            'selected_discussion' => $discussions[0],
-            'messages' => $messages
-        ]);
+        $view->render(
+            'messaging',
+            [
+                'discussions' => $discussions,
+                'selected_discussion' => $discussions[0] ?? null,
+                'messages' => $messages,
+                'mobile_css_discussions' => self::MOBILE_CSS_DISCUSSION_ON,
+                'mobile_css_messages' => self::MOBILE_CSS_MESSAGES_OFF,
+            ]
+        );
         return;
     }
 
+    /**
+     * Calls for view/template on a specific discussion.
+     */
     public function showDiscussion(): void
     {
         // If visitor is not an authenticated user, we redirect him
@@ -67,6 +89,7 @@ class MessagingController
             exit();
         }
 
+        $currentUserId = $_SESSION['user']->getId();
         $otherUserId = filter_input(INPUT_GET, 'with', FILTER_VALIDATE_INT);
 
         $discussions = $this->discussionManager->getAllDiscussionByUserId($_SESSION['user']->getId());
@@ -75,15 +98,35 @@ class MessagingController
             if ($discussion->getOtherUserId() === $otherUserId) {
                 $selectedDiscussion = $discussion;
             }
-            $messages[$discussion->getId()] = $this->messageManager->getAllMessageByDisccusionId($discussion->getId());
+            $messages[$discussion->getId()] =
+                $this->messageManager->getAllMessageByDisccusionId($discussion->getId());
+
+            // Before displaying messaging page with specified discussion
+            // we set unread messages of this discussion as read where the sender
+            // is not current user.
+            if (isset($selectedDiscussion)) {
+                foreach ($messages[$selectedDiscussion->getId()] as $message) {
+                    if ($message->getUserId() !== $currentUserId) {
+                        // it change status in DB
+                        $this->messageManager->setMessageRead($message->getId());
+                        // it change status in message object
+                        $message->setStatus(true);
+                    }
+                }
+            }
         }
 
         $view = new View('TomTroc - Messagerie');
-        $view->render('messaging', [
-            'discussions' => $discussions,
-            'selected_discussion' => $selectedDiscussion ?? $discussions[0],
-            'messages' => $messages
-        ]);
+        $view->render(
+            'messaging',
+            [
+                'discussions' => $discussions,
+                'selected_discussion' => $selectedDiscussion ?? $discussions[0],
+                'messages' => $messages,
+                'mobile_css_discussions' => self::MOBILE_CSS_DISCUSSION_OFF,
+                'mobile_css_messages' => self::MOBILE_CSS_MESSAGES_ON,
+            ]
+        );
         return;
     }
 
@@ -105,6 +148,7 @@ class MessagingController
 
         if (is_null($otherUserId) || $otherUserId === false) {
             header('location: /books');
+            exit();
         }
 
         $discussions = $this->discussionManager->getAllDiscussionByUserId($_SESSION['user']->getId());
@@ -118,11 +162,12 @@ class MessagingController
             if ($discussion->getOtherUserId() === $otherUserId) {
                 $selectedDiscussion = $discussion;
             }
-            $messages[$discussion->getId()] = $this->messageManager->getAllMessageByDisccusionId($discussion->getId());
+            $messages[$discussion->getId()] =
+                $this->messageManager->getAllMessageByDisccusionId($discussion->getId());
         }
 
         // If no discussion was already done with the destination user
-        // we will create to new one.
+        // we will create to new empty one.
         if (is_null($selectedDiscussion)) {
             $userManager = new UserManager();
             $otherUser = $userManager->getUserById($otherUserId);
@@ -153,21 +198,19 @@ class MessagingController
             // unset this temp user for security reason, avoiding to keep
             // it in memory.
             unset($otherUser);
-        } else {
-            // a previous discussion exists, we load messages from this
-            // selected discussion so that template can load it.
-
-            $selectedDiscussionMessages = $this->messageManager->getAllMessageByDisccusionId(
-                $selectedDiscussion->getId()
-            );
         }
 
         $view = new View('TomTroc - Messagerie');
-        $view->render('messaging', [
-            'discussions' => $discussions,
-            'selected_discussion' => $selectedDiscussion,
-            'messages' => $messages
-        ]);
+        $view->render(
+            'messaging',
+            [
+                'discussions' => $discussions,
+                'selected_discussion' => $selectedDiscussion,
+                'messages' => $messages,
+                'mobile_css_discussions' => self::MOBILE_CSS_DISCUSSION_OFF,
+                'mobile_css_messages' => self::MOBILE_CSS_MESSAGES_ON,
+            ]
+        );
         return;
     }
 
@@ -184,11 +227,34 @@ class MessagingController
 
         $receiverId = filter_input(INPUT_POST, 'to', FILTER_VALIDATE_INT);
         $content = Web::sanitizeShortString($_POST['message']);
-        $messageManager = new MessageManager();
-        $message = new Message($_SESSION['user']->getId(), $content);
-        $message = $messageManager->addMessage($message, $receiverId);
 
+        $message = new Message($_SESSION['user']->getId(), $content);
+        $message = $this->messageManager->addMessage($message, $receiverId);
+
+        //We redirect to a new conversation with the destination id.
         header('location: /new-message?to=' . $receiverId);
         exit();
+    }
+
+    /**
+     * Only used for AJAX api to get unread count in nav bar
+     * for authenticated users.
+     * 
+     */
+    public function getUnreadMessagesCount(): void
+    {
+        // Only authorized for logged in people        
+        if (!isset($_SESSION['user'])) {
+            http_response_code(401);
+            echo json_encode(['error' => 'Accès non autorisé']);
+            exit;
+        }
+
+        $userId = $_SESSION['user']->getId();
+        $count = $this->messageManager->getUnReadMessagesByUserId($userId);
+
+        header('Content-Type: application/json');
+        echo json_encode(['unread_messages_count' => $count]);
+        exit;
     }
 }

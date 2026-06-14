@@ -17,6 +17,8 @@ if (!isset($_SESSION['user'])) {
 $discussions = $params['discussions'] ?? [];
 $selectedDiscussion = $params['selected_discussion'] ?? null;
 $messages = $params['messages'] ?? [];
+$discussionsCss = $params['mobile_css_discussions'] ?? 'flex flex-col';
+$messagesCss = $params['mobile_css_messages'] ?? 'hidden xl:flex xl:flex-col';
 
 // discussion details to be displayed in main DIV if no discussion was
 // previously selected.
@@ -30,7 +32,9 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
     <div class="flex flex-1 xl:w-285 min-h-full">
 
         <!-- Discussion list left pane -->
-        <div class="flex flex-col w-83.75 xl:w-77 min-h-full bg-cassian-secondary">
+        <div
+            class="<?= $discussionsCss ?> w-83.75 xl:w-77 min-h-full bg-cassian-secondary"
+            id="discussions">
             <h1 class="xl:ml-8.5 mt-13.75 font-cassian-playfair text-[26px]">Messagerie</h1>
             <div class="flex flex-col mt-6.75">
                 <?php foreach ($discussions as $discussion): ?>
@@ -59,15 +63,15 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                         ?>
                         ">
                         <img src="<?= $discussion->getOtherUserPhoto() !== '' ?
-                                        htmlspecialchars($discussion->getOtherUserPhoto()) :
+                                        'get_image.php?name=' . htmlspecialchars($discussion->getOtherUserPhoto()) :
                                         './assets/images/anonymous.png' ?>"
                             alt="Photo de profil de <?= htmlspecialchars($discussion->getOtherUserPseudo() ?? '') ?>"
                             class="w-12 h-12 object-cover rounded-full">
                         <div class="flex flex-col ml-3">
                             <div class="flex justify-between items-start">
-                                <h3 class="w-33.5 font-cassian-inter text-[14px] truncate">
+                                <h2 class="w-33.5 font-cassian-inter text-[14px] text-cassian-black-light truncate">
                                     <?= htmlspecialchars($discussion->getOtherUserPseudo() ?? '') ?>
-                                </h3>
+                                </h2>
                                 <p class="font-cassian-inter text-[12px] self-end">
                                     <?= htmlspecialchars($lastMessageDate ?? '') ?>
                                 </p>
@@ -82,28 +86,39 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
         </div>
 
         <!-- Discussion messages -->
-        <div class="hidden xl:flex flex-col w-83.75 xl:w-208 xl:flex-1 min-h-full xl:pl-11 xl:pt-8.75 xl:pb-24.5 
-        bg-cassian-secondary
-         xl:bg-cassian-primary">
+        <div
+            class="<?= $messagesCss ?> w-83.75 xl:w-208 xl:flex-1 min-h-full xl:pl-11 xl:pt-8.75 xl:pb-24.5 
+            bg-cassian-secondary xl:bg-cassian-primary"
+            id="messages">
             <?php if (!isset($discussions) || empty($discussions)): ?>
                 <p class="font-cassian-playfair text-4xl">Aucune discussion à afficher</p>
             <?php else: ?>
-                <p class="xl:hidden font-cassian-inter text-[14px] text-cassian-gray">retour</p>
-                <div class="flex gap-3 items-center flex-none">
+                <a
+                    class="flex items-center xl:hidden font-cassian-inter text-[14px] text-cassian-gray 
+                    mt-5.75 xl:mt-0"
+                    href='/messaging'>
+                    <span
+                        class="shrink-0 w-3.75 h-[13.13px] bg-current inline-block mask-back">
+                    </span>
+                    <span>retour</span>
+                </a>
+                <div class="flex gap-3 items-center flex-none mt-2.75 xl:mt-0">
                     <img src="
                             <?= $selectedDiscussion->getOtherUserPhoto() ?? '' !== '' ?
-                                htmlspecialchars($selectedDiscussion->getOtherUserPhoto()) :
+                                'get_image.php?name=' . htmlspecialchars($selectedDiscussion->getOtherUserPhoto()) :
                                 './assets/images/anonymous.png'
                             ?>"
                         alt="" class="w-12 h-12 object-cover rounded-full">
-                    <p class="font-cassian-inter font-semibold text-[14px]">
+                    <p class="font-cassian-inter font-semibold text-[14px] text-cassian-black-light">
                         <?= htmlspecialchars($selectedDiscussion->getOtherUserPseudo() ??  '') ?>
                     </p>
                 </div>
 
                 <!-- Messages -->
-                <div class="flex flex-col xl:w-191 xl:grow xl:overflow-y-auto xl:pb-24.5">
-                    <?php foreach ($messages[$selectedDiscussion->getId()] ?? [] as $message): // Message from current user
+                <div class="flex flex-col xl:w-191 xl:grow xl:overflow-y-auto xl:pb-24.5 mt-11 xl:mt-0 
+                mb-18.25 xl:mb-0">
+                    <?php foreach ($messages[$selectedDiscussion->getId()] ?? [] as $message):
+                        // Message from current user                    
                     ?>
                         <?php if ($message->getUserId() === $_SESSION['user']->getId()): ?>
                             <div class="flex flex-col items-end mt-8 xl:mt-6.25">
@@ -113,7 +128,8 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                                     echo htmlspecialchars($dateString);
                                     ?>
                                 </p>
-                                <p class="font-cassian-inter text-[12px] bg-cassian-gray-strong px-4.5 py-2.5 mt-2">
+                                <p class="font-cassian-inter text-[12px] text-cassian-black-light 
+                                bg-cassian-gray-strong rounded-[3px] px-4.5 py-2.5 mt-2">
                                     <?= htmlspecialchars($message->getContent() ?? '') ?>
                                 </p>
                             </div>
@@ -122,6 +138,7 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                                 <div class="flex gap-1.5 items-center">
                                     <img src="
                                     <?= $selectedDiscussion->getOtherUserPhoto() ?? '' !== '' ?
+                                        'get_image.php?name=' .
                                         htmlspecialchars($selectedDiscussion->getOtherUserPhoto()) :
                                         './assets/images/anonymous.png'
                                     ?>"
@@ -133,7 +150,8 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                                         ?>
                                     </p>
                                 </div>
-                                <p class="font-cassian-inter text-[12px] bg-cassian-white px-4.5 py-2.5 mt-2">
+                                <p class="font-cassian-inter text-[12px] text-cassian-black-light 
+                                bg-cassian-white rounded-[3px] px-4.5 py-2.5 mt-2">
                                     <?= htmlspecialchars($message->getContent() ?? '') ?>
                                 </p>
                             </div>
@@ -143,10 +161,15 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                 <!-- new message form -->
                 <form action="/send-message"
                     method="POST"
-                    class="flex flex-col xl:flex-row self-end xl:gap-5.25 flex-none">
-                    <input type="text" id="message" name="message" placeholder="Tapez votre message ici"
+                    class="flex flex-col xl:flex-row mt-auto xl:mt-0 xl:self-end xl:gap-5.25 items-center flex-none">
+                    <input
+                        type="text"
+                        id="message"
+                        aria-label="Tapez votre message ici"
+                        name="message"
+                        placeholder="Tapez votre message ici"
                         class="w-83.75 xl:w-157 h-12.25 bg-cassian-white rounded-md border 
-                        border-cassian-border-form font-cassian-inter text-[14px] px-5.5 xl:px-10.5 ml-1.5 
+                        border-cassian-border-form font-cassian-inter text-[14px] px-5.5 xl:px-10.5 xl:ml-1.5 
                         focus:outline-cassian-green">
                     <?php
                     /**
@@ -154,15 +177,21 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                      */
                     echo Ml\App\Services\Web::generateCsrfToken();
                     ?>
-                    <input hidden name="to" value="<?= htmlspecialchars($selectedDiscussion->getOtherUserId()) ?>">
+                    <input
+                        hidden
+                        name="to"
+                        aria-hidden="true"
+                        aria-label="Identifiant du destinataire du message"
+                        value="<?= htmlspecialchars($selectedDiscussion->getOtherUserId()) ?>">
                     <button class="w-83.75 xl:w-33 h-12.25 font-cassian-inter bg-cassian-green 
-                        text-cassian-white font-semibold text-center rounded-[10px] px-9.5 py-4 transition-colors 
-                        duration-300 ease-in-out hover:bg-cassian-green-strong">
+                        text-cassian-white font-semibold text-center rounded-[10px] px-9.5 py-4 
+                        transition-colors duration-300 ease-in-out hover:bg-cassian-green-strong
+                        mt-2.75 xl:mt-0 mb-10.5 xl:mb-0">
                         Envoyer
                     </button>
                 </form>
         </div>
     <?php endif; ?>
     </div>
-    </div>
+
 </section>

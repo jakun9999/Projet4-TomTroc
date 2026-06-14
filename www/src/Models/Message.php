@@ -17,7 +17,13 @@ class Message extends AbstractClass
     private bool $isRead;
     private string $userPhoto;
 
-
+    /**
+     * Message class constructor.
+     * 
+     * @param int $userId User ID of use sending the message.
+     * @param string $content Text content of the message.
+     * @param bool $isRead false if not read, true if it is read. 
+     */
     public function __construct(
         int $userId,
         string $content,

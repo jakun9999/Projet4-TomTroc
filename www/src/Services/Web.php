@@ -34,7 +34,8 @@ class Web
     public static function generateCsrfToken(): string
     {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-        return '<input hidden name="tok" value="' . $_SESSION['csrf_token'] . '">';
+        return '<input hidden aria-hidden="true" aria-label="CSRF Token" name="tok" value="' .
+            $_SESSION['csrf_token'] . '">';
     }
 
     /**
@@ -83,7 +84,7 @@ class Web
 
         $output = trim($input);
         $output = str_replace(["\r", "\n", "\t"], '', $output);
-        $output = htmlspecialchars($output, ENT_QUOTES, 'UTF-8');
+        $output = mb_convert_encoding($output, 'UTF-8', 'UTF-8');
 
         return $output;
     }
@@ -103,15 +104,22 @@ class Web
         return (bool) preg_match($regex, $password);
     }
 
+    /**
+     * Manage upload image from user (profil pictures and book cover images).
+     * 
+     * @param array $file
+     * 
+     * @return ?string Returns the new name of the file or null.
+     */
     public static function uploadImage(array $file): ?string
     {
         if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
-            die("Erreur lors de l'upload.");
+            return null;
         }
 
         // 5MB limited size
         if ($file['size'] > 5 * 1024 * 1024) {
-            die("Fichier trop volumineux.");
+            return null;
         }
 
         $allowedMimeTypes = [
@@ -125,7 +133,7 @@ class Web
         $realMimeType = $finfo->file($file['tmp_name']);
 
         if (!array_key_exists($realMimeType, $allowedMimeTypes)) {
-            die("Format de fichier non autorisé.");
+            return null;
         }
 
         $extension = $allowedMimeTypes[$realMimeType];
@@ -135,12 +143,14 @@ class Web
         $uploadDir = '/var/www/storage/uploads/';
         $destination = $uploadDir . $secureName;
 
-        // Load image and manage it depending on the file type
+        // We rewrite the image from its temp location to new location with
+        // a random name and rewritten completely the image with GD PHP
+        // extension to remove any malicious code embbeded in the image.
         switch ($realMimeType) {
             case 'image/jpeg':
                 $imageSrc = \imagecreatefromjpeg($file['tmp_name']);
                 if ($imageSrc) {
-                    imagejpeg($imageSrc, $destination, 85);
+                    imagejpeg($imageSrc, $destination, 85); // Quality at 85
                 }
                 break;
 
@@ -150,7 +160,7 @@ class Web
 
                     \imagealphablending($imageSrc, false);
                     \imagesavealpha($imageSrc, true);
-                    \imagepng($imageSrc, $destination, 6);
+                    \imagepng($imageSrc, $destination, 6); // Quality at 6
                 }
                 break;
 
@@ -164,7 +174,7 @@ class Web
             case 'image/webp':
                 $imageSrc = \imagecreatefromwebp($file['tmp_name']);
                 if ($imageSrc) {
-                    \imagewebp($imageSrc, $destination, 80);
+                    \imagewebp($imageSrc, $destination, 80); // Quality at 80
                 }
                 break;
         }
@@ -175,7 +185,7 @@ class Web
         }
 
         if (!\file_exists($destination)) {
-            die("Échec du traitement sécurisé de l'image.");
+            return null;
         }
 
         return $secureName;
