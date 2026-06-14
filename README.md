@@ -24,6 +24,10 @@ Demo user password : Azerty$1
 
 Other existing users use the same password.
 
+Once Docker containers are started:
+- http://localhost:8181 to see TomTroc homepage.
+- http://localhost:8282 to see PhpMyAdmin login page.
+
 Before starting containers make sure to copy both configuration files and 
 define configuration credentials.
 
