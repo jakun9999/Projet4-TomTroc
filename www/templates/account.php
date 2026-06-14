@@ -272,8 +272,13 @@ $success = $params['success'] ?? false;
                             </p>
                             <div class="flex font-cassian-inter text-[12px] underline mt-10.75 xl:mt-0 ml-1.25 
                             xl:ml-17.75">
-                                <a href="/edit-book?book=<?= $book->getId() ?>" class="text-cassian-black-light">Éditer</a>
-                                <button onclick="confirmDelete(<?= $book->getId() ?>)"
+                                <a
+                                    href="/edit-book?book=<?= $book->getId() ?>"
+                                    class="text-cassian-black-light">
+                                    Éditer
+                                </a>
+                                <button
+                                    onclick="confirmDelete(<?= $book->getId() ?>)"
                                     class="text-cassian-text-red ml-7 cursor-pointer">
                                     Supprimer
                                 </button>
@@ -300,7 +305,6 @@ $success = $params['success'] ?? false;
                     <h2 class=" font-cassian-playfair text-cassian-black text-[28px] self-center xl:mt-8">
                         Aucun livre dans votre bibliothèque
                     </h2>
-
                 <?php endif; ?>
             </div>
         </div>

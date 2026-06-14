@@ -87,13 +87,15 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
 
         <!-- Discussion messages -->
         <div
-            class="<?= $messagesCss ?> w-83.75 xl:w-208 xl:flex-1 min-h-full xl:pl-11 xl:pt-8.75 xl:pb-24.5 bg-cassian-secondary xl:bg-cassian-primary"
+            class="<?= $messagesCss ?> w-83.75 xl:w-208 xl:flex-1 min-h-full xl:pl-11 xl:pt-8.75 xl:pb-24.5 
+            bg-cassian-secondary xl:bg-cassian-primary"
             id="messages">
             <?php if (!isset($discussions) || empty($discussions)): ?>
                 <p class="font-cassian-playfair text-4xl">Aucune discussion à afficher</p>
             <?php else: ?>
                 <a
-                    class="flex items-center xl:hidden font-cassian-inter text-[14px] text-cassian-gray mt-5.75 xl:mt-0"
+                    class="flex items-center xl:hidden font-cassian-inter text-[14px] text-cassian-gray 
+                    mt-5.75 xl:mt-0"
                     href='/messaging'>
                     <span
                         class="shrink-0 w-3.75 h-[13.13px] bg-current inline-block mask-back">
@@ -113,8 +115,10 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                 </div>
 
                 <!-- Messages -->
-                <div class="flex flex-col xl:w-191 xl:grow xl:overflow-y-auto xl:pb-24.5 mt-11 xl:mt-0 mb-18.25 xl:mb-0">
-                    <?php foreach ($messages[$selectedDiscussion->getId()] ?? [] as $message): // Message from current user
+                <div class="flex flex-col xl:w-191 xl:grow xl:overflow-y-auto xl:pb-24.5 mt-11 xl:mt-0 
+                mb-18.25 xl:mb-0">
+                    <?php foreach ($messages[$selectedDiscussion->getId()] ?? [] as $message):
+                        // Message from current user                    
                     ?>
                         <?php if ($message->getUserId() === $_SESSION['user']->getId()): ?>
                             <div class="flex flex-col items-end mt-8 xl:mt-6.25">
@@ -124,7 +128,8 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                                     echo htmlspecialchars($dateString);
                                     ?>
                                 </p>
-                                <p class="font-cassian-inter text-[12px] text-cassian-black-light bg-cassian-gray-strong rounded-[3px] px-4.5 py-2.5 mt-2">
+                                <p class="font-cassian-inter text-[12px] text-cassian-black-light 
+                                bg-cassian-gray-strong rounded-[3px] px-4.5 py-2.5 mt-2">
                                     <?= htmlspecialchars($message->getContent() ?? '') ?>
                                 </p>
                             </div>
@@ -145,7 +150,8 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                                         ?>
                                     </p>
                                 </div>
-                                <p class="font-cassian-inter text-[12px] text-cassian-black-light bg-cassian-white rounded-[3px] px-4.5 py-2.5 mt-2">
+                                <p class="font-cassian-inter text-[12px] text-cassian-black-light 
+                                bg-cassian-white rounded-[3px] px-4.5 py-2.5 mt-2">
                                     <?= htmlspecialchars($message->getContent() ?? '') ?>
                                 </p>
                             </div>
@@ -178,7 +184,8 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                         aria-label="Identifiant du destinataire du message"
                         value="<?= htmlspecialchars($selectedDiscussion->getOtherUserId()) ?>">
                     <button class="w-83.75 xl:w-33 h-12.25 font-cassian-inter bg-cassian-green 
-                        text-cassian-white font-semibold text-center rounded-[10px] px-9.5 py-4 transition-colors duration-300 ease-in-out hover:bg-cassian-green-strong
+                        text-cassian-white font-semibold text-center rounded-[10px] px-9.5 py-4 
+                        transition-colors duration-300 ease-in-out hover:bg-cassian-green-strong
                         mt-2.75 xl:mt-0 mb-10.5 xl:mb-0">
                         Envoyer
                     </button>
