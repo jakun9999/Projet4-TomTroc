@@ -23,6 +23,16 @@ class UserManager extends AbstractClassManager
      */
     private function hashPassword(string $password): string
     {
+        // using env time and memory cost limit to optimize
+        // performances of password hash.
+        $options = [];
+        if (getenv('HASH_MEMORY_COST')) {
+            $options['memory_cost'] = (int)getenv('HASH_MEMORY_COST');
+        }
+        if (getenv('HASH_TIME_COST')) {
+            $options['time_cost'] = (int)getenv('HASH_TIME_COST');
+        }
+
         return password_hash($password, PASSWORD_ARGON2ID);
     }
 
