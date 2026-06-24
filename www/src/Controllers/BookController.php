@@ -14,7 +14,7 @@ use Ml\App\Views\View;
  * Controller for the books page to display 
  * the list of available books for exchange.
  */
-class BooksController
+class BookController
 {
     private BookManager $bookManager;
     private UserManager $userManager;
@@ -33,7 +33,7 @@ class BooksController
     /**
      * Display a specific book using its id
      */
-    public function showBook(): void
+    public function show(): void
     {
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?? null;
         // If the book id is incorrect, we redirect the visitor to the 
@@ -65,7 +65,7 @@ class BooksController
     /**
      * Display the list of books available for exchange.
      */
-    public function showBooks(): void
+    public function showAll(): void
     {
         $books = $this->bookManager->getAllBooks();
         $view = new View('TomTroc - Nos livres');
@@ -75,7 +75,7 @@ class BooksController
     /**
      * Display the form to edit an existing book.
      */
-    public function editBook(): void
+    public function edit(): void
     {
         // Only available for a logged user, we redirect to login page.
         if (!isset($_SESSION['user'])) {
@@ -109,7 +109,7 @@ class BooksController
     /**
      * Display the form to add a new book.
      */
-    public function newBook(): void
+    public function new(): void
     {
         $view = new View('TomTroc - Ajouter un livre');
         $view->render('edit-book', ['mode' => 'new']);
@@ -118,7 +118,7 @@ class BooksController
     /**
      * Add a new book to the collection.
      */
-    public function addBook(): void
+    public function add(): void
     {
         // We separate control for logged user check and 
         // CSRF token to redirect to the correct page. 
@@ -189,7 +189,7 @@ class BooksController
     /**
      * Delete a specific book via its id.
      */
-    public function deleteBook(): void
+    public function delete(): void
     {
         // a book can only be deleted by a logged user.
         if (!isset($_SESSION['user'])) {
@@ -212,7 +212,7 @@ class BooksController
     /**
      * Update an existing book in the collection.
      */
-    public function updateBook(): void
+    public function update(): void
     {
         // Not a logged user: redirected to login page.
         if (!isset($_SESSION['user'])) {

@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../src/bootstrap.php';
 
 use Ml\App\Controllers\AccountController;
-use Ml\App\Controllers\BooksController;
+use Ml\App\Controllers\BookController;
 use Ml\App\Controllers\ErrorController;
 use Ml\App\Controllers\HomeController;
 use Ml\App\Controllers\LoginController;
@@ -17,7 +17,7 @@ error_reporting(E_ALL);
 /** Routing page */
 $action = Web::getAction();
 $homeController = new HomeController();
-$booksController = new BooksController();
+$bookController = new BookController();
 $messagingController = new MessagingController();
 $accountController = new AccountController();
 $loginController = new LoginController();
@@ -29,60 +29,72 @@ try {
         case null:
         case '':
         case 'home':
-            $homeController->showHome();
+            $homeController->show();
             break;
         case 'book':
-            $booksController->showBook();
+            $bookController->show();
             break;
         case 'books':
-            $booksController->showBooks();
+            $bookController->showAll();
             break;
         case 'new-book':
-            $booksController->newBook();
+            $bookController->new();
             break;
         case 'edit-book':
-            $booksController->editBook();
+            $bookController->edit();
             break;
         case 'add-book':
-            $booksController->addBook();
+            if (!DEMO_MODE) {
+                $bookController->add();
+            }
             break;
         case 'update-book':
-            $booksController->updateBook();
+            if (!DEMO_MODE) {
+                $bookController->update();
+            }
             break;
         case 'messaging':
-            $messagingController->showMessaging();
+            $messagingController->show();
             break;
         case 'new-message':
             $messagingController->newMessage();
             break;
         case 'send-message':
-            $messagingController->sendMessage();
+            if (!DEMO_MODE) {
+                $messagingController->sendMessage();
+            }
             break;
         case 'show-discussion':
             $messagingController->showDiscussion();
             break;
         case 'account':
-            $accountController->showAccount();
+            $accountController->show();
             break;
         case 'update-account':
-            $accountController->updateAccount();
+            if (!DEMO_MODE) {
+                $accountController->update();
+            }
             break;
         case 'delete-book':
-            $booksController->deleteBook();
+            if (!DEMO_MODE) {
+                $bookController->delete();
+            }
         case 'public-account':
-            $accountController->showPublicAccount();
+            $accountController->showPublic();
             break;
         case 'login':
-            $loginController->showLogin();
+            $loginController->show();
             break;
         case 'authenticate':
             $loginController->authenticate();
             break;
         case 'subscribe':
-            $subscribeController->showSubscribe();
+            $subscribeController->show();
             break;
         case 'register':
-            $subscribeController->register();
+            if (!DEMO_MODE) {
+                $subscribeController->register();
+            }
             break;
         case 'logout':
             $loginController->logout();
@@ -92,7 +104,7 @@ try {
             break;
         default:
             http_response_code(404);
-            $errorController->showError('TomTroc - Erreur', ErrorController::ERRCODE_PAGE_DOES_NOT_EXISTS);
+            $errorController->show('TomTroc - Erreur', ErrorController::ERRCODE_PAGE_DOES_NOT_EXISTS);
             break;
     }
 } catch (\Throwable $e) {
@@ -101,10 +113,10 @@ try {
     // $controller->showError('TomTroc - Erreur', ErrorController::ERRCODE_EXCEPTION, [
     //     'exception_message' => $e->getMessage()
     // ]);
-    // ON CORCOURT TOUT : On affiche l'erreur directement de manière brute
+    // Raw display of errors
     echo "<h1>🚨 Erreur Fatale Détectée</h1>";
     echo "<p><strong>Message :</strong> " . $e->getMessage() . "</p>";
     echo "<p><strong>Fichier :</strong> " . $e->getFile() . " à la ligne " . $e->getLine() . "</p>";
     echo "<h3>Trace :</h3><pre>" . $e->getTraceAsString() . "</pre>";
-    exit; // On arrête le script ici
+    exit;
 }

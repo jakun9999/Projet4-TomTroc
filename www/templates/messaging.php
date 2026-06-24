@@ -49,6 +49,9 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                             $lastMessageContent = $message->getContent();
                             $lastMessageDate = Utils::displayDiscussionDate($message->getCreationDate());
                         }
+                    } else {
+                        $lastMessageContent = '';
+                        $lastMessageDate = '';
                     }
 
                     ?>
@@ -159,7 +162,8 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                     <?php endforeach; ?>
                 </div>
                 <!-- new message form -->
-                <form action="/send-message"
+                <form
+                    <?= DEMO_MODE ? 'action=#' : 'action="/send-message"' ?>
                     method="POST"
                     class="flex flex-col xl:flex-row mt-auto xl:mt-0 xl:self-end xl:gap-5.25 items-center flex-none">
                     <input

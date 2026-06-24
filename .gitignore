@@ -6,3 +6,6 @@ www/storage/logs/
 www/config/conf.php
 www/vendor/
 node_modules/
+vendor/
+phpdoc/
+demo/

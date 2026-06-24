@@ -21,7 +21,7 @@ class ErrorController
     /**
      * Function in charge of displaying error page like 404 page not found.
      */
-    public function showError(string $title, int $errorCode, array $params = []): void
+    public function show(string $title, int $errorCode, array $params = []): void
     {
         switch ($errorCode) {
             case ErrorController::ERRCODE_PAGE_DOES_NOT_EXISTS:

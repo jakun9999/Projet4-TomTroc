@@ -23,7 +23,7 @@ $passwordMessage = $params['password_message'] ?? '';
                 Inscription
             </h1>
             <form
-                action="/register"
+                <?= DEMO_MODE ? 'action=#' : 'action="/register"' ?>
                 method="POST"
                 class="flex flex-col mt-8 xl:mt-14 xl:w-80.5 w-full">
                 <label
