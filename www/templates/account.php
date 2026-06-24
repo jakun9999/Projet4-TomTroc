@@ -37,7 +37,7 @@ $success = $params['success'] ?? false;
 
             <!-- Account details -->
             <form
-                action="/update-account"
+                <?= DEMO_MODE ? 'action=#' : 'action="/update-account"' ?>
                 method="POST"
                 enctype="multipart/form-data"
                 class="flex flex-col xl:flex-row gap-8 xl:gap-8.25 mt-10 xl:mt-12">
@@ -278,7 +278,9 @@ $success = $params['success'] ?? false;
                                     Éditer
                                 </a>
                                 <button
+                                    <?php if (!DEMO_MODE): ?>
                                     onclick="confirmDelete(<?= $book->getId() ?>)"
+                                    <?php endif; ?>
                                     class="text-cassian-text-red ml-7 cursor-pointer">
                                     Supprimer
                                 </button>

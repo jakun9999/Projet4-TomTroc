@@ -75,7 +75,11 @@ $descriptionMessage = $params['description_message'] ?? '';
         <form class="flex flex-col xl:flex-row gap-[32.25px] xl:gap-29.5 bg-cassian-white rounded-[20px] 
                 w-93.75 xl:w-full xl:max-w-285 h-full xl:h-auto mt-8.75 xl:mt-5.75 xl:ml-37.5 pt-10.5 xl:pt-14 
                 xl:px-12.5 pb-11.75 xl:pb-16.5"
+            <?php if (DEMO_MODE): ?>
+            action=#
+            <?php else: ?>
             action="<?= $mode === 'edit' ? '/update-book' : '/add-book' ?>"
+            <?php endif; ?>
             method="POST" enctype="multipart/form-data">
             <script src="./assets/js/upload.js" defer></script>
             <!-- Book photo div -->

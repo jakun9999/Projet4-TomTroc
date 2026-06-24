@@ -11,3 +11,10 @@ const DB_ROOT = 'root';
 const DB_PASS = 'modify';
 const TEMPLATE_PATH = __DIR__ . '/../templates/';
 const TEMPLATE_MAIN_PATH = __DIR__ . '/../templates/main.php';
+
+/**
+ * define to true if you want a demo mode
+ * where user subscription, message sending
+ * book creation and book edit must be disabled.
+ */
+const DEMO_MODE = false;

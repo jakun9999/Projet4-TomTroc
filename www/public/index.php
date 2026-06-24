@@ -44,10 +44,14 @@ try {
             $bookController->edit();
             break;
         case 'add-book':
-            $bookController->add();
+            if (!DEMO_MODE) {
+                $bookController->add();
+            }
             break;
         case 'update-book':
-            $bookController->update();
+            if (!DEMO_MODE) {
+                $bookController->update();
+            }
             break;
         case 'messaging':
             $messagingController->show();
@@ -56,7 +60,9 @@ try {
             $messagingController->newMessage();
             break;
         case 'send-message':
-            $messagingController->sendMessage();
+            if (!DEMO_MODE) {
+                $messagingController->sendMessage();
+            }
             break;
         case 'show-discussion':
             $messagingController->showDiscussion();
@@ -65,10 +71,14 @@ try {
             $accountController->show();
             break;
         case 'update-account':
-            $accountController->update();
+            if (!DEMO_MODE) {
+                $accountController->update();
+            }
             break;
         case 'delete-book':
-            $bookController->delete();
+            if (!DEMO_MODE) {
+                $bookController->delete();
+            }
         case 'public-account':
             $accountController->showPublic();
             break;
@@ -82,7 +92,9 @@ try {
             $subscribeController->show();
             break;
         case 'register':
-            $subscribeController->register();
+            if (!DEMO_MODE) {
+                $subscribeController->register();
+            }
             break;
         case 'logout':
             $loginController->logout();
