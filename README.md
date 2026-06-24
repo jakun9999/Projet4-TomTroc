@@ -22,8 +22,6 @@ A set of users, book and messages is available in sql init file.
 Demo user login : demo@demo.com
 Demo user password : Demo1234$
 
-Other existing users use the same password.
-
 Once Docker containers are started:
 - http://localhost:8181 to see TomTroc homepage.
 - http://localhost:8282 to see PhpMyAdmin login page.
@@ -97,4 +95,4 @@ encryption and image treatment against embedded code.
 
 ## Author
 
-- Matthieu LUCAS [email](mailto:matthieulucas457@outlook.fr)
+- Matthieu LUCAS [email](mailto:ml@cassiandev.net)
