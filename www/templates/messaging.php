@@ -49,6 +49,9 @@ max-w-94.25 xl:max-w-cassian-1440 mx-auto">
                             $lastMessageContent = $message->getContent();
                             $lastMessageDate = Utils::displayDiscussionDate($message->getCreationDate());
                         }
+                    } else {
+                        $lastMessageContent = '';
+                        $lastMessageDate = '';
                     }
 
                     ?>
