@@ -188,8 +188,8 @@ ALTER TABLE `book`
 -- Demo data upload
 --
 INSERT INTO `user` (`id`, `pseudo`, `email`, `photo`, `password`, `creation_date`) VALUES
-(1, 'matthieu', 'ml@cassiandev.net', '', '$argon2id$v=19$m=65536,t=4,p=1$MGNkSHF0TW5qZjhiVFlRTg$Lev74Tz1srxoXoVZTTwQPASmkctvooYkk/LneQncLyY', '2026-06-12 19:10:29'),
-(2, 'alucas', 'alucas@gmail.com', '', '$argon2id$v=19$m=65536,t=4,p=1$RHVDdnU1QTFxUmg0MDVRZA$oqbM0csyatGs7UNfiBL7m78sCvuj4C1z/vBSHKuoMnA', '2026-06-12 19:10:57'),
+(1, 'john', 'john@demo.com', '', '$argon2id$v=19$m=65536,t=4,p=1$MGNkSHF0TW5qZjhiVFlRTg$Lev74Tz1srxoXoVZTTwQPASmkctvooYkk/LneQncLyY', '2026-06-12 19:10:29'),
+(2, 'stephanie', 'stephanie@demo.com', '', '$argon2id$v=19$m=65536,t=4,p=1$RHVDdnU1QTFxUmg0MDVRZA$oqbM0csyatGs7UNfiBL7m78sCvuj4C1z/vBSHKuoMnA', '2026-06-12 19:10:57'),
 (3, 'demo', 'demo@demo.com', '', '$argon2id$v=19$m=65536,t=4,p=1$dktSUmZIbnNFLnNuUFhyQQ$85QHYb2M9sdjNKUYs8HVr875y4JlwJsNFZNIilzFbjA', '2026-06-14 10:07:45');
 
 INSERT INTO `book` (`id`, `title`, `author`, `author_pseudo`, `description`, `image_url`, `status`, `creation_date`, `user_id`) VALUES
