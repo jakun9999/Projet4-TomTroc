@@ -43,7 +43,7 @@ class MessagingController
      * Simply render messaging page with latest discussion message selected.
      * 
      */
-    public function showMessaging(): void
+    public function show(): void
     {
         // If visitor is not an authenticated user, we redirect him
         // to login page.

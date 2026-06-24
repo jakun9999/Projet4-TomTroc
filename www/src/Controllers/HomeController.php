@@ -28,7 +28,7 @@ class HomeController
     /**
      * Call for view/template for the home page.
      */
-    public function showHome(): void
+    public function show(): void
     {
         $books = $this->bookManager->getLastFourBooks();
         $view = new View('TomTroc - Accueil');

@@ -29,7 +29,7 @@ class LoginController
     /**
      * Manage call to empty login page. 
      */
-    public function showLogin(): void
+    public function show(): void
     {
         $view = new View('TomTroc - Connexion');
         $view->render('login');
@@ -60,7 +60,7 @@ class LoginController
             $errors['login_message'] = 'Email ou mot de passe incorrect';
             $errors['email_value'] = $email;
             unset($password);
-            $this->showLoginError($errors);
+            $this->showError($errors);
             return;
         }
 
@@ -75,7 +75,7 @@ class LoginController
             $errors['email_value'] = $email;
             unset($user);
             unset($password);
-            $this->showLoginError($errors);
+            $this->showError($errors);
             return;
         }
 
@@ -108,7 +108,7 @@ class LoginController
      * 
      * @param array $params containing possible errors
      */
-    private function showLoginError(array $params): void
+    private function showError(array $params): void
     {
         $view = new View('TomTroc - Login');
         $view->render('login', $params);

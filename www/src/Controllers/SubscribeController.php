@@ -31,7 +31,7 @@ class SubscribeController
      * Call subscription page to display it.
      * 
      */
-    public function showSubscribe(): void
+    public function show(): void
     {
         $view = new View('TomTroc - Inscription');
         $view->render('subscribe');
@@ -74,7 +74,7 @@ class SubscribeController
         if (!empty($errors)) {
             $errors['pseudo_value'] = $pseudo;
             $errors['email_value'] = $email;
-            $this->showSubscribeError($errors);
+            $this->showError($errors);
             return;
         }
 
@@ -90,7 +90,7 @@ class SubscribeController
         }
 
         if (!empty($errors)) {
-            $this->showSubscribeError($errors);
+            $this->showError($errors);
             return;
         }
 
@@ -107,7 +107,7 @@ class SubscribeController
      * @param array $params containing possible errors
      * based on defined const in class SubscribeController.
      */
-    private function showSubscribeError(array $params): void
+    private function showError(array $params): void
     {
         $view = new View('TomTroc - Inscription');
         $view->render('subscribe', $params);

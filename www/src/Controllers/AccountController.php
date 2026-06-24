@@ -38,7 +38,7 @@ class AccountController
      * 
      * Provides user, books list and books count to the template.
      */
-    public function showPublicAccount(): void
+    public function showPublic(): void
     {
         $pseudo = filter_input(INPUT_GET, 'pseudo');
         $user = $this->userManager->getUserByPseudo($pseudo);
@@ -62,7 +62,7 @@ class AccountController
      * 
      * Only usable if the visitor is an authenticate user.
      */
-    public function showAccount(): void
+    public function show(): void
     {
         if (isset($_SESSION['user'])) {
             $books =  $this->bookManager->getBooksByUserId($_SESSION['user']->getId());
@@ -88,7 +88,7 @@ class AccountController
      *  
      * Update email, password and pseudo of the user.
      */
-    public function updateAccount(): void
+    public function update(): void
     {
         // First we check that controller is called by an authenticate user
         // and with a valid CSRF token.
