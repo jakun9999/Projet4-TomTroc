@@ -20,7 +20,7 @@ Before using the project download Docker Desktop and NodeJS.
 ## IMPORTANT:
 A set of users, book and messages is available in sql init file.
 Demo user login : demo@demo.com
-Demo user password : Azerty$1
+Demo user password : Demo1234$
 
 Other existing users use the same password.
 
